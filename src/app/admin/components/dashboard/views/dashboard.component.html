@@ -1,0 +1,12 @@
+<mat-drawer-container class="dashboard-sidenav-1">
+  <mat-drawer class="dashboard-drawer-1" #drawer [mode]="isSmallScreen ? 'over' : 'side'" ngClass="{'mat-drawer-closed': isSmallScreen}" [opened]="opened">
+    <app-menu></app-menu>
+  </mat-drawer>
+  <mat-drawer-content>
+    <mat-card class="dashboard-toolbar-1">
+      <div class="dashboard-toggle-1" (click)="drawer.toggle()"><mat-icon>menu</mat-icon></div>
+      <app-search></app-search>
+    </mat-card>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

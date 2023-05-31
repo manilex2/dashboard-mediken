@@ -1,0 +1,45 @@
+.menu-card-1 {
+  height: 95%;
+  width: 90%;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+.menu-logo-1 {
+  height: 100px;
+  width: 100px;
+  align-items: center;
+}
+
+.menu-container-flex-1 {
+  display: flex;
+  justify-content: center;
+}
+
+.menu-nav-1 {
+  text-decoration: none;
+}
+
+.menu-active-1 {
+  background-color: var(--primary-color);
+  color: var(--text-accent-darker-color) !important;
+}
+
+.menu-container-flex-2 {
+  display: flex;
+  height: 45%;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+
+.menu-img-1 {
+  max-width: 50px;
+  max-height: 50px;
+}
+
+@media only screen and (max-width: 600px) {
+  .menu-container-flex-2 {
+    height: 25%;
+  }
+}

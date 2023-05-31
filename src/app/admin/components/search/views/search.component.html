@@ -1,0 +1,8 @@
+<div class="search-container-1">
+  <mat-form-field class="search-input-1" appearance="fill">
+    <mat-label>Buscar</mat-label>
+    <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onSearch()">
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+  <span>{{ currentDate | date: 'fullDate':"+0000":"es-EC" }}</span>
+</div>

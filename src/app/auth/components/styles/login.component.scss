@@ -1,0 +1,30 @@
+.login-card-1 {
+  width: 33%;
+  position: absolute;
+  top: 25%;
+  left: 33%;
+  text-align: center;
+}
+
+.login-logo-1 {
+  height: 200px;
+  width: 200px;
+}
+
+.login-button-1 {
+  color: var(--text-accent-darker-color) !important;
+}
+
+.login-form-field-1 {
+  width: 50%;
+}
+
+@media only screen and (max-width: 600px) {
+  .login-card-1 {
+    width: 90%;
+    left: 5%;
+  }
+  .login-form-field-1 {
+    width: 100%;
+  }
+}
