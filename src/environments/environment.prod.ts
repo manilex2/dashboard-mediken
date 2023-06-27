@@ -4,13 +4,14 @@ export const environment = {
       auth: {
           tenantId: 'd687bebf-fc49-4200-8f09-8c4be364781e',
           clientId: '134f965f-af8f-42d7-918a-245cdea69e37',
-          authority: 'https://login.microsoftonline.com/d687bebf-fc49-4200-8f09-8c4be364781e'
+          authority: 'https://login.microsoftonline.com/d687bebf-fc49-4200-8f09-8c4be364781e',
+          server: "https://medikenprueba.azurewebsites.net/"
       }
   },
   apiConfig: {
       scopes: ['user.read'],
       uri: 'https://graph.microsoft.com/v1.0/me',
-      postLogoutUrl: 'http://localhost:4200'
+      postLogoutUrl: 'https://medikenprueba.azurewebsites.net/'
   },
   powerbiConfig: {
     tokenEndPoint: 'https://login.microsoftonline.com/d687bebf-fc49-4200-8f09-8c4be364781e/oauth2/token',

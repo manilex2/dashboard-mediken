@@ -40,7 +40,7 @@ registerLocaleData(myLocaleES);
         {
           auth: {
             clientId: environment.msalConfig.auth.clientId,
-            redirectUri: 'http://localhost:4200',
+            redirectUri: environment.msalConfig.auth.server,
             authority: environment.msalConfig.auth.authority
           },
           cache: {
