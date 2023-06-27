@@ -1,21 +1,16 @@
 <mat-card class="login-card-1">
   <mat-card-content>
     <img class="login-logo-1" src="../../../../assets/logo-generico.png" alt="logo-generico">
-    <form [formGroup]="loginForm">
-      <mat-form-field class="login-form-field-1" appearance="fill">
-        <mat-label>Usuario</mat-label>
-        <input formControlName="usuario" matInput>
-      </mat-form-field>
-      <br/>
-      <mat-form-field class="login-form-field-1" appearance="fill">
-        <mat-label>Contraseña</mat-label>
-        <input formControlName="clave" [type]="hide ? 'password' : 'text'" matInput>
-        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hide">
-          <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-        </button>
-      </mat-form-field>
-      <br/>
-      <button (click)="onSubmit()" class="login-button-1" mat-raised-button color="primary">Iniciar Sesión</button>
-    </form>
+    <br/>
+    <div class="login-chip-container-1">
+      <mat-chip (click)="login()">
+        <img matChipAvatar src="../../../../assets/logo-microsoft.png" alt="Photo of Microsoft Logo"/>
+        Iniciar sesion con Microsoft
+      </mat-chip>
+    </div>
+    <br/>
+    <br/>
+    <a href="">¿Olvidó su contraseña?</a>
   </mat-card-content>
 </mat-card>
+

@@ -15,6 +15,7 @@ import { CobranzasComponent } from './components/cobranzas/controllers/cobranzas
 import { KpisComponent } from './components/kpis/controllers/kpis.component';
 import { BrokersComponent } from './components/brokers/controllers/brokers.component';
 import { ReembolsosComponent } from './components/reembolsos/controllers/reembolsos.component';
+import { PowerBIEmbedModule } from 'powerbi-client-angular';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { ReembolsosComponent } from './components/reembolsos/controllers/reembol
     CommonModule,
     AdminRoutingModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    PowerBIEmbedModule
   ]
 })
 export class AdminModule { }

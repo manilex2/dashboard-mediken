@@ -30,9 +30,9 @@
       </mat-list-item>
     </mat-nav-list>
     <div class="menu-container-flex-2">
-      <img class="menu-img-1" src="../../../../../assets/user.png" alt="">
-      <p>John Doe</p>
-      <a href="mailto:johndoe@prueba.com">johndoe@prueba.com</a>
+      <img class="menu-img-1" [src]="profilePic || '../../../../../assets/user.png'" alt="">
+      <p class="menu-username-1">{{profile?.displayName}}</p>
+      <a class="menu-email-1" (href)="'mailto:' + profile?.mail">{{profile?.mail}}</a>
     </div>
   </mat-card-content>
 </mat-card>

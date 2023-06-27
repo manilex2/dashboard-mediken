@@ -9,11 +9,14 @@ import { MaterialModule } from 'src/material.module';
 import { AuthComponent } from "./components/controllers/auth.component";
 import { LoginComponent } from './components/controllers/login.component';
 
+import { LoginFailedComponent } from './components/controllers/login-failed.component';
+
 
 @NgModule({
   declarations: [
     AuthComponent,
-    LoginComponent
+    LoginComponent,
+    LoginFailedComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +25,8 @@ import { LoginComponent } from './components/controllers/login.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  exports: [],
-  bootstrap: []
+  providers: [],
+  bootstrap: [],
+  exports: []
 })
 export class AuthModule { }

@@ -13,6 +13,42 @@
 @import 'https://fonts.googleapis.com/icon?family=Material+Icons';
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('./assets/fonts/Poppins-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+
 // Foreground Elements
 
 // Light Theme Text
@@ -254,4 +290,21 @@ body {
   .mat-badge-content {
     font-family: 'Roboto';
   }
+}
+
+.mat-typography {
+  font-family: 'Poppins', sans-serif;
+  font-weight: normal; /* Otras opciones: bold, 300, 500, 600 */
+  color: #424550;
+}
+
+.mat-mdc-nav-list {
+  font-size: 13px;
+  font-weight: 600;
+  background-color: #FFFAFA;
+}
+
+.mat-mdc-card {
+  border-radius: 10px !important;
+  box-shadow: 0px 0px 4px 1px #424550;
 }

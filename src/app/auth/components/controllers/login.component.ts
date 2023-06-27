@@ -1,37 +1,49 @@
-import { Injectable, Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { User } from '../models';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { MSAL_GUARD_CONFIG, MsalBroadcastService, MsalGuardConfiguration, MsalService } from '@azure/msal-angular';
+import { InteractionStatus, RedirectRequest } from '@azure/msal-browser';
+import { Subject, filter, takeUntil } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
 @Component({
   selector: 'app-login',
   templateUrl: '../views/login.component.html',
   styleUrls: ['../styles/login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit, OnDestroy {
   constructor(
-    private fb: FormBuilder,
-    private router: Router,
-    private toastr: ToastrService
-  ) { }
+    @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
+    private msalBroadcastService: MsalBroadcastService,
+    private authService: MsalService,
+    private router: Router
+  ) {
 
-  hide = true;
-  loginForm = this.fb.group<User>({
-    usuario: ["", Validators.required],
-    clave: ["", Validators.required]
-  });
+  }
 
-  onSubmit() {
-    if (this.loginForm.value.usuario === "prueba" && this.loginForm.value.clave==="Prueba1234*") {
-      this.router.navigate(['admin']);
+  isUserLoggedIn: boolean = false;
+  private readonly _destroy = new Subject<void>();
+
+  ngOnInit(): void {
+    this.msalBroadcastService.inProgress$.pipe(
+      filter((interactionStatus: InteractionStatus) => interactionStatus == InteractionStatus.None),
+      takeUntil(this._destroy)
+    ).subscribe(x => {
+      this.isUserLoggedIn = this.authService.instance.getAllAccounts().length > 0;
+      if (this.isUserLoggedIn) {
+        this.router.navigate(['/admin/dashboard/resumen'])
+      }
+    })
+  }
+
+  ngOnDestroy(): void {
+    this._destroy.next(undefined);
+    this._destroy.complete();
+  }
+
+  login() {
+    if (this.msalGuardConfig.authRequest) {
+      this.authService.loginRedirect({...this.msalGuardConfig.authRequest} as RedirectRequest);
     } else {
-      this.toastr.error("Usuario incorrecto", "Login", {
-        progressBar: true
-      })
+      this.authService.loginRedirect()
     }
   }
 }
