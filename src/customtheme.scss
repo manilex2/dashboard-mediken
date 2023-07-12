@@ -276,7 +276,7 @@ body {
   padding: 0 1.15em;
   margin: 0 .65em;
   min-width: 3em;
-  line-height: 36.4px
+  line-height: 36.4px;
 }
 
 .mat-standard-chip {
@@ -307,4 +307,12 @@ body {
 .mat-mdc-card {
   border-radius: 10px !important;
   box-shadow: 0px 0px 4px 1px #424550;
+}
+
+.mat-mdc-list-item, .mat-mdc-list-option {
+  border-radius: 90px !important;
+}
+
+.mat-mdc-raised-button .mdc-button__label {
+  color: white;
 }

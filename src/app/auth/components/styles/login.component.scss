@@ -7,16 +7,21 @@
 }
 
 .login-logo-1 {
-  height: 200px;
-  width: 200px;
+  height: 50px;
+  width: 150px;
 }
 
-.login-button-1 {
-  color: var(--text-accent-darker-color) !important;
+.login-button-submit {
+  width: 100%;
 }
 
 .login-form-field-1 {
-  width: 50%;
+  width: 100%;
+}
+
+.login-logo-container-1 {
+  background-color: #347a9b;
+  border-radius: 50px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -27,9 +32,4 @@
   .login-form-field-1 {
     width: 100%;
   }
-}
-
-.login-chip-container-1 {
-  display: flex;
-  justify-content: center;
 }

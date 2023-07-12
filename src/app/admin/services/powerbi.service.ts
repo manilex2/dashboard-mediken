@@ -4,7 +4,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { ConfigResponse } from "../components/resumen/controllers/resumen.component";
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +16,6 @@ export class PowerbiService {
    * @returns embed configuration
    */
   getEmbedConfig(endpoint: string): Observable<any> {
-    return this.httpClient.get<ConfigResponse>(endpoint);
+    return this.httpClient.get<any>(endpoint);
   }
 }

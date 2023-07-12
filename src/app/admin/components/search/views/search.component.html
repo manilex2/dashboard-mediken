@@ -1,9 +1,9 @@
 <div class="search-container-1">
-  <mat-form-field class="search-input-1" appearance="fill">
+  <!-- <mat-form-field class="search-input-1" appearance="fill">
     <mat-label>Buscar</mat-label>
     <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onSearch()">
     <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
+  </mat-form-field> -->
   <span>{{ currentDate | date: 'fullDate':"+0000":"es-EC" }}</span>
-  <button color="primary" (click)="logout()" mat-raised-button>Logout</button>
+  <button (click)="logout()" color="warn" mat-raised-button>Logout</button>
 </div>

@@ -1,7 +1,7 @@
 <mat-card class="menu-card-1">
   <mat-card-content>
     <div class="menu-container-flex-1">
-      <img class="menu-logo-1" src="../../../../assets/logo-generico.png" alt="logo-generico">
+      <img class="menu-logo-1" src="../../../../assets/mediken.png" alt="mediken-logo">
     </div>
     <mat-nav-list>
       <mat-list-item routerLink="./resumen" routerLinkActive="menu-active-1">
@@ -30,9 +30,9 @@
       </mat-list-item>
     </mat-nav-list>
     <div class="menu-container-flex-2">
-      <img class="menu-img-1" [src]="profilePic || '../../../../../assets/user.png'" alt="">
-      <p class="menu-username-1">{{profile?.displayName}}</p>
-      <a class="menu-email-1" (href)="'mailto:' + profile?.mail">{{profile?.mail}}</a>
+      <img class="menu-img-1" [src]="'../../../../../assets/user.png'" alt="">
+      <p class="menu-username-1">NOMBRE APELLIDO</p>
+      <a class="menu-email-1" (href)="'mailto:nombreapellido@mediken.com.ec'">nombreapellido@mediken.com.ec</a>
     </div>
   </mat-card-content>
 </mat-card>
