@@ -3,36 +3,46 @@
     <div class="menu-container-flex-1">
       <img class="menu-logo-1" src="../../../../assets/mediken.png" alt="mediken-logo">
     </div>
-    <mat-nav-list>
-      <mat-list-item routerLink="./resumen" routerLinkActive="menu-active-1">
+    <mat-nav-list class="menu-list-container-1">
+      <ng-container *ngIf="mediken">
+        <mat-list-item routerLink="./resumen" routerLinkActive="menu-active-1">
           <mat-icon matListItemIcon>receipt_long</mat-icon>
           <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Resumen</a>
-      </mat-list-item>
-      <mat-list-item routerLink="./convenios" routerLinkActive="menu-active-1">
-          <mat-icon matListItemIcon>pie_chart</mat-icon>
-          <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Convenios</a>
-      </mat-list-item>
-      <mat-list-item routerLink="./cobranzas" routerLinkActive="menu-active-1">
-          <mat-icon matListItemIcon>payments</mat-icon>
-          <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Cobranzas</a>
-      </mat-list-item>
-      <mat-list-item routerLink="./kpis" routerLinkActive="menu-active-1">
-          <mat-icon matListItemIcon>donut_large</mat-icon>
-          <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>KPIs</a>
-      </mat-list-item>
-      <mat-list-item routerLink="./brokers" routerLinkActive="menu-active-1">
-          <mat-icon matListItemIcon>notifications</mat-icon>
-          <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Brokers</a>
-      </mat-list-item>
-      <mat-list-item routerLink="./reembolsos" routerLinkActive="menu-active-1">
-          <mat-icon matListItemIcon>currency_exchange</mat-icon>
+        </mat-list-item>
+        <mat-list-item routerLink="./convenios" routerLinkActive="menu-active-1">
+            <mat-icon matListItemIcon>pie_chart</mat-icon>
+            <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Convenios</a>
+        </mat-list-item>
+        <mat-list-item routerLink="./cobranzas" routerLinkActive="menu-active-1">
+            <mat-icon matListItemIcon>payments</mat-icon>
+            <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Cobranzas</a>
+        </mat-list-item>
+        <mat-list-item routerLink="./kpis" routerLinkActive="menu-active-1">
+            <mat-icon matListItemIcon>donut_large</mat-icon>
+            <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>KPIs</a>
+        </mat-list-item>
+        <mat-list-item routerLink="./brokers" routerLinkActive="menu-active-1">
+            <mat-icon matListItemIcon>notifications</mat-icon>
+            <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Brokers</a>
+        </mat-list-item>
+        <mat-list-item routerLink="./reembolsos" routerLinkActive="menu-active-1">
+          <mat-icon matListItemIcon>assignment_return</mat-icon>
           <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Reembolsos</a>
       </mat-list-item>
+      </ng-container>
+      <ng-container *ngIf="beneficiario">
+        <mat-list-item routerLink="./beneficiario" routerLinkActive="menu-active-1">
+          <mat-icon matListItemIcon>group</mat-icon>
+          <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Beneficiario</a>
+        </mat-list-item>
+      </ng-container>
     </mat-nav-list>
     <div class="menu-container-flex-2">
       <img class="menu-img-1" [src]="'../../../../../assets/user.png'" alt="">
-      <p class="menu-username-1">NOMBRE APELLIDO</p>
-      <a class="menu-email-1" (href)="'mailto:nombreapellido@mediken.com.ec'">nombreapellido@mediken.com.ec</a>
+      <p class="menu-username-1">{{user.nombre}}</p>
+      <ng-container *ngIf="user.email">
+        <a class="menu-email-1" (href)="user.email">{{user.email}}</a>
+      </ng-container>
     </div>
   </mat-card-content>
 </mat-card>

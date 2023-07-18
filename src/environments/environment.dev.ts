@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  serverURL: "http://localhost:5300",
   msalConfig: {
       auth: {
           tenantId: 'd687bebf-fc49-4200-8f09-8c4be364781e',
@@ -13,7 +14,7 @@ export const environment = {
       scopes: ['user.read'],
       uri: 'https://graph.microsoft.com/v1.0/me',
       postLogoutUrl: 'http://localhost:4200',
-      serverTokenUrl: 'http://localhost:5300/getEmbedToken'
+      serverTokenUrl: 'http://localhost:5300/token/getEmbedToken'
   },
   powerbiConfig: {
     tokenEndPoint: 'https://login.microsoftonline.com/d687bebf-fc49-4200-8f09-8c4be364781e/oauth2/token',

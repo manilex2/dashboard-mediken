@@ -3,6 +3,8 @@
   width: 90%;
   margin-top: 15px;
   margin-left: 15px;
+  justify-content: center;
+  flex-direction: row;
 }
 
 .menu-logo-1 {
@@ -30,7 +32,7 @@
   display: flex;
   height: 45%;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   flex-direction: column;
 }
 
@@ -51,4 +53,9 @@
 
 .menu-email-1 {
   font-size: 13px;
+}
+
+.menu-list-container-1 {
+  margin-bottom: 20px;
+  width: 15vw;
 }

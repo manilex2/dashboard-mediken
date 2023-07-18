@@ -1,1 +1,15 @@
-<p>reembolsos works!</p>
+<mat-card class="reembolsos-card-1">
+  <ng-container *ngIf="datosCargados">
+    <powerbi-report
+      [embedConfig]="reportConfig"
+      [cssClassName]="reportClass"
+      [phasedEmbedding]="phasedEmbeddingFlag"
+      [eventHandlers]="eventHandlersMap"
+    >
+    </powerbi-report>
+    <!-- <button (click)="abrirSeccion()">Abrir Sección</button> -->
+  </ng-container>
+  <ngx-spinner type = "ball-atom" bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" [fullScreen] = "false">
+    <p style="color: white">Cargando PowerBI...</p>
+  </ngx-spinner>
+</mat-card>

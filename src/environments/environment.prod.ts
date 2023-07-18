@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  serverURL: "http://localhost:5300",
   msalConfig: {
       auth: {
           tenantId: 'd687bebf-fc49-4200-8f09-8c4be364781e',

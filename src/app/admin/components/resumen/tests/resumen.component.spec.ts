@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ResumenComponent } from '../controllers/resumen.component';
+import { ResumenComponent } from '../controllers/resumen.component.ts.old1';
 
 describe('ResumenComponent', () => {
   let component: ResumenComponent;

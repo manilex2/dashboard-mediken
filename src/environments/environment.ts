@@ -1,5 +1,6 @@
 export const environment = {
   production: false,
+  serverURL: "URL DEL SERVIDOR EXPRESS",
   msalConfig: {
       auth: {
           tenantId: 'TENANT_ID',

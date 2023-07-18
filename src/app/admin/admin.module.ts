@@ -1,8 +1,19 @@
 /* MODULOS */
-import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { AdminRoutingModule } from './router/admin-routing.module';
 import { FormsModule } from '@angular/forms';
+import { PowerBIEmbedModule } from 'powerbi-client-angular';
+import { NgxSpinnerModule } from 'ngx-spinner';
+
+/* INTERCEPTORES */
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { PowerBIInterceptor } from './services/powerbi.interceptor';
+
+/* NGRX */
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import * as fromCurrentUser from './store/reducers/currentuser.reducers';
 
 /* COMPONENTES */
 import { MenuComponent } from './components/menu/controllers/menu.component';
@@ -15,7 +26,8 @@ import { CobranzasComponent } from './components/cobranzas/controllers/cobranzas
 import { KpisComponent } from './components/kpis/controllers/kpis.component';
 import { BrokersComponent } from './components/brokers/controllers/brokers.component';
 import { ReembolsosComponent } from './components/reembolsos/controllers/reembolsos.component';
-import { PowerBIEmbedModule } from 'powerbi-client-angular';
+import { BeneficiarioComponent } from './components/beneficiario/controllers/beneficiario.component';
+import { CurrentUserEffect } from './store/effects/currentuser.effects';
 
 @NgModule({
   declarations: [
@@ -27,14 +39,22 @@ import { PowerBIEmbedModule } from 'powerbi-client-angular';
     CobranzasComponent,
     KpisComponent,
     BrokersComponent,
-    ReembolsosComponent
+    ReembolsosComponent,
+    BeneficiarioComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     MaterialModule,
     FormsModule,
-    PowerBIEmbedModule
-  ]
+    PowerBIEmbedModule,
+    NgxSpinnerModule,
+    StoreModule.forFeature(fromCurrentUser.currentUserFeatureKey, fromCurrentUser.currentUserReducer),
+    EffectsModule.forFeature([CurrentUserEffect]),
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: PowerBIInterceptor, multi: true },
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AdminModule { }
