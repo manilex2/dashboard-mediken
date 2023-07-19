@@ -51,7 +51,7 @@ export class BrokersComponent implements AfterViewInit {
       background: models.BackgroundType.Transparent,
       navContentPaneEnabled: false,
     },
-    pageName: "ReportSection"
+    pageName: environment.powerbiConfig.brokers
   };
 
   report: any;
@@ -96,7 +96,7 @@ export class BrokersComponent implements AfterViewInit {
             background: models.BackgroundType.Transparent,
             navContentPaneEnabled: false,
           },
-          pageName: "ReportSection"
+          pageName: environment.powerbiConfig.brokers
         }
         this.datosCargados = true;
       }

@@ -51,7 +51,7 @@ export class ReembolsosComponent implements AfterViewInit {
       background: models.BackgroundType.Transparent,
       navContentPaneEnabled: false,
     },
-    pageName: "ReportSection8f52e4956d21512a8b8e"
+    pageName: environment.powerbiConfig.reembolsos
   };
 
   report: any;
@@ -96,7 +96,7 @@ export class ReembolsosComponent implements AfterViewInit {
             background: models.BackgroundType.Transparent,
             navContentPaneEnabled: false,
           },
-          pageName: "ReportSection8f52e4956d21512a8b8e"
+          pageName: environment.powerbiConfig.reembolsos
         }
         this.datosCargados = true;
       }

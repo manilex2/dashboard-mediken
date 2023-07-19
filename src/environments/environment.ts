@@ -23,6 +23,9 @@ export const environment = {
     reportId: 'ID_REPORTE',
     embedUrl: 'EMBED_URL',
     pbiUsername: 'USUARIO_POWERBI',
-    pbiPasswod: 'CONTRASEÑA_POWERBI'
+    pbiPasswod: 'CONTRASEÑA_POWERBI',
+    resumen: 'REPORT SECTION ID RESUMEN',
+    brokers: 'REPORT SECTION ID BROKERS',
+    reembolsos: 'REPORT SECTION ID REEMBOLSOS'
   }
 };

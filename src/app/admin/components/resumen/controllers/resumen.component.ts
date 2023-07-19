@@ -51,7 +51,7 @@ export class ResumenComponent implements AfterViewInit {
       background: models.BackgroundType.Transparent,
       navContentPaneEnabled: false,
     },
-    pageName: "ReportSection83b86d5eb1f089d61d79"
+    pageName: environment.powerbiConfig.resumen
   };
 
   eventHandlersMap = new Map<
@@ -94,7 +94,7 @@ export class ResumenComponent implements AfterViewInit {
             background: models.BackgroundType.Transparent,
             navContentPaneEnabled: false,
           },
-          pageName: "ReportSection83b86d5eb1f089d61d79"
+          pageName: environment.powerbiConfig.resumen
         }
         this.datosCargados = true;
       }
