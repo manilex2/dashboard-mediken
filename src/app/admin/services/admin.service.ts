@@ -29,6 +29,16 @@ export class AdminService {
     return false;
   }
 
+  esBroker() {
+    this.token = localStorage.getItem('auth_token');
+
+    let tokenPayload: any = this.token? decode(this.token) : false;
+    if (tokenPayload.user.tipoUsuario === "Broker") {
+      return true;
+    }
+    return false;
+  }
+
   getUserName(): string {
     this.token = localStorage.getItem('auth_token');
 

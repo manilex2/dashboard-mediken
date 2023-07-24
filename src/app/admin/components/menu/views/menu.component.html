@@ -28,7 +28,17 @@
         <mat-list-item routerLink="./reembolsos" routerLinkActive="menu-active-1">
           <mat-icon matListItemIcon>assignment_return</mat-icon>
           <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Reembolsos</a>
-      </mat-list-item>
+        </mat-list-item>
+      </ng-container>
+      <ng-container *ngIf="broker">
+        <mat-list-item routerLink="./resumen" routerLinkActive="menu-active-1">
+          <mat-icon matListItemIcon>receipt_long</mat-icon>
+          <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Resumen</a>
+        </mat-list-item>
+        <mat-list-item routerLink="./brokers" routerLinkActive="menu-active-1">
+            <mat-icon matListItemIcon>notifications</mat-icon>
+            <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Brokers</a>
+        </mat-list-item>
       </ng-container>
       <ng-container *ngIf="beneficiario">
         <mat-list-item routerLink="./beneficiario" routerLinkActive="menu-active-1">

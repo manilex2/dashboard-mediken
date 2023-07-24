@@ -4,7 +4,7 @@
       <img class="login-logo-1" src="../../../../assets/mediken.png" alt="mediken-logo">
     </div>
     <br/>
-    <form class="login-form-container-1" [formGroup]="loginForm" (ngSubmit)="login()">
+    <form class="login-form-container-1" [formGroup]="loginForm">
       <mat-form-field class="login-form-field-1">
         <mat-label>Usuario</mat-label>
         <input formControlName="usuario" matInput placeholder="Ej. NOMBRE APELLIDO" required>
@@ -16,7 +16,7 @@
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
       </mat-form-field>
-      <button class="login-button-submit" mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">Iniciar Sesión</button>
+      <button class="login-button-submit" mat-raised-button color="primary" (click)="login()"  [disabled]="!loginForm.valid">Iniciar Sesión</button>
     </form>
     <br/>
     <br/>

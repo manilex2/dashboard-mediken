@@ -3,7 +3,6 @@ import { AdminService } from '../../../services/admin.service';
 import { Store, select } from '@ngrx/store';
 import { GET_CURRENT_USER } from 'src/app/admin/store/actions/currentuser.actions';
 import { Appstate } from 'src/app/shared/store/AppState';
-import { ToastrService } from 'ngx-toastr';
 import { selectAppState } from 'src/app/shared/store/selectors/app.selectors';
 import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
 import { currentUser } from 'src/app/admin/store/selectors/currentuser.selectors';
@@ -18,19 +17,20 @@ export class MenuComponent implements OnInit {
   user: any;
   mediken!: boolean;
   beneficiario!: boolean;
+  broker!: boolean;
   currentUser: any;
 
   constructor(
     private adminService: AdminService,
     private store: Store,
     private appStore: Store<Appstate>,
-    private toastr: ToastrService,
   ) { }
 
   ngOnInit(): void {
       this.user = this.adminService.getUserName();
       this.mediken = this.adminService.esMediken();
       this.beneficiario = this.adminService.esBeneficiario();
+      this.broker = this.adminService.esBroker();
       this.getCurrentUser();
   }
 

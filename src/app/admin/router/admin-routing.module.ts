@@ -16,11 +16,11 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: "full" },
       { path: 'dashboard', component: DashboardComponent, children: [
-        { path: 'resumen', component: ResumenComponent, canActivate: [() => inject(AdminService).esMediken()] },
+        { path: 'resumen', component: ResumenComponent, canActivate: [() => inject(AdminService).esMediken() || inject(AdminService).esBroker()] },
         { path: 'convenios', component: ConveniosComponent, canActivate: [() => inject(AdminService).esMediken()] },
         { path: 'cobranzas', component: CobranzasComponent, canActivate: [() => inject(AdminService).esMediken()] },
         { path: 'kpis', component: KpisComponent, canActivate: [() => inject(AdminService).esMediken()] },
-        { path: 'brokers', component: BrokersComponent, canActivate: [() => inject(AdminService).esMediken()] },
+        { path: 'brokers', component: BrokersComponent, canActivate: [() => inject(AdminService).esMediken() || inject(AdminService).esBroker()] },
         { path: 'reembolsos', component: ReembolsosComponent, canActivate: [() => inject(AdminService).esMediken()]},
         { path: 'beneficiario', component: BeneficiarioComponent, canActivate: [() => inject(AdminService).esBeneficiario()] },
       ]}
