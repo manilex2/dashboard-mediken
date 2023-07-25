@@ -47,6 +47,14 @@ export class AdminService {
     return tokenPayload.user;
   }
 
+  getBrokerCod(): string {
+    this.token = localStorage.getItem('auth_token');
+
+    let tokenPayload: any = this.token? decode(this.token) : false;
+
+    return tokenPayload.user.usuario;
+  }
+
   obtenerCurrentUser(): CurrentUser {
     this.token = localStorage.getItem('auth_token');
 

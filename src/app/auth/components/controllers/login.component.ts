@@ -61,6 +61,8 @@ export class LoginComponent {
             let tokenPayload: any = saveToken? decode(saveToken) : "";
             if (tokenPayload.user.tipoUsuario === "Beneficiario") {
               this.router.navigate(['admin/dashboard/beneficiario']);
+            } else if (tokenPayload.user.tipoUsuario === "Broker") {
+              this.router.navigate(['admin/dashboard/brokers']);
             } else {
               this.router.navigate(['admin/dashboard/resumen']);
             }

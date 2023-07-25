@@ -19,11 +19,11 @@ export interface ConfigResponse {
 }
 
 @Component({
-  selector: 'app-brokers',
-  templateUrl: '../views/brokers.component.html',
-  styleUrls: ['../styles/brokers.component.scss']
+  selector: 'app-brokers-mediken',
+  templateUrl: '../views/brokers-mediken.component.html',
+  styleUrls: ['../styles/brokers-mediken.component.scss']
 })
-export class BrokersComponent implements AfterViewInit {
+export class BrokersMedikenComponent implements AfterViewInit {
   @ViewChild(PowerBIReportEmbedComponent)
   reportObj!: PowerBIReportEmbedComponent;
 
@@ -54,17 +54,7 @@ export class BrokersComponent implements AfterViewInit {
       background: models.BackgroundType.Transparent,
       navContentPaneEnabled: false,
     },
-    pageName: environment.powerbiConfig.brokers,
-    filters: [{
-      $schema: "http://powerbi.com/product/schema#basic",
-      filterType: models.FilterType.Basic,
-      target: {
-        table: "Dsbroker",
-        column: "dsvccod"
-      },
-      operator: "In",
-      values: [`${this.brokerCode}`],
-    }]
+    pageName: environment.powerbiConfig.brokersMediken,
   };
 
   report: any;
@@ -111,17 +101,7 @@ export class BrokersComponent implements AfterViewInit {
             background: models.BackgroundType.Transparent,
             navContentPaneEnabled: false,
           },
-          pageName: environment.powerbiConfig.brokers,
-          filters: [{
-            $schema: "http://powerbi.com/product/schema#basic",
-            filterType: models.FilterType.Basic,
-            target: {
-              table: "Dsbroker",
-              column: "dsvccod"
-            },
-            operator: "In",
-            values: [`${this.brokerCode}`],
-          }]
+          pageName: environment.powerbiConfig.brokersMediken
         }
         this.datosCargados = true;
       }
@@ -152,17 +132,7 @@ export class BrokersComponent implements AfterViewInit {
             ...this.reportConfig,
             id: response.embedUrl[0].reportId,
             embedUrl: response.embedUrl[0].embedUrl,
-            accessToken: response.accessToken,
-            filters: [{
-              $schema: "http://powerbi.com/product/schema#basic",
-              filterType: models.FilterType.Basic,
-              target: {
-                table: "Dsbroker",
-                column: "dsvccod"
-              },
-              operator: "In",
-              values: [`${this.brokerCode}`],
-            }]
+            accessToken: response.accessToken
           };
           localStorage.setItem('powerbi_report_token', JSON.stringify(response));
           this.datosCargados = true;

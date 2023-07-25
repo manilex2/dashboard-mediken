@@ -9,19 +9,19 @@
           <mat-icon matListItemIcon>receipt_long</mat-icon>
           <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Resumen</a>
         </mat-list-item>
-        <mat-list-item routerLink="./convenios" routerLinkActive="menu-active-1">
+        <!-- <mat-list-item routerLink="./convenios" routerLinkActive="menu-active-1">
             <mat-icon matListItemIcon>pie_chart</mat-icon>
             <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Convenios</a>
         </mat-list-item>
         <mat-list-item routerLink="./cobranzas" routerLinkActive="menu-active-1">
             <mat-icon matListItemIcon>payments</mat-icon>
             <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Cobranzas</a>
-        </mat-list-item>
+        </mat-list-item> -->
         <mat-list-item routerLink="./kpis" routerLinkActive="menu-active-1">
             <mat-icon matListItemIcon>donut_large</mat-icon>
-            <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>KPIs</a>
+            <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>BSC</a>
         </mat-list-item>
-        <mat-list-item routerLink="./brokers" routerLinkActive="menu-active-1">
+        <mat-list-item routerLink="./brokers-mediken" routerLinkActive="menu-active-1">
             <mat-icon matListItemIcon>notifications</mat-icon>
             <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Brokers</a>
         </mat-list-item>
@@ -31,10 +31,6 @@
         </mat-list-item>
       </ng-container>
       <ng-container *ngIf="broker">
-        <mat-list-item routerLink="./resumen" routerLinkActive="menu-active-1">
-          <mat-icon matListItemIcon>receipt_long</mat-icon>
-          <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Resumen</a>
-        </mat-list-item>
         <mat-list-item routerLink="./brokers" routerLinkActive="menu-active-1">
             <mat-icon matListItemIcon>notifications</mat-icon>
             <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Brokers</a>

@@ -26,6 +26,7 @@ export const environment = {
     pbiPasswod: 'CONTRASEÑA_POWERBI',
     resumen: 'REPORT SECTION ID RESUMEN',
     brokers: 'REPORT SECTION ID BROKERS',
+    brokersMediken: 'REPORT SECTION ID BROKERS MEDIKEN',
     reembolsos: 'REPORT SECTION ID REEMBOLSOS'
   }
 };
