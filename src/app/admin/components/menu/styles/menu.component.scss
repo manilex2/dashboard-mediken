@@ -28,34 +28,23 @@
   color: var(--text-accent-darker-color) !important;
 }
 
-.menu-container-flex-2 {
-  display: flex;
-  height: 45%;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.menu-img-1 {
-  max-width: 50px;
-  max-height: 50px;
-}
-
-@media only screen and (max-width: 600px) {
-  .menu-container-flex-2 {
-    height: 25%;
-  }
-}
-
-.menu-username-1 {
-  font-size: 14px;
-}
-
-.menu-email-1 {
-  font-size: 13px;
-}
-
 .menu-list-container-1 {
   margin-bottom: 20px;
   width: 15vw;
+}
+
+.menu-button-1 {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  & {
+    mat-icon {
+      margin-left: 8px;
+    }
+  }
+}
+
+.menu-container-flex-2 {
+  display: flex;
+  justify-content: center
 }

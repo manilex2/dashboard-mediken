@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../../services/admin.service';
-import { Store, select } from '@ngrx/store';
-import { GET_CURRENT_USER } from 'src/app/admin/store/actions/currentuser.actions';
-import { Appstate } from 'src/app/shared/store/AppState';
-import { selectAppState } from 'src/app/shared/store/selectors/app.selectors';
-import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
-import { currentUser } from 'src/app/admin/store/selectors/currentuser.selectors';
+import { Store } from '@ngrx/store';
+import { LOGOUT } from '../../../../auth/store/actions/login.actions';
 
 @Component({
   selector: 'app-menu',
@@ -13,37 +9,25 @@ import { currentUser } from 'src/app/admin/store/selectors/currentuser.selectors
   styleUrls: ['../styles/menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-
-  user: any;
   mediken!: boolean;
   beneficiario!: boolean;
   broker!: boolean;
-  currentUser: any;
+  rolMediken: any;
 
   constructor(
     private adminService: AdminService,
     private store: Store,
-    private appStore: Store<Appstate>,
   ) { }
 
   ngOnInit(): void {
-      this.user = this.adminService.getUserName();
       this.mediken = this.adminService.esMediken();
       this.beneficiario = this.adminService.esBeneficiario();
       this.broker = this.adminService.esBroker();
-      this.getCurrentUser();
+      this.rolMediken = this.adminService.rolMediken();
+
   }
 
-  getCurrentUser() {
-    this.store.pipe(select(currentUser)).subscribe(current => {
-      this.store.dispatch(GET_CURRENT_USER());
-      this.currentUser = current;
-      let apiStatus$ = this.appStore.pipe(select(selectAppState));
-      apiStatus$.subscribe((data) => {
-        if (data.apiStatus === "success" && data.userState === "getted" && data.loginStatus === "logged") {
-          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, userState: "done" } }));
-        }
-      });
-    });
+  logout() {
+    this.store.dispatch(LOGOUT());
   }
 }

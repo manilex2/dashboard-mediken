@@ -10,6 +10,7 @@ import { BrokersMedikenComponent } from '../components/brokers-mediken/controlle
 import { ReembolsosComponent } from '../components/reembolsos/controllers/reembolsos.component';
 import { BeneficiarioComponent } from '../components/beneficiario/controllers/beneficiario.component';
 import { AdminService } from '../services/admin.service';
+import { SinrolComponent } from '../components/sinrol/controllers/sinrol.component';
 
 const routes: Routes = [
   {
@@ -17,14 +18,15 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: "full" },
       { path: 'dashboard', component: DashboardComponent, children: [
-        { path: 'resumen', component: ResumenComponent, canActivate: [() => inject(AdminService).esMediken()] },
-        { path: 'convenios', component: ConveniosComponent, canActivate: [() => inject(AdminService).esMediken()] },
-        { path: 'cobranzas', component: CobranzasComponent, canActivate: [() => inject(AdminService).esMediken()] },
-        { path: 'kpis', component: KpisComponent, canActivate: [() => inject(AdminService).esMediken()] },
+        { path: 'resumen', component: ResumenComponent, canActivate: [() => inject(AdminService).esMediken(), () => inject(AdminService).tieneRol()] },
+        { path: 'convenios', component: ConveniosComponent, canActivate: [() => inject(AdminService).esMediken(), () => inject(AdminService).tieneRol()] },
+        { path: 'cobranzas', component: CobranzasComponent, canActivate: [() => inject(AdminService).esMediken(), () => inject(AdminService).tieneRol()] },
+        { path: 'kpis', component: KpisComponent, canActivate: [() => inject(AdminService).esMediken(), () => inject(AdminService).tieneRol()] },
         { path: 'brokers', component: BrokersComponent, canActivate: [() => inject(AdminService).esBroker()] },
-        { path: 'brokers-mediken', component: BrokersMedikenComponent, canActivate: [() => inject(AdminService).esMediken()] },
-        { path: 'reembolsos', component: ReembolsosComponent, canActivate: [() => inject(AdminService).esMediken()]},
+        { path: 'brokers-mediken', component: BrokersMedikenComponent, canActivate: [() => inject(AdminService).esMediken(), () => inject(AdminService).tieneRol()] },
+        { path: 'reembolsos', component: ReembolsosComponent, canActivate: [() => inject(AdminService).esMediken(), () => inject(AdminService).tieneRol()]},
         { path: 'beneficiario', component: BeneficiarioComponent, canActivate: [() => inject(AdminService).esBeneficiario()] },
+        { path: 'sinrol', component: SinrolComponent, canActivate: [() => !inject(AdminService).tieneRol()] },
       ]}
     ]
   },

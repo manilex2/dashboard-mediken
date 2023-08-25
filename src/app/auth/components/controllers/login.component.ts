@@ -10,6 +10,7 @@ import { user } from '../../store/selectors/login.selectors';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../models';
 import decode from 'jwt-decode';
+import { AdminService } from 'src/app/admin/services/admin.service';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,7 @@ export class LoginComponent {
     private appStore: Store<Appstate>,
     private router: Router,
     private toastr: ToastrService,
+    private adminService: AdminService
   ) {}
   hide = true;
   token = localStorage.getItem("auth_token");
@@ -63,8 +65,10 @@ export class LoginComponent {
               this.router.navigate(['admin/dashboard/beneficiario']);
             } else if (tokenPayload.user.tipoUsuario === "Broker") {
               this.router.navigate(['admin/dashboard/brokers']);
-            } else {
+            } else if (this.adminService.tieneRol()) {
               this.router.navigate(['admin/dashboard/resumen']);
+            } else {
+              this.router.navigate(['admin/dashboard/sinrol']);
             }
           }
         }))

@@ -27,6 +27,7 @@ export const environment = {
     resumen: 'REPORT SECTION ID RESUMEN',
     brokers: 'REPORT SECTION ID BROKERS',
     brokersMediken: 'REPORT SECTION ID BROKERS MEDIKEN',
-    reembolsos: 'REPORT SECTION ID REEMBOLSOS'
+    reembolsos: 'REPORT SECTION ID REEMBOLSOS',
+    bsc: 'REPORT SECTION ID BSC'
   }
 };

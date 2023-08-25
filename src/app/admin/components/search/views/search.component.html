@@ -4,6 +4,12 @@
     <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onSearch()">
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field> -->
-  <span>{{ currentDate | date: 'fullDate':"+0000":"es-EC" }}</span>
-  <button (click)="logout()" color="warn" mat-raised-button>Logout</button>
+  <span class="search-date-1">{{ currentDate | date: 'fullDate':"+0000":"es-EC" }}</span>
+  <div class="search-container-flex-2">
+    <img class="search-img-1" [src]="'../../../../../assets/user.png'" alt="">
+    <p class="search-username-1">{{user.nombre}}</p>
+    <ng-container *ngIf="user.email">
+      <a class="search-email-1" (href)="user.email">{{user.email}}</a>
+    </ng-container>
+  </div>
 </div>

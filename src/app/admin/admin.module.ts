@@ -29,6 +29,7 @@ import { BrokersMedikenComponent } from './components/brokers-mediken/controller
 import { ReembolsosComponent } from './components/reembolsos/controllers/reembolsos.component';
 import { BeneficiarioComponent } from './components/beneficiario/controllers/beneficiario.component';
 import { CurrentUserEffect } from './store/effects/currentuser.effects';
+import { SinrolComponent } from './components/sinrol/controllers/sinrol.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { CurrentUserEffect } from './store/effects/currentuser.effects';
     BrokersComponent,
     BrokersMedikenComponent,
     ReembolsosComponent,
-    BeneficiarioComponent
+    BeneficiarioComponent,
+    SinrolComponent
   ],
   imports: [
     CommonModule,

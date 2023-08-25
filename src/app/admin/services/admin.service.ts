@@ -39,6 +39,22 @@ export class AdminService {
     return false;
   }
 
+  rolMediken() {
+    this.token = localStorage.getItem('auth_token');
+    let tokenPayload: any = this.token? decode(this.token) : false;
+    return tokenPayload.user.tipo;
+  }
+
+  tieneRol() {
+    this.token = localStorage.getItem('auth_token');
+
+    let tokenPayload: any = this.token? decode(this.token) : false;
+    if (tokenPayload.user.tipo === "administrador" || tokenPayload.user.tipo === "G" || tokenPayload.user.tipo === "comercial" || tokenPayload.user.tipo === "reembolsos") {
+      return true;
+    }
+    return false;
+  }
+
   getUserName(): string {
     this.token = localStorage.getItem('auth_token');
 
