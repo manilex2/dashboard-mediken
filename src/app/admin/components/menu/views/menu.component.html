@@ -5,7 +5,7 @@
     </div>
     <mat-nav-list class="menu-list-container-1">
       <ng-container *ngIf="mediken">
-        <ng-container *ngIf="rolMediken == 'A' || rolMediken == 'gerencial' || rolMediken == 'comercial'">
+        <ng-container *ngIf="rolMediken == 'administrador' || rolMediken == 'gerencial' || rolMediken == 'comercial'">
           <mat-list-item routerLink="./resumen" routerLinkActive="menu-active-1">
             <mat-icon matListItemIcon>receipt_long</mat-icon>
             <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Comercial</a>
@@ -19,19 +19,19 @@
             <mat-icon matListItemIcon>payments</mat-icon>
             <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Cobranzas</a>
         </mat-list-item> -->
-        <ng-container *ngIf="rolMediken == 'A' || rolMediken == 'gerencial'">
+        <ng-container *ngIf="rolMediken == 'administrador' || rolMediken == 'gerencial'">
           <mat-list-item routerLink="./kpis" routerLinkActive="menu-active-1">
             <mat-icon matListItemIcon>donut_large</mat-icon>
             <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>BSC</a>
           </mat-list-item>
         </ng-container>
-        <ng-container *ngIf="rolMediken == 'A'">
+        <ng-container *ngIf="rolMediken == 'administrador'">
           <mat-list-item routerLink="./brokers-mediken" routerLinkActive="menu-active-1">
             <mat-icon matListItemIcon>notifications</mat-icon>
             <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Brokers</a>
           </mat-list-item>
         </ng-container>
-        <ng-container *ngIf="rolMediken == 'A' || rolMediken == 'reembolsos'">
+        <ng-container *ngIf="rolMediken == 'administrador' || rolMediken == 'reembolsos'">
           <mat-list-item routerLink="./reembolsos" routerLinkActive="menu-active-1">
             <mat-icon matListItemIcon>assignment_return</mat-icon>
             <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Reembolsos</a>

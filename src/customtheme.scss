@@ -299,7 +299,7 @@ button {
 }
 
 .mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label {
-  color: var(--mdc-theme-error, red);
+  color: var(--mdc-theme-error, $mat-accent-color);
 }
 
 .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input {
