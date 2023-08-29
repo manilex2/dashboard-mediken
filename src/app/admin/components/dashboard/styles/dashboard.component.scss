@@ -3,9 +3,9 @@
 }
 
 .dashboard-drawer-1 {
-  width: 20%;
   background-color: var(--background-color) !important;
   border: none;
+  width: 16.2vw;
 }
 
 .dashboard-toggle-1 {
@@ -14,9 +14,10 @@
 
 .dashboard-toolbar-1 {
   height: auto;
-  width: 99%;
+  width: 98%;
   margin-top: 15px;
   display: flex;
+  margin-left: 20px;
 }
 
 @media only screen and (max-width: 600px) {

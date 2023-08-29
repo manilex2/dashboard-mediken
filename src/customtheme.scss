@@ -97,7 +97,7 @@ $mat-light-theme-foreground: (
   accent-text:       $dark-accent-text,
   icon:              $dark-accent-text,
   icons:             $dark-accent-text,
-  text:              #fff,
+  text:              #5c5b5c,
   slider-min:        $dark-primary-text,
   slider-off:        rgba($dark-text, 0.26),
   slider-off-active: $dark-disabled-text,
@@ -147,7 +147,7 @@ $mat-light-theme-background: (
   status-bar:               $light-bg-darker-20,
   app-bar:                  $light-bg-darker-5,
   hover:                    $dark-bg-alpha-4,
-  card:                     rgba($light-text, 0.1),
+  card:                     /* rgba($light-text, 0.1) */ #fff,
   dialog:                   $light-bg-lighter-5,
   tooltip:                  $dark-bg-tooltip,
   disabled-button:          $mat-accent-color,
@@ -335,9 +335,9 @@ button {
   /* box-shadow: 0px 0px 4px 1px #424550; */
 }
 
-.mat-mdc-list-item, .mat-mdc-list-option {
+/* .mat-mdc-list-item, .mat-mdc-list-option {
   border-radius: 90px !important;
-}
+} */
 
 .mat-mdc-raised-button .mdc-button__label {
   color: white;
@@ -345,14 +345,23 @@ button {
 
 .mat-drawer-container {
   background: linear-gradient(90deg, #0481a7, #53bdc6);
+  color: #5c5b5c;
+}
+
+.mat-drawer {
+  color: #5c5b5c;
 }
 
 iframe {
   border: none;
 }
 
-.mdc-list-item--with-leading-icon .mdc-list-item__start {
+.menu-active-1 .mdc-list-item__start {
   color: $mat-accent-color !important;
+}
+
+.mdc-list-item__start {
+  color: #5c5b5c !important;
 }
 
 .mdc-text-field--filled:not(.mdc-text-field--disabled) {
@@ -361,4 +370,9 @@ iframe {
 
 .mat-mdc-icon-button {
   color: $mat-accent-color !important;
+}
+
+.mat-mdc-card-content {
+  width: 100% !important;
+  padding: 0 !important;
 }

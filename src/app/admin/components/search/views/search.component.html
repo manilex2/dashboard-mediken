@@ -5,11 +5,13 @@
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field> -->
   <span class="search-date-1">{{ currentDate | date: 'fullDate':"+0000":"es-EC" }}</span>
-  <div class="search-container-flex-2">
+  <div class="search-container-flex-1">
     <img class="search-img-1" [src]="'../../../../../assets/user.png'" alt="">
-    <p class="search-username-1">{{user.nombre}}</p>
-    <ng-container *ngIf="user.email">
-      <a class="search-email-1" (href)="user.email">{{user.email}}</a>
-    </ng-container>
+    <div class="search-container-flex-2">
+      <p class="search-username-1">{{user.nombre}}</p>
+      <ng-container *ngIf="user.email">
+        <p class="search-email-1"><a (href)="user.email">{{user.email}}</a></p>
+      </ng-container>
+    </div>
   </div>
 </div>

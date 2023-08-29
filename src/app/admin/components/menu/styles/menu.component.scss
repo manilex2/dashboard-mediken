@@ -1,6 +1,5 @@
 .menu-card-1 {
   height: 95%;
-  width: 90%;
   margin-top: 15px;
   margin-left: 15px;
   justify-content: center;
@@ -8,9 +7,10 @@
 }
 
 .menu-logo-1 {
-  height: 50px;
-  width: 120px;
+  height: 80px;
+  width: 160px;
   align-items: center;
+  margin-top: 10px;
 }
 
 .menu-container-flex-1 {
@@ -23,13 +23,21 @@
 }
 
 .menu-active-1 {
-  background-color: var(--accent-lighter-color);
+  background-color: rgba($color: #f39323, $alpha: 0.1);
   color: var(--accent-color) !important;
+}
+
+mat-list-item.menu-active-1 {
+  border-left: 4px solid #f39323;
+}
+
+a.menu-active-1 {
+  background: none;
 }
 
 .menu-list-container-1 {
   margin-bottom: 20px;
-  width: 15vw;
+  width: 100%;
 }
 
 .menu-button-1 {

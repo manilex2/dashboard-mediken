@@ -3,7 +3,7 @@
     <div class="login-logo-container-1">
       <img class="login-logo-1" src="../../../../assets/mediken-fo.svg" alt="mediken-logo">
     </div>
-    <br/>
+    <div class="login-container-1"><p>Iniciar Sesión</p></div>
     <form class="login-form-container-1" [formGroup]="loginForm">
       <mat-form-field class="login-form-field-1">
         <mat-label>Usuario</mat-label>
@@ -16,7 +16,7 @@
           <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
       </mat-form-field>
-      <button class="login-button-submit" mat-raised-button color="primary" (click)="login()"  [disabled]="!loginForm.valid">Iniciar Sesión</button>
+      <button class="login-button-submit" mat-raised-button color="primary" (click)="login()"  [disabled]="!loginForm.valid">Continuar</button>
     </form>
     <br/>
     <br/>
