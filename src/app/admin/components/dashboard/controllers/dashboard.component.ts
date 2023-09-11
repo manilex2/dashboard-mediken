@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { LOGOUT } from 'src/app/auth/store/actions/login.actions';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,11 +14,13 @@ export class DashboardComponent implements OnInit {
   opened = true;
   token = localStorage.getItem("auth_token");
 
-  constructor(private breakpointObserver: BreakpointObserver, private router: Router) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private store: Store) {}
 
   ngOnInit() {
     if(!this.token) {
-      this.router.navigate(["auth/login"]);
+      this.store.dispatch(LOGOUT());
     }
     this.breakpointObserver
       .observe([Breakpoints.Handset])

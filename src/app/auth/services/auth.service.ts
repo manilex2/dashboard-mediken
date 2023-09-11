@@ -24,7 +24,6 @@ export class AuthService {
   isAuthenticated(): boolean {
     this.token = localStorage.getItem('auth_token');
     if(this.jwtHelper.isTokenExpired(this.token)) {
-      this.router.navigate(['auth']);
       return false;
     }
     return true;

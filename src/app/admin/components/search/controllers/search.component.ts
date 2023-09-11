@@ -7,6 +7,8 @@ import { currentUser } from 'src/app/admin/store/selectors/currentuser.selectors
 import { GET_CURRENT_USER } from 'src/app/admin/store/actions/currentuser.actions';
 import { Appstate } from 'src/app/shared/store/AppState';
 import { AdminService } from 'src/app/admin/services/admin.service';
+import { LOGOUT } from 'src/app/auth/store/actions/login.actions';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-search',
@@ -20,6 +22,7 @@ export class SearchComponent implements OnInit {
     private store: Store,
     private appStore: Store<Appstate>,
     private adminService: AdminService,
+    private toastr: ToastrService
   ) {}
 
   searchTerm: string = '';
@@ -53,8 +56,12 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.adminService.getUserName();
     if (!this.authService.isAuthenticated()) {
-      localStorage.removeItem('auth_token');
-      localStorage.removeItem('powerbi_report_token');
+      this.store.dispatch(LOGOUT());
+      this.toastr.info("Cerrada la sesión, Hasta pronto.", "Login", {
+        progressBar: true,
+        timeOut: 3000,
+        positionClass: "toast-top-center"
+      })
     }
     this.getCurrentUser();
   }

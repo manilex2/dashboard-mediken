@@ -12,7 +12,6 @@ import {
 } from '../actions/login.actions';
 import { setAPIStatus } from "../../../shared/store/actions/app.actions";
 import { Router } from "@angular/router";
-import { ToastrService } from "ngx-toastr";
 import { selectUser, user } from "../selectors/login.selectors";
 import { CurrentUser } from "../../../admin/models/CurrentUser";
 import { RESET_CURRENT_USER } from "../../../admin/store/actions/currentuser.actions";
@@ -25,7 +24,6 @@ export class LoginEffect {
     private authService: AuthService,
     private appStore: Store<Appstate>,
     private router: Router,
-    private toastr: ToastrService,
     private store: Store,
     private currentUserStore: Store<CurrentUser>,
     private loginStore: Store<User[]>,
@@ -68,11 +66,6 @@ export class LoginEffect {
     this.actions$.pipe(
       ofType(LOGOUT),
       tap(() => {
-        this.toastr.info("Cerrada la sesión, Hasta pronto.", "Login", {
-          progressBar: true,
-          timeOut: 3000,
-          positionClass: "toast-top-center"
-        })
         this.currentUserStore.dispatch(RESET_CURRENT_USER());
         this.loginStore.dispatch(RESET_LOGIN());
         this.appStore.dispatch(setAPIStatus({
