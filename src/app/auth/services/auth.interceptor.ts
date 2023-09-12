@@ -23,6 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
         request = request.clone({ headers: request.headers.set('Authorization', 'Bearer ' + token) });
         request = request.clone({ headers: request.headers.set('Content-Type', 'application/json') });
         request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
+        request = request.clone({ headers: request.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate') });
 
         return next.handle(request);
 
