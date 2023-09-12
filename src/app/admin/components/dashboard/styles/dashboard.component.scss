@@ -5,7 +5,7 @@
 .dashboard-drawer-1 {
   background-color: var(--background-color) !important;
   border: none;
-  width: 200px;
+  width: 13.5vw;
 }
 
 .dashboard-toggle-1 {
@@ -13,18 +13,22 @@
 }
 
 .dashboard-toolbar-1 {
-  height: auto;
-  width: 98%;
+  height: 6vh;
+  width: 84vw;
   margin-top: 15px;
   display: flex;
   margin-left: 20px;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 768px) {
   .dashboard-toggle-1 {
     display: flex;
   }
   .dashboard-drawer-1 {
     width: 80%;
+  }
+
+  .dashboard-toolbar-1 {
+    height: 15vh;
   }
 }

@@ -1,13 +1,21 @@
 .brookers-card-1 {
-  width: 98%;
+  width: 84vw;
   min-height: 30vh;
   margin-top: 20px;
   padding: 8px;
   margin-left: 20px;
+  height: auto;
 }
 
 ::ng-deep .report-container {
-  height: 83vh;
+  height: 83.2vh;
   width: auto;
   margin-top: 10px;
+  border: none;
+}
+
+@media only screen and (max-width: 768px) {
+  ::ng-deep .report-container {
+    height: 70vh;
+  }
 }
