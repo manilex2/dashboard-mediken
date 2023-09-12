@@ -5,7 +5,7 @@
 .dashboard-drawer-1 {
   background-color: var(--background-color) !important;
   border: none;
-  width: 13.5vw;
+  width: 220px;
 }
 
 .dashboard-toggle-1 {
@@ -14,10 +14,10 @@
 
 .dashboard-toolbar-1 {
   height: 6vh;
-  width: 84vw;
+  width: 83vw;
   margin-top: 15px;
   display: flex;
-  margin-left: 20px;
+  margin-left: 30px;
 }
 
 @media only screen and (max-width: 768px) {
