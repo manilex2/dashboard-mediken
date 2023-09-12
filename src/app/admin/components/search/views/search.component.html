@@ -4,7 +4,7 @@
     <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onSearch()">
     <mat-icon matSuffix>search</mat-icon>
   </mat-form-field> -->
-  <span class="search-date-1">{{ currentDate | date: 'fullDate':"+0000":"es-EC" }}</span>
+  <span class="search-date-1">{{ currentDate | date: 'fullDate':"-0500":"es-EC" }}</span>
   <div class="search-container-flex-1">
     <img class="search-img-1" [src]="'../../../../../assets/user.png'" alt="">
     <div class="search-container-flex-2">
