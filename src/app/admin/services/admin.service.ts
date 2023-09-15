@@ -49,7 +49,7 @@ export class AdminService {
     this.token = localStorage.getItem('auth_token');
 
     let tokenPayload: any = this.token? decode(this.token) : false;
-    if (tokenPayload.user.tipo === "administrador" || tokenPayload.user.tipo === "gerencial" || tokenPayload.user.tipo === "comercial" || tokenPayload.user.tipo === "reembolsos") {
+    if (tokenPayload.user.tipo === "A" || tokenPayload.user.tipo === "G" || tokenPayload.user.tipo === "C" || tokenPayload.user.tipo === "R" || tokenPayload.user.tipo === "L") {
       return true;
     }
     return false;
