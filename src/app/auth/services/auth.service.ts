@@ -30,7 +30,7 @@ export class AuthService {
 
   login(user: User): Observable<User[]> {
     try {
-      return this.http.post<User[]>(`${this.serverURL}/authenticate`, { usuario: user.usuario, clave: user.clave })
+      return this.http.post<User[]>(`${this.serverURL}/auth`, { usuario: user.usuario, clave: user.clave })
     } catch (error) {
       throw error;
     }

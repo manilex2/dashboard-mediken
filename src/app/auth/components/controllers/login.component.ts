@@ -61,6 +61,7 @@ export class LoginComponent {
             localStorage.setItem('auth_token', token);
             let saveToken = localStorage.getItem("auth_token");
             let tokenPayload: any = saveToken? decode(saveToken) : "";
+            console.log(tokenPayload);
             if (tokenPayload.user.tipoUsuario === "Beneficiario") {
               this.router.navigate(['admin/dashboard/beneficiario']);
             } else if (tokenPayload.user.tipoUsuario === "Broker") {
