@@ -1,4 +1,7 @@
-<mat-card class="beneficiario-card-1">
+<mat-card class="afilTit-card-1">
+    <div class="afilTit-button-list-1">
+        
+    </div>
     <ng-container *ngIf="datosCargados">
       <powerbi-report
         [embedConfig]="reportConfig"
@@ -12,4 +15,4 @@
     <ngx-spinner type = "ball-atom" bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" [fullScreen] = "false">
       <p style="color: white">Cargando PowerBI...</p>
     </ngx-spinner>
-  </mat-card>
+</mat-card>

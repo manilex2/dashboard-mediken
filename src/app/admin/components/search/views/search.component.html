@@ -6,9 +6,9 @@
   </mat-form-field> -->
   <span class="search-date-1">{{ currentDate | date: 'fullDate':"-0500":"es-EC" }}</span>
   <div class="search-container-flex-1">
-    <img class="search-img-1" [src]="'../../../../../assets/user.png'" alt="">
+    <img class="search-img-1" [src]="user.img? user.img : '../../../../../assets/user.png'" alt="">
     <div class="search-container-flex-2">
-      <p class="search-username-1">{{user.nombre}}</p>
+      <p class="search-username-1">{{user.nombres}} {{user.apellidos}}</p>
       <ng-container *ngIf="user.email">
         <p class="search-email-1"><a (href)="user.email">{{user.email}}</a></p>
       </ng-container>

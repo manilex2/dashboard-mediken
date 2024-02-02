@@ -19,11 +19,11 @@ export interface ConfigResponse {
 }
 
 @Component({
-  selector: 'app-brokers-mediken',
-  templateUrl: '../views/brokers-mediken.component.html',
-  styleUrls: ['../styles/brokers-mediken.component.scss']
+  selector: 'app-afiliado-titular',
+  templateUrl: '../views/afiliado-titular.component.html',
+  styleUrls: ['../styles/afiliado-titular.component.scss']
 })
-export class BrokersMedikenComponent implements AfterViewInit {
+export class AfiliadoTitularComponent {
   @ViewChild(PowerBIReportEmbedComponent)
   reportObj!: PowerBIReportEmbedComponent;
 
@@ -36,7 +36,7 @@ export class BrokersMedikenComponent implements AfterViewInit {
 
   phasedEmbeddingFlag = false;
 
-  brokerCode = "";
+  idAfiliadoTitular = "";
 
   reportConfig: IReportEmbedConfiguration = {
     type: "report",
@@ -54,7 +54,17 @@ export class BrokersMedikenComponent implements AfterViewInit {
       background: models.BackgroundType.Transparent,
       navContentPaneEnabled: false,
     },
-    pageName: environment.powerbiConfig.brokersMediken,
+    pageName: environment.powerbiConfig.afilTit,
+    filters: [{
+      $schema: "http://powerbi.com/product/schema#basic",
+      filterType: models.FilterType.Basic,
+      target: {
+        table: "RgmClie",
+        column: "ClRgide"
+      },
+      operator: "In",
+      values: [`${this.idAfiliadoTitular}`],
+    }]
   };
 
   report: any;
@@ -77,7 +87,7 @@ export class BrokersMedikenComponent implements AfterViewInit {
     public jwtHelper: JwtHelperService,
     private adminService: AdminService
   ) {
-    this.brokerCode = this.adminService.getUserName();
+    this.idAfiliadoTitular = this.adminService.getUserName();
     if (this.token) {
       let parse = JSON.parse(this.token);
       let expiry = moment(parse.expiry).tz("America/Guayaquil").format();
@@ -101,7 +111,17 @@ export class BrokersMedikenComponent implements AfterViewInit {
             background: models.BackgroundType.Transparent,
             navContentPaneEnabled: false,
           },
-          pageName: environment.powerbiConfig.brokersMediken
+          pageName: environment.powerbiConfig.afilTit,
+          filters: [{
+            $schema: "http://powerbi.com/product/schema#basic",
+            filterType: models.FilterType.Basic,
+            target: {
+              table: "RgmClie",
+              column: "ClRgide"
+            },
+            operator: "In",
+            values: [`${this.idAfiliadoTitular}`],
+          }]
         }
         this.datosCargados = true;
       }
@@ -124,7 +144,7 @@ export class BrokersMedikenComponent implements AfterViewInit {
 
   async embedReport(): Promise<void> {
     try {
-      this.brokerCode = this.adminService.getUserName();
+      this.idAfiliadoTitular = this.adminService.getUserName();
       const reportUrl = environment.apiConfig.serverTokenUrl;
       this.httpService.getEmbedConfig(reportUrl).subscribe({
         next: (response) => {
@@ -132,7 +152,7 @@ export class BrokersMedikenComponent implements AfterViewInit {
             ...this.reportConfig,
             id: response.embedUrl[0].reportId,
             embedUrl: response.embedUrl[0].embedUrl,
-            accessToken: response.accessToken
+            accessToken: response.accessToken,
           };
           localStorage.setItem('powerbi_report_token', JSON.stringify(response));
           this.datosCargados = true;

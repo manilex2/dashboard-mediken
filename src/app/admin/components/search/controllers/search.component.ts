@@ -54,7 +54,7 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = this.adminService.getUserName();
+    this.user = this.adminService.getUser();
     if (!this.authService.isAuthenticated()) {
       this.store.dispatch(LOGOUT());
       this.toastr.info("Cerrada la sesión, Hasta pronto.", "Login", {

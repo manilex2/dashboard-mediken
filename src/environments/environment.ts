@@ -9,6 +9,8 @@ export const environment = {
     brokers: 'REPORT SECTION ID BROKERS',
     brokersMediken: 'REPORT SECTION ID BROKERS MEDIKEN',
     reembolsos: 'REPORT SECTION ID REEMBOLSOS',
-    bsc: 'REPORT SECTION ID BSC'
+    bsc: 'REPORT SECTION ID BSC',
+    beneficiario: 'REPORT SECTION ID BENEFICIARIO',
+    afilTit: 'REPORT SECTION ID AFILIADO TITULAR'
   }
 };

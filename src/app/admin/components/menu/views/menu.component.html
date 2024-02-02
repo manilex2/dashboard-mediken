@@ -18,13 +18,13 @@
         <mat-list-item routerLink="./cobranzas" routerLinkActive="menu-active-1">
             <mat-icon matListItemIcon>payments</mat-icon>
             <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Cobranzas</a>
-        </mat-list-item> -->
+        </mat-list-item> 
         <ng-container *ngIf="rolMediken == 'A' || rolMediken == 'G'">
           <mat-list-item routerLink="./kpis" routerLinkActive="menu-active-1">
             <mat-icon matListItemIcon>donut_large</mat-icon>
             <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>BSC</a>
           </mat-list-item>
-        </ng-container>
+        </ng-container> -->
         <ng-container *ngIf="rolMediken == 'A'">
           <mat-list-item routerLink="./brokers-mediken" routerLinkActive="menu-active-1">
             <mat-icon matListItemIcon>notifications</mat-icon>
@@ -44,7 +44,13 @@
             <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Brokers</a>
         </mat-list-item>
       </ng-container>
-      <ng-container *ngIf="beneficiario">
+      <ng-container *ngIf="afiliadoTitular">
+        <mat-list-item routerLink="./afiliadoTitular" routerLinkActive="menu-active-1">
+          <mat-icon matListItemIcon>face</mat-icon>
+          <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Afiliado</a>
+        </mat-list-item>
+      </ng-container>
+      <ng-container *ngIf="beneficiario || afiliadoTitular">
         <mat-list-item routerLink="./beneficiario" routerLinkActive="menu-active-1">
           <mat-icon matListItemIcon>group</mat-icon>
           <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Beneficiario</a>

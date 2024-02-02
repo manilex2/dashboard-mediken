@@ -16,6 +16,7 @@ export class MenuComponent implements OnInit {
   mediken!: boolean;
   beneficiario!: boolean;
   broker!: boolean;
+  afiliadoTitular!: boolean;
   rolMediken: any;
   loginInterval: any;
   tokenExpDate: any;
@@ -36,6 +37,7 @@ export class MenuComponent implements OnInit {
     this.mediken = this.adminService.esMediken();
     this.beneficiario = this.adminService.esBeneficiario();
     this.broker = this.adminService.esBroker();
+    this.afiliadoTitular = this.adminService.esAfiliadoTitular();
     this.rolMediken = this.adminService.rolMediken();
     this.tokenExpDate = this.jwtHelper.getTokenExpirationDate(this.token);
     this.loginInterval = setInterval(() => {

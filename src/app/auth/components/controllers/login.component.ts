@@ -64,6 +64,8 @@ export class LoginComponent {
             console.log(tokenPayload);
             if (tokenPayload.user.tipoUsuario === "Beneficiario") {
               this.router.navigate(['admin/dashboard/beneficiario']);
+            } else if (tokenPayload.user.tipoUsuario === "AfiliadoTitular") {
+              this.router.navigate(['admin/dashboard/afiliadoTitular']);
             } else if (tokenPayload.user.tipoUsuario === "Broker") {
               this.router.navigate(['admin/dashboard/brokers']);
             } else if (this.adminService.tieneRol()) {

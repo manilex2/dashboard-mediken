@@ -5,8 +5,8 @@ import { GET_CURRENT_USER_SUCCESS, RESET_CURRENT_USER } from "../actions/current
 export const currentUserFeatureKey = "currentUserState";
 
 const initialCurrentState: CurrentUser = {
-  nombre: "",
-  apellido: "",
+  nombres: "",
+  apellidos: "",
   email: ""
 };
 
@@ -18,8 +18,8 @@ export const currentUserReducer = createReducer(
   on(RESET_CURRENT_USER, (state, ) => {
     let newState = {...state};
     newState = {
-      nombre: "",
-      apellido: "",
+      nombres: "",
+      apellidos: "",
       email: ""
     };
     return newState;

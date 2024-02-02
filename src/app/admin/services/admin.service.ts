@@ -39,6 +39,16 @@ export class AdminService {
     return false;
   }
 
+  esAfiliadoTitular() {
+    this.token = localStorage.getItem('auth_token');
+
+    let tokenPayload: any = this.token? decode(this.token) : false;
+    if (tokenPayload.user.tipoUsuario === "AfiliadoTitular") {
+      return true;
+    }
+    return false;
+  }
+
   rolMediken() {
     this.token = localStorage.getItem('auth_token');
     let tokenPayload: any = this.token? decode(this.token) : false;
@@ -55,7 +65,7 @@ export class AdminService {
     return false;
   }
 
-  getUserName(): string {
+  getUser(): string {
     this.token = localStorage.getItem('auth_token');
 
     let tokenPayload: any = this.token? decode(this.token) : false;
@@ -63,7 +73,7 @@ export class AdminService {
     return tokenPayload.user;
   }
 
-  getBrokerCod(): string {
+  getUserName(): string {
     this.token = localStorage.getItem('auth_token');
 
     let tokenPayload: any = this.token? decode(this.token) : false;
@@ -77,10 +87,18 @@ export class AdminService {
     let tokenPayload: any = this.token? decode(this.token) : false;
 
     let user: CurrentUser = {
-      nombre: tokenPayload.user.nombre? tokenPayload.user.nombre.trim() : "",
-      apellido: tokenPayload.user.apellido? tokenPayload.user.apellido.trim() : "",
+      nombres: tokenPayload.user.nombres? tokenPayload.user.nombres.trim() : "",
+      apellidos: tokenPayload.user.apellidos? tokenPayload.user.apellidos.trim() : "",
       email: tokenPayload.user.email? tokenPayload.user.email.trim() : ""
     }
     return user;
+  }
+
+  obtenerBeneficiarios(): Array<string> {
+    this.token = localStorage.getItem('auth_token');
+
+    let tokenPayload: any = this.token? decode(this.token) : false;
+
+    return tokenPayload.user;
   }
 }
