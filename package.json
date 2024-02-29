@@ -30,7 +30,7 @@
     "moment-timezone": "^0.5.43",
     "ngx-moment": "^6.0.2",
     "ngx-spinner": "^15.0.1",
-    "ngx-toastr": "^15.0.2",
+    "ngx-toastr": "^18.0.0",
     "powerbi-client": "^2.22.3",
     "powerbi-client-angular": "^3.0.5",
     "powerbi-report-authoring": "^2.0.0",
