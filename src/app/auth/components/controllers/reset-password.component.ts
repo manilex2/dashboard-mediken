@@ -33,7 +33,7 @@ export class ResetPasswordComponent {
   }
 
   resetPasswordForm = this.fb.group<User>({
-    email: ['', [Validators.required, Validators.minLength(1)]]
+    email: ['', [Validators.required, Validators.minLength(1)]],
   });
 
   resetPassword() {

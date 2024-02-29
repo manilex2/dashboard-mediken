@@ -1,6 +1,6 @@
 .login-card-1 {
-  width: 400px;
-  height: 430px;
+  width: 430px;
+  height: 450px;
   position: absolute;
   text-align: center;
   background-color: rgba($color: #fff, $alpha: 0.1);
@@ -22,7 +22,7 @@
 
 .login-logo-1 {
   height: 60px;
-  width: 180px;
+  width: 200px;
   margin-top: 40px;
   margin-bottom: 20px;
 }
@@ -37,7 +37,7 @@
   margin-top: 20px;
   width: 270px;
   box-shadow: none !important;
-  height: 40px !important;
+  height: 50px !important;
   font-weight: bold;
   font-size: 18px;
   background-color: var(--accent-color) !important;
@@ -58,17 +58,22 @@
   height: 40px;
   padding-left: 25px;
   border-radius: 20px;
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 400;
   font-family: Poppins, Courier, monospace;
   color: #5c5b5c
 }
 
-.login-password-icon-1 {
+.mat-mdc-form-field {
+  height: 65px;
+  width: 100%;
+}
+
+/* .login-password-icon-1 {
   position: absolute;
   top: 245px;
   right: 70px;
-}
+} */
 
 .login-logo-container-1 {
   border-radius: 50px;
@@ -82,8 +87,15 @@
   .login-form-field-1 {
     width: 100%;
   }
+  .mat-mdc-form-field {
+    width: 80%;
+  }
 }
 
 .login-reset-pass-1 {
   color: #fff
+}
+
+.mdc-text-field__input {
+  height: 45px !important;
 }

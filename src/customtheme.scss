@@ -384,3 +384,24 @@ iframe {
 :focus-visible {
   outline: none;
 }
+
+.mdc-list-item__content {
+  margin-left: 10px;
+}
+
+.mdc-list-item.mdc-list-item--with-one-line .mdc-list-item__start {
+  margin-left: 15px;
+}
+
+mat-list-item.menu-mat-list-item-2 .mdc-list-item__content {
+  height: 25px !important;
+}
+
+.search-container-flex-3 .mdc-list-item__start {
+  color: #989898 !important;
+}
+
+html {
+  --mat-form-field-container-height: 40px;
+  --mdc-filled-text-field-label-text-size: 12px
+}

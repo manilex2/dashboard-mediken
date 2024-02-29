@@ -50,8 +50,8 @@ export class ChangePasswordResetComponent {
     usuario: [''],
     email: [''],
     clave: [''],
-    nuevaClave: ['', [Validators.required, Validators.minLength(1)]],
-    confirmarClave: ['', [Validators.required, Validators.minLength(1)]],
+    nuevaClave: ['', [Validators.required, Validators.minLength(8)]],
+    confirmarClave: ['', [Validators.required, Validators.minLength(8)]],
     token: [''],
   })
 
