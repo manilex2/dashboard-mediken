@@ -8,6 +8,8 @@ export const initialAppState: Readonly<Appstate> = {
   apiCodeStatus: 200,
   loginStatus: "logout",
   userState: "",
+  resetPasswordStatus: "",
+  changePasswordStatus: ""
 }
 
 export const appReducer = createReducer(

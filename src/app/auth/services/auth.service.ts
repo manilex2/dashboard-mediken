@@ -35,4 +35,20 @@ export class AuthService {
       throw error;
     }
   }
+
+  resetPassword(user: User): Observable<User[]> {
+    try {
+      return this.http.post<User[]>(`${this.serverURL}/auth/reset-password`, { email: user.email })
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  changePasswordReset(user: User): Observable<User[]> {
+    try {
+      return this.http.put<User[]>(`${this.serverURL}/auth/change-password-reset`, { ...user })
+    } catch (error) {
+      throw error;
+    }
+  }
 }

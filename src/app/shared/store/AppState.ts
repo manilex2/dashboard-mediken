@@ -4,4 +4,6 @@ export interface Appstate {
   apiCodeStatus: number;
   loginStatus?: string;
   userState?: any;
+  resetPasswordStatus?: string;
+  changePasswordStatus?: string;
 }

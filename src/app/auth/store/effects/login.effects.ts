@@ -16,6 +16,8 @@ import { selectUser, user } from "../selectors/login.selectors";
 import { CurrentUser } from "../../../admin/models/CurrentUser";
 import { RESET_CURRENT_USER } from "../../../admin/store/actions/currentuser.actions";
 import { User } from "../../components/models";
+import { RESET_CHANGE_PASSWORD } from "../actions/change-password.actions";
+import { RESET_RESET_PASSWORD } from "../actions/reset-password.actions";
 
 @Injectable()
 export class LoginEffect {
@@ -68,6 +70,8 @@ export class LoginEffect {
       tap(() => {
         this.currentUserStore.dispatch(RESET_CURRENT_USER());
         this.loginStore.dispatch(RESET_LOGIN());
+        this.loginStore.dispatch(RESET_CHANGE_PASSWORD());
+        this.loginStore.dispatch(RESET_RESET_PASSWORD());
         this.appStore.dispatch(setAPIStatus({
           apiStatus: {
             apiCodeStatus: 200,
@@ -75,6 +79,8 @@ export class LoginEffect {
             apiStatus: "",
             loginStatus: "logout",
             userState: "",
+            changePasswordStatus: "",
+            resetPasswordStatus: ""
           }
         }));
         localStorage.removeItem('auth_token');
