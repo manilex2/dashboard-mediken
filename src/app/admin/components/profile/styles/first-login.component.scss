@@ -1,0 +1,50 @@
+.first-login-card-1 {
+    width: 90%;
+    height: auto;
+    position: absolute;
+    text-align: center;
+    background-color: rgba($color: #fff, $alpha: 0.1);
+    border-radius: 20px !important;
+}
+
+.first-login-container-2 {
+    display: flex;
+    height: auto;
+    justify-content: left;
+    align-items: start;
+    margin: 25px;
+}
+
+.first-login-form-container-1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.first-login-form-field-1 {
+    width: 270px;
+    height: auto;
+    overflow: hidden;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.first-login-text-1 {
+    color: #fff;
+}
+
+@media only screen and (max-width: 768px) {
+    .first-login-card-1 {
+        width: 75%;
+    }
+    .login-form-field-1 {
+        width: 100%;
+    }
+    .mat-mdc-form-field {
+        width: 80%;
+    }
+}
+
+.first-login-error-1 {
+    color: var(--accent-color);
+}

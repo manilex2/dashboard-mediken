@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { User } from "../../components/models";
+import { User } from "../../components/models/Users";
 import { LOGIN_SUCCESS, LOGOUT, RESET_LOGIN } from "../actions/login.actions";
 
 export const loginFeatureKey = "loginState";

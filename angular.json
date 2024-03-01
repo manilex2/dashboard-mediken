@@ -89,10 +89,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "dashboard-mediken:build:production"
+              "buildTarget": "dashboard-mediken:build:production"
             },
             "development": {
-              "browserTarget": "dashboard-mediken:build:development"
+              "buildTarget": "dashboard-mediken:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -100,7 +100,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "dashboard-mediken:build"
+            "buildTarget": "dashboard-mediken:build"
           }
         },
         "test": {

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from "@angular/router";
 import { select, Store } from '@ngrx/store';
 import { Appstate } from 'src/app/shared/store/AppState';
@@ -8,7 +8,7 @@ import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
 import { changePassword } from '../../store/selectors/change-password.selectors';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../models';
-import decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { AdminService } from 'src/app/admin/services/admin.service';
 import { CHANGE_PASSWORD } from '../../store/actions/change-password.actions';
 import { LOGIN } from '../../store/actions/login.actions';
@@ -34,6 +34,7 @@ export class ChangePasswordResetComponent {
   tokenChange: string = "";
   email: string = "";
   usuario: string = "";
+  changeResetPassError = false;
 
   ngOnInit() {
     if(this.token) {
@@ -50,10 +51,28 @@ export class ChangePasswordResetComponent {
     usuario: [''],
     email: [''],
     clave: [''],
-    nuevaClave: ['', [Validators.required, Validators.minLength(8)]],
-    confirmarClave: ['', [Validators.required, Validators.minLength(8)]],
+    nuevaClave: ['', [Validators.required, Validators.minLength(8), /* Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&,.])^[A-Za-z0-9$@$!%*?&,.]{8,}$/)] */ this.customPasswordValidator]],
+    confirmarClave: ['', [Validators.required, Validators.minLength(8), /* Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&,.])^[A-Za-z0-9$@$!%*?&,.]{8,}$/)] */ this.customPasswordValidator]],
     token: [''],
   })
+
+  customPasswordValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    if (control.value) {
+      if (!/(?=.*[a-z])/.test(control.value)) {
+        return { lowercase: true };
+      }
+      if (!/(?=.*[A-Z])/.test(control.value)) {
+        return { uppercase: true };
+      }
+      if (!/(?=.*[0-9])/.test(control.value)) {
+        return { digit: true };
+      }
+      if (!/(?=.*[$@$!%*?&,.])/.test(control.value)) {
+        return { special: true };
+      }
+    }
+    return null;
+  }
 
   changePasswordReset() {
     if (this.changePasswordResetForm.value.nuevaClave === this.changePasswordResetForm.value.confirmarClave) {
@@ -112,7 +131,7 @@ export class ChangePasswordResetComponent {
             const token = data[i].token;
             localStorage.setItem('auth_token', token);
             let saveToken = localStorage.getItem("auth_token");
-            let tokenPayload: any = saveToken? decode(saveToken) : "";
+            let tokenPayload: any = saveToken? jwtDecode(saveToken) : "";
             console.log(tokenPayload);
             if (tokenPayload.user.tipoUsuario === "Beneficiario") {
               this.router.navigate(['admin/dashboard/beneficiario']);
@@ -132,6 +151,7 @@ export class ChangePasswordResetComponent {
         this.toastr.error(data.apiResponseMessage, "Login", {
           progressBar: true
         })
+        this.changeResetPassError = true;
       }
     })
   }

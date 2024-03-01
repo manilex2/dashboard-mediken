@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { CurrentUser } from '../models';
 
 @Injectable({
@@ -12,7 +12,7 @@ export class AdminService {
   esBeneficiario() {
     this.token = localStorage.getItem('auth_token');
 
-    let tokenPayload: any = this.token? decode(this.token) : false;
+    let tokenPayload: any = this.token? jwtDecode(this.token) : false;
     if (tokenPayload.user.tipoUsuario === "Beneficiario") {
       return true;
     }
@@ -22,7 +22,7 @@ export class AdminService {
   esMediken() {
     this.token = localStorage.getItem('auth_token');
 
-    let tokenPayload: any = this.token? decode(this.token) : false;
+    let tokenPayload: any = this.token? jwtDecode(this.token) : false;
     if (tokenPayload.user.tipoUsuario === "Mediken") {
       return true;
     }
@@ -32,7 +32,7 @@ export class AdminService {
   esBroker() {
     this.token = localStorage.getItem('auth_token');
 
-    let tokenPayload: any = this.token? decode(this.token) : false;
+    let tokenPayload: any = this.token? jwtDecode(this.token) : false;
     if (tokenPayload.user.tipoUsuario === "Broker") {
       return true;
     }
@@ -42,7 +42,7 @@ export class AdminService {
   esAfiliadoTitular() {
     this.token = localStorage.getItem('auth_token');
 
-    let tokenPayload: any = this.token? decode(this.token) : false;
+    let tokenPayload: any = this.token? jwtDecode(this.token) : false;
     if (tokenPayload.user.tipoUsuario === "AfiliadoTitular") {
       return true;
     }
@@ -51,14 +51,14 @@ export class AdminService {
 
   rolMediken() {
     this.token = localStorage.getItem('auth_token');
-    let tokenPayload: any = this.token? decode(this.token) : false;
+    let tokenPayload: any = this.token? jwtDecode(this.token) : false;
     return tokenPayload.user.tipo;
   }
 
   tieneRol() {
     this.token = localStorage.getItem('auth_token');
 
-    let tokenPayload: any = this.token? decode(this.token) : false;
+    let tokenPayload: any = this.token? jwtDecode(this.token) : false;
     if (tokenPayload.user.tipo === "A" || tokenPayload.user.tipo === "G" || tokenPayload.user.tipo === "C" || tokenPayload.user.tipo === "R" || tokenPayload.user.tipo === "L") {
       return true;
     }
@@ -68,7 +68,7 @@ export class AdminService {
   getUser(): string {
     this.token = localStorage.getItem('auth_token');
 
-    let tokenPayload: any = this.token? decode(this.token) : false;
+    let tokenPayload: any = this.token? jwtDecode(this.token) : false;
 
     return tokenPayload.user;
   }
@@ -76,7 +76,7 @@ export class AdminService {
   getUserName(): string {
     this.token = localStorage.getItem('auth_token');
 
-    let tokenPayload: any = this.token? decode(this.token) : false;
+    let tokenPayload: any = this.token? jwtDecode(this.token) : false;
 
     return tokenPayload.user.usuario;
   }
@@ -84,7 +84,7 @@ export class AdminService {
   obtenerCurrentUser(): CurrentUser {
     this.token = localStorage.getItem('auth_token');
 
-    let tokenPayload: any = this.token? decode(this.token) : false;
+    let tokenPayload: any = this.token? jwtDecode(this.token) : false;
 
     let user: CurrentUser = {
       nombres: tokenPayload.user.nombres? tokenPayload.user.nombres.trim() : "",
@@ -97,7 +97,7 @@ export class AdminService {
   obtenerBeneficiarios(): Array<string> {
     this.token = localStorage.getItem('auth_token');
 
-    let tokenPayload: any = this.token? decode(this.token) : false;
+    let tokenPayload: any = this.token? jwtDecode(this.token) : false;
 
     return tokenPayload.user;
   }

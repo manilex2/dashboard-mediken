@@ -9,7 +9,7 @@ import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
 import { user } from '../../store/selectors/login.selectors';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../models';
-import decode from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { AdminService } from 'src/app/admin/services/admin.service';
 
 @Component({
@@ -60,9 +60,11 @@ export class LoginComponent {
             const token = data[i].token;
             localStorage.setItem('auth_token', token);
             let saveToken = localStorage.getItem("auth_token");
-            let tokenPayload: any = saveToken? decode(saveToken) : "";
+            let tokenPayload: any = saveToken? jwtDecode(saveToken) : "";
             console.log(tokenPayload);
-            if (tokenPayload.user.tipoUsuario === "Beneficiario") {
+            if (tokenPayload.user.firstLogin === true) {
+              this.router.navigate(['admin/profile/first-login']);
+            } else if (tokenPayload.user.tipoUsuario === "Beneficiario") {
               this.router.navigate(['admin/dashboard/beneficiario']);
             } else if (tokenPayload.user.tipoUsuario === "AfiliadoTitular") {
               this.router.navigate(['admin/dashboard/afiliadoTitular']);

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from "../../components/models";
+import { User } from "../../components/models/Users";
 
 export const RESET_PASSWORD = createAction(
   '[RESET PASSWORD] Reiniciar Contraseña',

@@ -1,0 +1,12 @@
+<mat-drawer-container class="profile-sidenav-1">
+    <mat-drawer class="profile-drawer-1" #drawer [mode]="isSmallScreen ? 'over' : 'side'" ngClass="{'mat-drawer-closed': isSmallScreen}" [opened]="opened">
+        <app-menu></app-menu>
+    </mat-drawer>
+    <mat-drawer-content>
+        <mat-card class="profile-toolbar-1">
+        <div class="profile-toggle-1" (click)="drawer.toggle()"><mat-icon>menu</mat-icon></div>
+        <app-search></app-search>
+        </mat-card>
+        <router-outlet></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

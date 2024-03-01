@@ -25,6 +25,7 @@ export class ResetPasswordComponent {
   ) {}
   hide = true;
   token = localStorage.getItem("auth_token");
+  resetError = false;
 
   ngOnInit() {
     if(this.token) {
@@ -61,7 +62,7 @@ export class ResetPasswordComponent {
         this.toastr.error(data.apiResponseMessage, "Reestablecer Contraseña", {
           progressBar: true
         })
-        this.router.navigate(['auth/login']);
+        this.resetError = true;
       }
     })
   }

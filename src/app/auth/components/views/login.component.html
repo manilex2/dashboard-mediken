@@ -9,27 +9,27 @@
         <div class="login-form-field-1">
           <mat-form-field appearance="fill">
             <mat-label>Usuario</mat-label>
-            <input formControlName="usuario" matInput placeholder="Introduzca su usuario">
+            <input formControlName="usuario" matInput placeholder="Introduzca su usuario" required>
+            @if(loginForm.get('usuario')?.errors?.['required']) {
+              <mat-error class="login-error-1">El usuario es requerido.</mat-error>
+            }
           </mat-form-field>
-          <!-- <input class="login-input-1" formControlName="usuario" placeholder="Usuario"> -->
         </div>
-
         <div class="login-form-field-1">
           <mat-form-field appearance="fill">
             <mat-label>Contraseña</mat-label>
-            <input formControlName="clave" [type]="hide ? 'password' : 'text'" matInput placeholder="Introduzca su contraseña">
+            <input formControlName="clave" [type]="hide ? 'password' : 'text'" matInput placeholder="Introduzca su contraseña" required>
             <mat-icon matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            @if(loginForm.get('clave')?.errors?.['required']) {
+              <mat-error class="login-error-1">La contraseña es requerida.</mat-error>
+            }
           </mat-form-field>
-          <!-- <input class="login-input-1" formControlName="clave" [type]="hide ? 'password' : 'text'" placeholder="Contraseña">
-          <button class="login-password-icon-1" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hide">
-            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </button> -->
         </div>
         <button class="login-button-submit" mat-raised-button color="primary" (click)="login()"  [disabled]="!loginForm.valid">Continuar</button>
         <br/>
-        <!-- <div>
+        <div>
           <a class="login-reset-pass-1" routerLink="../reset-password">¿Olvidó su contraseña?</a>
-        </div> -->
+        </div>
       </form>
       <br/>
       <br/>

@@ -1,0 +1,68 @@
+
+<div class="first-login-container-2">
+    <mat-card class="first-login-card-1">
+        <mat-card-content>
+            <mat-stepper
+                class="first-login-stepper-1"
+                [orientation]="(stepperOrientation | async)!" linear animationDuration="1200" #stepper>
+                <mat-step [stepControl]="usuarioFormGroup" label="Establecer Usuario" state="person">
+                <form class="first-login-form-container-1" [formGroup]="usuarioFormGroup">
+                    <div class="first-login-form-field-1">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Usuario</mat-label>
+                            <input matInput placeholder="Introduzca su numero de RUC o ID" formControlName="usuario" required>
+                            <mat-hint class="first-login-text-1">Número de RUC o ID</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <button mat-button matStepperNext>Siguiente</button>
+                    </div>
+                </form>
+                </mat-step>
+                <mat-step [stepControl]="emailFormGroup" label="Establecer Email" state="mail">
+                <form class="first-login-form-container-1" [formGroup]="emailFormGroup">
+                    <div class="first-login-form-field-1">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="email" placeholder="Introduzca su email" required>
+                            <mat-hint class="first-login-text-1">Introduzca un email</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <button mat-button matStepperPrevious>Anterior</button>
+                        <button mat-button matStepperNext>Siguiente</button>
+                    </div>
+                </form>
+                </mat-step>
+                <mat-step [stepControl]="claveFormGroup" optional optionalLabel="Opcional" label="Cambiar Contraseña" state="password">
+                <form class="first-login-form-container-1" [formGroup]="claveFormGroup">
+                    <div class="first-login-form-field-1">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Contraseña</mat-label>
+                            <input matInput formControlName="clave" placeholder="Introduzca su contraseña" required>
+                            <mat-hint class="first-login-text-1">Una contraseña segura</mat-hint>
+                        </mat-form-field>
+                    </div>
+                    <div class="first-login-form-field-1">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Confirmar Contraseña</mat-label>
+                            <input matInput formControlName="confirmarClave" placeholder="Introduzca su confirmación" required>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <button mat-button matStepperPrevious>Anterior</button>
+                        <button mat-button matStepperNext>Siguiente</button>
+                    </div>
+                </form>
+                </mat-step>
+                <mat-step>
+                <ng-template matStepLabel>¡Listo!</ng-template>
+                    <p class="first-login-text-1">Está lista su configuración, muchas gracias por llenar sus datos.</p>
+                <div>
+                    <button mat-button matStepperPrevious>Anterior</button>
+                </div>
+                </mat-step>
+            </mat-stepper>
+        </mat-card-content>
+    </mat-card>
+</div>

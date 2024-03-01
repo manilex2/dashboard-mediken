@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { User } from "../../components/models";
+import { User } from "../../components/models/Users";
 import { RESET_PASSWORD_SUCCESS, RESET_RESET_PASSWORD } from "../actions/reset-password.actions";
 
 export const resetPasswordFeatureKey = "resetPasswordState";

@@ -23,7 +23,7 @@ import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 
 /* APP MODULES */
 import { AuthRoutingModule } from './router/auth-routing.module';
-import { MaterialModule } from 'src/material.module';
+import { MaterialModule } from '../../material.module';
 
 /* COMPONENTES */
 import { AuthComponent } from "./components/controllers/auth.component";
@@ -31,8 +31,8 @@ import { LoginComponent } from './components/controllers/login.component';
 
 /* INTERCEPTORES */
 import { AuthInterceptor } from './services/auth.interceptor';
-import { ResetPasswordComponent } from './components/controllers/reset-password.component';
-import { ChangePasswordResetComponent } from './components/controllers/change-password-reset.component';
+import { ResetPasswordComponent } from './components//controllers/reset-password.component';
+import { ChangePasswordResetComponent } from './components//controllers/change-password-reset.component';
 
 @NgModule({
   declarations: [

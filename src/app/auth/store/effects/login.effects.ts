@@ -15,7 +15,7 @@ import { Router } from "@angular/router";
 import { selectUser, user } from "../selectors/login.selectors";
 import { CurrentUser } from "../../../admin/models/CurrentUser";
 import { RESET_CURRENT_USER } from "../../../admin/store/actions/currentuser.actions";
-import { User } from "../../components/models";
+import { User } from "../../components/models/Users";
 import { RESET_CHANGE_PASSWORD } from "../actions/change-password.actions";
 import { RESET_RESET_PASSWORD } from "../actions/reset-password.actions";
 

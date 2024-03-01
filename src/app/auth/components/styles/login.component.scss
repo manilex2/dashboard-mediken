@@ -1,6 +1,6 @@
 .login-card-1 {
   width: 430px;
-  height: 450px;
+  height: auto;
   position: absolute;
   text-align: center;
   background-color: rgba($color: #fff, $alpha: 0.1);
@@ -46,7 +46,7 @@
 
 .login-form-field-1 {
   width: 270px;
-  height: 50px;
+  height: auto;
   overflow: hidden;
   font-size: 15px;
   margin-bottom: 10px;
@@ -69,12 +69,6 @@
   width: 100%;
 }
 
-/* .login-password-icon-1 {
-  position: absolute;
-  top: 245px;
-  right: 70px;
-} */
-
 .login-logo-container-1 {
   border-radius: 50px;
 }
@@ -96,6 +90,6 @@
   color: #fff
 }
 
-.mdc-text-field__input {
-  height: 45px !important;
+.login-error-1 {
+  color: var(--accent-color);
 }
