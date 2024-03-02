@@ -1,0 +1,31 @@
+<div class="upload-image-container-1">
+    <div class="upload-image-container-2">
+        <div (dragover)="onDragOver($event)" (drop)="onDrop($event)" class="upload-image-img-area-1" data-img="">
+            <input #inputImage type="file" id="profile-img" accept="image/*" (change)="fileChangeHandler($event)" hidden>
+            <ng-container *ngIf="!output?.base64 else imgPrev">
+                <mat-icon class="upload-image-img-area-icon-1">cloud_upload</mat-icon>
+                <h3>Arrastre y suelte la imágen</h3>
+                <p>El tamaño de la imágen debe ser menor que <span>5 MB</span></p>
+            </ng-container>
+            <ng-template #imgPrev>
+                <img [src]="output?.base64" alt="">
+            </ng-template>
+        </div>
+        <ng-container *ngIf="!output?.base64 else deleteImg">
+            <mat-divider></mat-divider>
+            <div class="upload-image-photo-container-1">
+                <button (click)="openUploadImgDialog()" mat-raised-button color="primary">Tomar Una Foto <mat-icon>add_a_photo</mat-icon></button>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="upload-image-photo-container-1">
+                <button (click)="inputImage.click(); inputImage.value = '';" mat-raised-button color="primary">Subir Una Imagen <mat-icon>image</mat-icon></button>
+            </div>
+        </ng-container>
+        <ng-template #deleteImg>
+            <mat-divider></mat-divider>
+            <div class="upload-image-photo-container-1">
+                <button class="upload-image-button-1" (click)="output = null;" mat-raised-button>Eliminar Foto <mat-icon>delete</mat-icon></button>
+            </div>
+        </ng-template>
+    </div>
+</div>

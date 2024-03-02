@@ -1,6 +1,6 @@
 <mat-drawer-container class="profile-sidenav-1">
     <mat-drawer class="profile-drawer-1" #drawer [mode]="isSmallScreen ? 'over' : 'side'" ngClass="{'mat-drawer-closed': isSmallScreen}" [opened]="opened">
-        <app-menu></app-menu>
+        <app-menu *ngIf="!firstLogin"></app-menu>
     </mat-drawer>
     <mat-drawer-content>
         <mat-card class="profile-toolbar-1">

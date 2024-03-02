@@ -34,7 +34,8 @@
               "node_modules/ngx-spinner/animations/ball-atom.css",
               "src/customtheme.scss",
               "src/styles.scss",
-              "node_modules/ngx-toastr/toastr.css"
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/ngx-photo-editor/photo-editor.css"
             ],
             "scripts": []
           },

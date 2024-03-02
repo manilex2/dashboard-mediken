@@ -10,12 +10,18 @@ import { FirstLoginComponent } from './controllers/first-login.component';
 import { ProfileComponent } from './controllers/profile.component';
 import { HomeModule } from '../home/home.module';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { NgxPhotoEditorModule } from 'ngx-photo-editor';
+import { UploadImageComponent } from './controllers/upload-image.component';
+import { DialogUploadImgComponent } from './controllers/dialog-upload-img.component';
+import { WebcamModule } from 'ngx-webcam';
 
 
 @NgModule({
   declarations: [
     FirstLoginComponent,
     ProfileComponent,
+    UploadImageComponent,
+    DialogUploadImgComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +30,9 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
     AsyncPipe,
     FormsModule,
     ReactiveFormsModule,
-    HomeModule
+    HomeModule,
+    NgxPhotoEditorModule,
+    WebcamModule
   ],
   providers: [
     {

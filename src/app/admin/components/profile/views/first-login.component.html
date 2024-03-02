@@ -9,9 +9,21 @@
                 <form class="first-login-form-container-1" [formGroup]="usuarioFormGroup">
                     <div class="first-login-form-field-1">
                         <mat-form-field appearance="fill">
-                            <mat-label>Usuario</mat-label>
+                            <mat-label>Número de Cédula o RUC</mat-label>
                             <input matInput placeholder="Introduzca su numero de RUC o ID" formControlName="usuario" required>
-                            <mat-hint class="first-login-text-1">Número de RUC o ID</mat-hint>
+                            <mat-hint class="first-login-text-1">Este será su usuario</mat-hint>
+                            @if(usuarioFormGroup.get('usuario')?.errors?.['required']) {
+                                <mat-error class="first-login-error-1">Campo requerido.</mat-error>
+                            }
+                            @if(usuarioFormGroup.get('usuario')?.errors?.['minlength']) {
+                                <mat-error class="first-login-error-1">Longitud invalida.</mat-error>
+                            }
+                            @if(usuarioFormGroup.get('usuario')?.errors?.['pattern']) {
+                                <mat-error class="first-login-error-1">ID o RUC inválido.</mat-error>
+                            }
+                            @if(usuarioFormGroup.get('usuario')?.errors?.['maxlength']) {
+                                <mat-error class="first-login-error-1">Longitud invalida.</mat-error>
+                            }
                         </mat-form-field>
                     </div>
                     <div>
@@ -26,6 +38,15 @@
                             <mat-label>Email</mat-label>
                             <input matInput formControlName="email" placeholder="Introduzca su email" required>
                             <mat-hint class="first-login-text-1">Introduzca un email</mat-hint>
+                            @if(emailFormGroup.get('email')?.errors?.['required']) {
+                                <mat-error class="first-login-error-1">Campo requerido.</mat-error>
+                            }
+                            @if(emailFormGroup.get('email')?.errors?.['email']) {
+                                <mat-error class="first-login-error-1">Email invalido.</mat-error>
+                            }
+                            @if(emailFormGroup.get('email')?.errors?.['pattern']) {
+                                <mat-error class="first-login-error-1">Email invalido.</mat-error>
+                            }
                         </mat-form-field>
                     </div>
                     <div>
@@ -34,19 +55,37 @@
                     </div>
                 </form>
                 </mat-step>
-                <mat-step [stepControl]="claveFormGroup" optional optionalLabel="Opcional" label="Cambiar Contraseña" state="password">
+                <mat-step [stepControl]="claveFormGroup" [optional]="matStepOptional" optionalLabel="Opcional" label="Cambiar Contraseña" state="password">
                 <form class="first-login-form-container-1" [formGroup]="claveFormGroup">
+                    <p class="first-login-text-1">NOTA: Cambiar la contraseña es opcional, solo deje los campos vacíos.</p>
                     <div class="first-login-form-field-1">
                         <mat-form-field appearance="fill">
                             <mat-label>Contraseña</mat-label>
-                            <input matInput formControlName="clave" placeholder="Introduzca su contraseña" required>
-                            <mat-hint class="first-login-text-1">Una contraseña segura</mat-hint>
+                            <input matInput formControlName="clave" placeholder="Introduzca su contraseña">
+                            @if(claveFormGroup.get('clave')?.errors?.['lowercase']) {
+                              <mat-error class="first-login-error-1">Al menos una minúscula.</mat-error>
+                            }
+                            @if(claveFormGroup.get('clave')?.errors?.['uppercase']) {
+                              <mat-error class="first-login-error-1">Al menos una mayúscula.</mat-error>
+                            }
+                            @if(claveFormGroup.get('clave')?.errors?.['digit']) {
+                              <mat-error class="first-login-error-1">Al menos un número.</mat-error>
+                            }
+                            @if(claveFormGroup.get('clave')?.errors?.['special']) {
+                              <mat-error class="first-login-error-1">Un caracter de $&#64;$!%*?&,.</mat-error>
+                            }
+                            @if(claveFormGroup.get('clave')?.errors?.['minlength']) {
+                                <mat-error class="first-login-error-1">Mínimo 8 caracteres.</mat-error>
+                            }
                         </mat-form-field>
                     </div>
                     <div class="first-login-form-field-1">
                         <mat-form-field appearance="fill">
                             <mat-label>Confirmar Contraseña</mat-label>
-                            <input matInput formControlName="confirmarClave" placeholder="Introduzca su confirmación" required>
+                            <input matInput formControlName="confirmarClave" placeholder="Introduzca su confirmación">
+                            @if(claveFormGroup.get('confirmarClave')?.errors?.['passwordMismatch']) {
+                                <mat-error class="first-login-error-1">No coinciden.</mat-error>
+                            }
                         </mat-form-field>
                     </div>
                     <div>
@@ -55,11 +94,20 @@
                     </div>
                 </form>
                 </mat-step>
-                <mat-step>
+                <mat-step [stepControl]="imgFormGroup" label="Imágen de Perfil" optional state="add_a_photo">
+                    <h2 class="first-login-text-1">Imágen de Perfil (Opcional)</h2>
+                    <app-upload-image (imagenSubida)="handleImagenSubida($event)"></app-upload-image>
+                    <div>
+                        <button mat-button matStepperPrevious>Anterior</button>
+                        <button mat-button matStepperNext>Siguiente</button>
+                    </div>
+                </mat-step>
+                <mat-step state="done_all">
                 <ng-template matStepLabel>¡Listo!</ng-template>
                     <p class="first-login-text-1">Está lista su configuración, muchas gracias por llenar sus datos.</p>
                 <div>
                     <button mat-button matStepperPrevious>Anterior</button>
+                    <button mat-button>Continuar</button>
                 </div>
                 </mat-step>
             </mat-stepper>

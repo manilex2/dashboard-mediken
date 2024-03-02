@@ -51,8 +51,8 @@ export class ChangePasswordResetComponent {
     usuario: [''],
     email: [''],
     clave: [''],
-    nuevaClave: ['', [Validators.required, Validators.minLength(8), /* Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&,.])^[A-Za-z0-9$@$!%*?&,.]{8,}$/)] */ this.customPasswordValidator]],
-    confirmarClave: ['', [Validators.required, Validators.minLength(8), /* Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&,.])^[A-Za-z0-9$@$!%*?&,.]{8,}$/)] */ this.customPasswordValidator]],
+    nuevaClave: ['', [Validators.required, Validators.minLength(8), this.customPasswordValidator]],
+    confirmarClave: ['', [Validators.required, Validators.minLength(8), this.customPasswordValidator, this.passwordMatchValidator]],
     token: [''],
   })
 
@@ -74,41 +74,46 @@ export class ChangePasswordResetComponent {
     return null;
   }
 
-  changePasswordReset() {
-    if (this.changePasswordResetForm.value.nuevaClave === this.changePasswordResetForm.value.confirmarClave) {
-      this.changePasswordResetForm.patchValue({token: this.tokenChange, email: this.email, clave: this.changePasswordResetForm.value.nuevaClave, usuario: this.usuario});
-      this.store.dispatch(CHANGE_PASSWORD({ user: this.changePasswordResetForm.value }));
-      let apiStatus$ = this.appStore.pipe(select(selectAppState));
-      apiStatus$.subscribe((data) => {
-        if (data.apiStatus === "success" && data.changePasswordStatus === "change") {
-          this.appStore.dispatch(setAPIStatus({
-            apiStatus: {
-              apiCodeStatus: 200,
-              apiResponseMessage: '',
-              apiStatus: '',
-              changePasswordStatus: 'changed'
-            }}))
-          this.toastr.success("Contraseña cambiada con exito.", "Cambiar Contraseña", {
-            progressBar: true
-          })
-          this.store.pipe(select(changePassword)).subscribe((data => {
-            for (let i = 0; i < data.length; i++) {
-              this.login();
-            }
-          }))
-        } else if (data.apiStatus === "error" && data.changePasswordStatus === "") {
-          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
-          this.toastr.error(data.apiResponseMessage, "Cambiar Contraseña", {
-            progressBar: true
-          })
-          this.router.navigate(['auth/login']);
-        }
-      })   
-    } else {
-      this.toastr.error("La contraseña y la confirmación no coinciden, por favor revise.", "Cambiar Contraseña", {
-        progressBar: true
-      })
+  passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const password = control.root.get('nuevaClave');
+    const confirmPassword = control.value;
+  
+    if (password && confirmPassword !== password.value) {
+      return { passwordMismatch: true };
     }
+  
+    return null;
+  }
+
+  changePasswordReset() {
+    this.changePasswordResetForm.patchValue({token: this.tokenChange, email: this.email, clave: this.changePasswordResetForm.value.nuevaClave, usuario: this.usuario});
+    this.store.dispatch(CHANGE_PASSWORD({ user: this.changePasswordResetForm.value }));
+    let apiStatus$ = this.appStore.pipe(select(selectAppState));
+    apiStatus$.subscribe((data) => {
+      if (data.apiStatus === "success" && data.changePasswordStatus === "change") {
+        this.appStore.dispatch(setAPIStatus({
+          apiStatus: {
+            apiCodeStatus: 200,
+            apiResponseMessage: '',
+            apiStatus: '',
+            changePasswordStatus: 'changed'
+          }}))
+        this.toastr.success("Contraseña cambiada con exito.", "Cambiar Contraseña", {
+          progressBar: true
+        })
+        this.store.pipe(select(changePassword)).subscribe((data => {
+          for (let i = 0; i < data.length; i++) {
+            this.login();
+          }
+        }))
+      } else if (data.apiStatus === "error" && data.changePasswordStatus === "") {
+        this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+        this.toastr.error(data.apiResponseMessage, "Cambiar Contraseña", {
+          progressBar: true
+        })
+        this.router.navigate(['auth/login']);
+      }
+    })
   }
 
   login() {

@@ -9,6 +9,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatChipsModule } from "@angular/material/chips";
 import { MatStepperModule } from "@angular/material/stepper";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatDividerModule } from "@angular/material/divider";
 
 @NgModule({
   declarations: [],
@@ -23,7 +25,9 @@ import { MatStepperModule } from "@angular/material/stepper";
     MatListModule,
     MatToolbarModule,
     MatChipsModule,
-    MatStepperModule
+    MatStepperModule,
+    MatDialogModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: []

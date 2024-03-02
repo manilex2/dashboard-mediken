@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Store } from '@ngrx/store';
 import { LOGOUT } from 'src/app/auth/store/actions/login.actions';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-profile',
@@ -12,6 +13,7 @@ export class ProfileComponent {
   isSmallScreen = false;
   opened = true;
   token = localStorage.getItem("auth_token");
+  firstLogin = false;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -31,5 +33,9 @@ export class ProfileComponent {
           this.opened = true;
         }
       });
+    let tokenPayload: any = this.token? jwtDecode(this.token) : "";
+    if (tokenPayload.user.firstLogin === true) {
+      this.firstLogin = true;
+    }
   }
 }

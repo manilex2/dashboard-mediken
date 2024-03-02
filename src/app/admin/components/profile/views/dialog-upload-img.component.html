@@ -1,0 +1,19 @@
+<mat-dialog-content>
+    <div class="dialog-upload-image-container-1">
+        <div class="dialog-upload-image-container-2">
+            <mat-divider></mat-divider>
+            <div class="dialog-upload-image-take-photo-container-1">
+                <webcam 
+                    [trigger]="triggerObservable"
+                    [width]="400"
+                    [height]="400"
+                    (imageCapture)="handleImage($event)"></webcam>
+                    <button (click)="triggerSnapshot();" mat-raised-button extended color="primary">Tomar Foto <mat-icon>add_a_photo</mat-icon></button>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button mat-button (click)="onNoClick()">Cancelar</button>
+  <button mat-button [mat-dialog-close]="" cdkFocusInitial>Correcto</button>
+</mat-dialog-actions>

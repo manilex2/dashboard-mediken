@@ -11,6 +11,7 @@ export const environment = {
     reembolsos: 'REPORT SECTION ID REEMBOLSOS',
     bsc: 'REPORT SECTION ID BSC',
     beneficiario: 'REPORT SECTION ID BENEFICIARIO',
-    afilTit: 'REPORT SECTION ID AFILIADO TITULAR'
+    afilTit: 'REPORT SECTION ID AFILIADO TITULAR',
+    afilBenef: 'REPORT SECTION ID AFILIADO BENEFICIARIOS'
   }
 };
