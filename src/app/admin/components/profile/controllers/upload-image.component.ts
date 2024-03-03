@@ -34,11 +34,11 @@ export class UploadImageComponent {
       this.servicePhotoEditor.open($event, {
         aspectRatio: 1 / 1,
         autoCropArea: 1,
-        resizeToHeight: 200,
-        resizeToWidth: 200,
+        resizeToHeight: 500,
+        resizeToWidth: 500,
       }).subscribe(data => {
         this.output = data;
-        this.imagenSubida.emit(this.output?.base64? this.output?.base64 : null);
+        this.imagenSubida.emit(this.output?.base64? this.output?.base64 : '');
       });
     } else {
       this.toastr.error("El archivo no puede ser mayor a 5 MB", "Error de Peso de Imágen", {
@@ -54,7 +54,7 @@ export class UploadImageComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       this.output = result;
-      this.imagenSubida.emit(this.output?.base64? this.output?.base64 : null);
+      this.imagenSubida.emit(this.output?.base64? this.output?.base64 : '');
     });
   }
 }

@@ -1,0 +1,46 @@
+.edit-profile-card-1 {
+    width: 83vw;
+    min-height: 30vh;
+    margin-top: 20px;
+    padding: 8px;
+    margin-left: 30px;
+    height: auto;
+    background-color: rgba($color: #fff, $alpha: 0.1);
+}
+
+.edit-profile-button-1 {
+    background-color: var(--accent-color) !important;
+}
+
+.edit-profile-container-button-1 {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.mat-mdc-tab-body-content {
+    height: 100px !important;
+}
+
+.edit-profile-error-1 {
+    color: var(--warn-color);
+}
+
+.edit-profile-form-container-1 {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.edit-profile-form-field-1 {
+    width: 50%;
+    height: auto;
+    overflow: hidden;
+    font-size: 15px;
+    margin-bottom: 10px;
+    & p {
+        margin: 20px;
+        color: #fff;
+    }
+}

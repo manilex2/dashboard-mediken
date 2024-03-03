@@ -26,32 +26,38 @@
           </mat-list-item>
         </ng-container> -->
         <ng-container *ngIf="rolMediken == 'A'">
-          <mat-list-item routerLink="./brokers-mediken" routerLinkActive="menu-active-1">
+          <mat-list-item routerLink="/admin/dashboard/brokers-mediken" routerLinkActive="menu-active-1">
             <mat-icon matListItemIcon>notifications</mat-icon>
             <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Brokers</a>
           </mat-list-item>
         </ng-container>
         <ng-container *ngIf="rolMediken == 'A' || rolMediken == 'R'">
-          <mat-list-item routerLink="./reembolsos" routerLinkActive="menu-active-1">
+          <mat-list-item routerLink="/admin/dashboard/reembolsos" routerLinkActive="menu-active-1">
             <mat-icon matListItemIcon>assignment_return</mat-icon>
             <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Reembolsos</a>
           </mat-list-item>
         </ng-container>
       </ng-container>
       <ng-container *ngIf="broker">
-        <mat-list-item routerLink="./brokers" routerLinkActive="menu-active-1">
+        <mat-list-item routerLink="/admin/dashboard/brokers" routerLinkActive="menu-active-1">
             <mat-icon matListItemIcon>notifications</mat-icon>
             <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Brokers</a>
         </mat-list-item>
       </ng-container>
       <ng-container *ngIf="afiliadoTitular">
-        <mat-list-item routerLink="./afiliadoTitular" routerLinkActive="menu-active-1">
+        <mat-list-item routerLink="/admin/dashboard/afiliado-titular" routerLinkActive="menu-active-1">
           <mat-icon matListItemIcon>face</mat-icon>
           <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Afiliado</a>
         </mat-list-item>
       </ng-container>
-      <ng-container *ngIf="beneficiario || afiliadoTitular">
-        <mat-list-item routerLink="./beneficiario" routerLinkActive="menu-active-1">
+      <ng-container *ngIf="afiliadoTitular">
+        <mat-list-item routerLink="/admin/dashboard/afiliado-beneficiarios" routerLinkActive="menu-active-1">
+          <mat-icon matListItemIcon>group</mat-icon>
+          <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Beneficiarios</a>
+        </mat-list-item>
+      </ng-container>
+      <ng-container *ngIf="beneficiario">
+        <mat-list-item routerLink="/admin/dashboard/beneficiario" routerLinkActive="menu-active-1">
           <mat-icon matListItemIcon>group</mat-icon>
           <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Beneficiario</a>
         </mat-list-item>

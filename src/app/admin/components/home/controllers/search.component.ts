@@ -9,6 +9,7 @@ import { Appstate } from 'src/app/shared/store/AppState';
 import { AdminService } from 'src/app/admin/services/admin.service';
 import { LOGOUT } from 'src/app/auth/store/actions/login.actions';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -16,13 +17,15 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['../styles/search.component.scss']
 })
 export class SearchComponent implements OnInit {
+menu: any;
 
   constructor(
     private authService: AuthService,
     private store: Store,
     private appStore: Store<Appstate>,
     private adminService: AdminService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   searchTerm: string = '';
@@ -64,5 +67,9 @@ export class SearchComponent implements OnInit {
       })
     }
     this.getCurrentUser();
+  }
+
+  editarPerfil() {
+    this.router.navigate(["admin/profile/edit-profile"]);
   }
 }

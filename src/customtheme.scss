@@ -388,6 +388,11 @@ html {
   --mat-stepper-header-selected-state-label-text-color: #{$dark-primary-text};
   --mdc-text-button-label-text-color: #{$mat-accent-color};
   --mat-stepper-header-label-text-color: #{$dark-primary-text};
+  --mat-menu-container-color: #fff;
+  --mat-menu-item-hover-state-layer-color: #ebebeb;
+  --mdc-tab-indicator-active-indicator-color: #{$mat-accent-color};
+  --mat-tab-header-active-label-text-color: #{$mat-accent-color};
+  --mdc-filled-text-field-disabled-container-color: #ffffff5e;
 }
 .mat-typography {
   font-family: Poppins, sans-serif;
@@ -493,4 +498,8 @@ mat-list-item.menu-mat-list-item-2 .mdc-list-item__content {
 
 .search-container-flex-3 .mdc-list-item__start {
   color: #989898 !important;
+}
+
+.mat-mdc-tab-body-content {
+  height: 50vh !important;
 }

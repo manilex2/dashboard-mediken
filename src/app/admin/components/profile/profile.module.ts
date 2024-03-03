@@ -14,6 +14,7 @@ import { NgxPhotoEditorModule } from 'ngx-photo-editor';
 import { UploadImageComponent } from './controllers/upload-image.component';
 import { DialogUploadImgComponent } from './controllers/dialog-upload-img.component';
 import { WebcamModule } from 'ngx-webcam';
+import { EditProfileComponent } from './controllers/edit-profile.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { WebcamModule } from 'ngx-webcam';
     FirstLoginComponent,
     ProfileComponent,
     UploadImageComponent,
-    DialogUploadImgComponent
+    DialogUploadImgComponent,
+    EditProfileComponent
   ],
   imports: [
     CommonModule,

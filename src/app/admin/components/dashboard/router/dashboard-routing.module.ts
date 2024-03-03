@@ -9,6 +9,7 @@ import { SinrolComponent } from '../controllers/sinrol.component';
 import { BeneficiarioComponent } from '../controllers/beneficiario.component';
 import { AdminService } from 'src/app/admin/services/admin.service';
 import { AfiliadoTitularComponent } from '../controllers/afiliado-titular.component';
+import { AfiliadoBeneficiariosComponent } from '../controllers/afiliado-beneficiarios.component';
 
 const routes: Routes = [
   {
@@ -23,8 +24,9 @@ const routes: Routes = [
         { path: 'brokers', component: BrokersComponent, canActivate: [() => inject(AdminService).esBroker()] },
         { path: 'brokers-mediken', component: BrokersMedikenComponent, canActivate: [() => inject(AdminService).esMediken(), () => inject(AdminService).tieneRol()] },
         { path: 'reembolsos', component: ReembolsosComponent, canActivate: [() => inject(AdminService).esMediken(), () => inject(AdminService).tieneRol()]},
-        { path: 'afiliadoTitular', component: AfiliadoTitularComponent, canActivate: [() => inject(AdminService).esAfiliadoTitular()] },
-        { path: 'beneficiario', component: BeneficiarioComponent, canActivate: [() => inject(AdminService).esAfiliadoTitular()? true : () => inject(AdminService).esBeneficiario()] },
+        { path: 'afiliado-titular', component: AfiliadoTitularComponent, canActivate: [() => inject(AdminService).esAfiliadoTitular()] },
+        { path: 'afiliado-beneficiarios', component: AfiliadoBeneficiariosComponent, canActivate: [() => inject(AdminService).esAfiliadoTitular()] },
+        { path: 'beneficiario', component: BeneficiarioComponent, canActivate: [() => inject(AdminService).esBeneficiario()] },
         { path: 'sinrol', component: SinrolComponent, canActivate: [() => !inject(AdminService).tieneRol()] },
       ]}
     ]

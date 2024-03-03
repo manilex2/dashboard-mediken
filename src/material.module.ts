@@ -11,6 +11,8 @@ import { MatChipsModule } from "@angular/material/chips";
 import { MatStepperModule } from "@angular/material/stepper";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatDividerModule } from "@angular/material/divider";
+import { MatMenuModule } from "@angular/material/menu";
+import { MatTabsModule } from "@angular/material/tabs";
 
 @NgModule({
   declarations: [],
@@ -27,7 +29,9 @@ import { MatDividerModule } from "@angular/material/divider";
     MatChipsModule,
     MatStepperModule,
     MatDialogModule,
-    MatDividerModule
+    MatDividerModule,
+    MatMenuModule,
+    MatTabsModule
   ],
   providers: [],
   bootstrap: []

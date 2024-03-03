@@ -29,7 +29,7 @@
         font-size: 100px;
         width: 100px;
         height: 100px;
-        color: var(--accent-color);
+        color: var(--primary-color);
     }
 
     & h3 {
@@ -97,8 +97,11 @@
     margin-bottom: 10px;
     display: flex;
     justify-content: center;
+    & button:not(.upload-image-remove-button-1) {
+        background-color: var(--primary-color) !important;
+    }
 }
 
-.upload-image-button-1 {
+.upload-image-remove-button-1 {
     background-color: var(--warn-color) !important;
 }

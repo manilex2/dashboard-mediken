@@ -4,6 +4,8 @@ import { BreakpointObserver} from '@angular/cdk/layout';
 import { StepperOrientation } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { jwtDecode } from 'jwt-decode';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-first-login',
@@ -27,10 +29,12 @@ export class FirstLoginComponent implements OnInit {
 
   stepperOrientation: Observable<StepperOrientation>;
   matStepOptional: boolean = true;
+  token = localStorage.getItem("auth_token");
 
   constructor(
     private fb: FormBuilder,
     breakpointObserver: BreakpointObserver,
+    private router: Router
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
@@ -38,6 +42,10 @@ export class FirstLoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    let tokenPayload: any = this.token? jwtDecode(this.token) : "";
+    if (tokenPayload.user.firstLogin === false || tokenPayload.user.firstLogin === null) {
+      this.router.navigate(["admim/dashboard"]);
+    }
     this.claveFormGroup.get('clave')?.valueChanges.subscribe(() => {
       // Verificar si se ingresó algo en el campo "Contraseña"
       const claveValue = this.claveFormGroup.get('clave')?.value;

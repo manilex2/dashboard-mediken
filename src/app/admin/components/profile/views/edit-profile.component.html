@@ -1,0 +1,74 @@
+<mat-card class="edit-profile-card-1">
+    <mat-card-header>
+        <img class="edit-profile-header-image-1" mat-card-avatar [src]="this.imgFormGroup.value.img != ''? this.imgFormGroup.value.img : '../../../../../assets/user.png'" alt="Imagen avatar">
+        <mat-card-title>Editar Perfil</mat-card-title>
+        <mat-card-subtitle>{{nombres}} {{apellidos}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <mat-tab-group animationDuration="1000ms">
+            <mat-tab label="Imágen de Perfil">
+                <ng-container *ngIf="!imgSubida">
+                    <br/>
+                    <app-upload-image (imagenSubida)="handleImagenSubida($event)"></app-upload-image>
+                </ng-container>
+            </mat-tab>
+            <mat-tab label="Cambiar Contraseña">
+                <form class="edit-profile-form-container-1" [formGroup]="claveFormGroup">
+                    <div class="edit-profile-form-field-1">
+                        <p>NOTA: Verifique que su correo electrónico sea el que usa comunmente, ya que los reestablecimientos de contraseña o comunicaciones serán por ese email.</p>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Email</mat-label>
+                            <input matInput formControlName="email" placeholder="Introduzca su email" required>
+                            @if(claveFormGroup.get('email')?.errors?.['required']) {
+                                <mat-error class="edit-profile-error-1">Campo requerido.</mat-error>
+                            }
+                            @if(claveFormGroup.get('email')?.errors?.['pattern']) {
+                                <mat-error class="edit-profile-error-1">Email invalido.</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div class="edit-profile-form-field-1">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Contraseña</mat-label>
+                            <input [type]="hide ? 'password' : 'text'" matInput formControlName="clave" placeholder="Introduzca su contraseña">
+                            <mat-icon matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            @if(claveFormGroup.get('clave')?.errors?.['required']) {
+                                <mat-error class="edit-profile-error-1">Campo requerido.</mat-error>
+                            }
+                            @if(claveFormGroup.get('clave')?.errors?.['lowercase']) {
+                              <mat-error class="edit-profile-error-1">Al menos una minúscula.</mat-error>
+                            }
+                            @if(claveFormGroup.get('clave')?.errors?.['uppercase']) {
+                              <mat-error class="edit-profile-error-1">Al menos una mayúscula.</mat-error>
+                            }
+                            @if(claveFormGroup.get('clave')?.errors?.['digit']) {
+                              <mat-error class="edit-profile-error-1">Al menos un número.</mat-error>
+                            }
+                            @if(claveFormGroup.get('clave')?.errors?.['special']) {
+                              <mat-error class="edit-profile-error-1">Un caracter de $&#64;$!%*?&,.</mat-error>
+                            }
+                            @if(claveFormGroup.get('clave')?.errors?.['minlength']) {
+                                <mat-error class="edit-profile-error-1">Mínimo 8 caracteres.</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                    <div class="edit-profile-form-field-1">
+                        <mat-form-field appearance="fill">
+                            <mat-label>Confirmar Contraseña</mat-label>
+                            <input [type]="hide ? 'password' : 'text'" matInput formControlName="confirmarClave" placeholder="Introduzca su confirmación">
+                            @if(claveFormGroup.get('confirmarClave')?.errors?.['required']) {
+                                <mat-error class="edit-profile-error-1">Campo requerido.</mat-error>
+                            }
+                            @if(claveFormGroup.get('confirmarClave')?.errors?.['passwordMismatch']) {
+                                <mat-error class="edit-profile-error-1">No coinciden.</mat-error>
+                            }
+                        </mat-form-field>
+                    </div>
+                </form>
+            </mat-tab>
+        </mat-tab-group>
+      </mat-card-content>
+      <mat-card-actions align="end">
+        <button class="edit-profile-button-1" mat-raised-button>Guardar Cambios</button>
+      </mat-card-actions>
+</mat-card>

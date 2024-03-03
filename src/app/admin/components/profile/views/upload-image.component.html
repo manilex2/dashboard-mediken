@@ -14,17 +14,17 @@
         <ng-container *ngIf="!output?.base64 else deleteImg">
             <mat-divider></mat-divider>
             <div class="upload-image-photo-container-1">
-                <button (click)="openUploadImgDialog()" mat-raised-button color="primary">Tomar Una Foto <mat-icon>add_a_photo</mat-icon></button>
+                <button (click)="openUploadImgDialog()" mat-raised-button>Tomar Una Foto <mat-icon>add_a_photo</mat-icon></button>
             </div>
             <mat-divider></mat-divider>
             <div class="upload-image-photo-container-1">
-                <button (click)="inputImage.click(); inputImage.value = '';" mat-raised-button color="primary">Subir Una Imagen <mat-icon>image</mat-icon></button>
+                <button (click)="inputImage.click(); inputImage.value = '';" mat-raised-button>Subir Una Imagen <mat-icon>image</mat-icon></button>
             </div>
         </ng-container>
         <ng-template #deleteImg>
             <mat-divider></mat-divider>
             <div class="upload-image-photo-container-1">
-                <button class="upload-image-button-1" (click)="output = null;" mat-raised-button>Eliminar Foto <mat-icon>delete</mat-icon></button>
+                <button class="upload-image-remove-button-1" (click)="output = null; this.imagenSubida.emit('');" mat-raised-button>Eliminar Foto <mat-icon>delete</mat-icon></button>
             </div>
         </ng-template>
     </div>

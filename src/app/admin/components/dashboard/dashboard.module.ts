@@ -21,6 +21,7 @@ import { KpisComponent } from './controllers/kpis.component';
 import { ReembolsosComponent } from './controllers/reembolsos.component';
 import { ResumenComponent } from './controllers/resumen.component';
 import { SinrolComponent } from './controllers/sinrol.component';
+import { AfiliadoBeneficiariosComponent } from './controllers/afiliado-beneficiarios.component';
 
 /* COMPONENTES */
 
@@ -36,7 +37,8 @@ import { SinrolComponent } from './controllers/sinrol.component';
     KpisComponent,
     ReembolsosComponent,
     ResumenComponent,
-    SinrolComponent
+    SinrolComponent,
+    AfiliadoBeneficiariosComponent
   ],
   imports: [
     CommonModule,
