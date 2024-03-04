@@ -1,19 +1,20 @@
 import { createReducer, on } from "@ngrx/store";
 import { User } from "../../components/models/Users";
 import { RESET_PASSWORD_SUCCESS, RESET_RESET_PASSWORD } from "../actions/reset-password.actions";
+import { ResponseRequest } from "src/app/responseRequest.model";
 
 export const resetPasswordFeatureKey = "resetPasswordState";
 
-export const initialResetPasswordState: User[] = [];
+export const initialResetPasswordState: ResponseRequest = {};
 
 export const resetPasswordReducer = createReducer(
   initialResetPasswordState,
-  on(RESET_PASSWORD_SUCCESS, (state, { users }) => {
-    return users;
+  on(RESET_PASSWORD_SUCCESS, (state, { reset }) => {
+    return reset;
   }),
   on(RESET_RESET_PASSWORD, (state, ) => {
-    let newState = [...state]
-    newState.length = 0;
+    let newState = {...state}
+    newState = {...state}
     return newState;
   })
 );

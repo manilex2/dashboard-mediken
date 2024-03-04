@@ -7,6 +7,7 @@ import { User } from '../components/models/Users';
 import { Observable } from 'rxjs';
 import { Appstate } from 'src/app/shared/store/AppState';
 import { Store } from '@ngrx/store';
+import { ResponseRequest } from 'src/app/responseRequest.model';
 
 @Injectable({
   providedIn: 'root'
@@ -30,23 +31,23 @@ export class AuthService {
 
   login(user: User): Observable<User[]> {
     try {
-      return this.http.post<User[]>(`${this.serverURL}/auth`, { usuario: user.usuario, clave: user.clave })
+      return this.http.post<User[]>(`${this.serverURL}/auth`, { ...user })
     } catch (error) {
       throw error;
     }
   }
 
-  resetPassword(user: User): Observable<User[]> {
+  resetPassword(user: User): Observable<ResponseRequest> {
     try {
-      return this.http.post<User[]>(`${this.serverURL}/auth/reset-password`, { email: user.email })
+      return this.http.post<ResponseRequest>(`${this.serverURL}/auth/reset-password`, { email: user.email })
     } catch (error) {
       throw error;
     }
   }
 
-  changePasswordReset(user: User): Observable<User[]> {
+  changePasswordReset(user: User): Observable<ResponseRequest> {
     try {
-      return this.http.put<User[]>(`${this.serverURL}/auth/change-password-reset`, { ...user })
+      return this.http.put<ResponseRequest>(`${this.serverURL}/auth/change-password-reset`, { ...user })
     } catch (error) {
       throw error;
     }

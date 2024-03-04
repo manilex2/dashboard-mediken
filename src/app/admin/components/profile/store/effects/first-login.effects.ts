@@ -1,38 +1,38 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from "@ngrx/store";
-import { catchError, map, concatMap, withLatestFrom } from 'rxjs';
-import { Appstate } from "../../../shared/store/AppState";
-import { AuthService } from '../../services/auth.service';
+import { catchError, map, concatMap, withLatestFrom, switchMap, of } from 'rxjs';
+import { Appstate } from "../../../../../shared/store/AppState";
+import { AdminService } from '../../../../services/admin.service';
 import {
-  RESET_PASSWORD,
-  RESET_PASSWORD_SUCCESS
-} from '../actions/reset-password.actions';
-import { setAPIStatus } from "../../../shared/store/actions/app.actions";
-import { selectResetPassword } from "../selectors/reset-password.selectors";
+  FIRST_LOGIN,
+  FIRST_LOGIN_SUCCESS
+} from '../actions/first-login.actions';
+import { setAPIStatus } from "../../../../../shared/store/actions/app.actions";
+import { selectFirstLogin } from "../selectors/first-login.selectors";
 
 
 @Injectable()
-export class ResetPasswordEffect {
+export class FirstLoginEffect {
   constructor(
     private actions$: Actions,
-    private authService: AuthService,
+    private adminService: AdminService,
     private appStore: Store<Appstate>,
     private store: Store,
   ) {}
 
-  resetPassword$ = createEffect(() =>
+  profileImageUpdate$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(RESET_PASSWORD),
-      withLatestFrom(this.store.pipe(select(selectResetPassword))),
-      concatMap(([action, resetPasswordFromStore]) => {
-        if (resetPasswordFromStore && Object.keys(resetPasswordFromStore).length > 0) {
-          this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200, resetPasswordStatus: 'reseted'}}))
+      ofType(FIRST_LOGIN),
+      withLatestFrom(this.store.pipe(select(selectFirstLogin))),
+      concatMap(([action, profileImageUpdateFromStore]) => {
+        if (profileImageUpdateFromStore && Object.keys(profileImageUpdateFromStore).length > 0) {
+            this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200, firstLoginStatus: 'setted'}}))
         }
-        return this.authService.resetPassword(action.user).pipe(
-          map(reset => {
-            this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200, resetPasswordStatus: 'reset'}}))
-            return RESET_PASSWORD_SUCCESS({ reset })
+        return this.adminService.updateFirstLogin(action.user).pipe(
+          map(user => {
+            this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200, firstLoginStatus: 'set'}}))
+            return FIRST_LOGIN_SUCCESS({ user })
           }),
           catchError((error) => {
             if (error.statusText === "Unknown Error") {

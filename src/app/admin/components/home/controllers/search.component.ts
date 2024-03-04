@@ -10,6 +10,13 @@ import { AdminService } from 'src/app/admin/services/admin.service';
 import { LOGOUT } from 'src/app/auth/store/actions/login.actions';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { DateTime } from 'luxon';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { PROFILE_IMG } from '../../profile/store/actions/profile-image.actions';
+import { jwtDecode } from 'jwt-decode';
+import { profileImage } from '../../profile/store/selectors/profile-image.selectors';
+import { ProfileImg } from '../../profile/models';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -17,20 +24,27 @@ import { Router } from '@angular/router';
   styleUrls: ['../styles/search.component.scss']
 })
 export class SearchComponent implements OnInit {
-menu: any;
-
+  destroy$ = new Subject<void>();
   constructor(
     private authService: AuthService,
     private store: Store,
     private appStore: Store<Appstate>,
     private adminService: AdminService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    public jwtHelper: JwtHelperService,
   ) {}
-
+  menu: any;
   searchTerm: string = '';
   user: any;
   currentUser: any;
+  tokenExpDate: any;
+  fechaActual: any;
+  preventDate: any;
+  token: any;
+  loginInterval: any;
+  profileImg: ProfileImg | null = null;
+  imgSrc: string | null = null;
 
   currentDate = Date.now();
 
@@ -57,19 +71,59 @@ menu: any;
   }
 
   ngOnInit(): void {
+    this.token = localStorage.getItem('auth_token');
+    let tokenPayload: any = jwtDecode(this.token);
     this.user = this.adminService.getUser();
     if (!this.authService.isAuthenticated()) {
-      this.store.dispatch(LOGOUT());
-      this.toastr.info("Cerrada la sesión, Hasta pronto.", "Login", {
-        progressBar: true,
-        timeOut: 3000,
-        positionClass: "toast-top-center"
-      })
+      this.logout();
     }
     this.getCurrentUser();
+    this.tokenExpDate = this.jwtHelper.getTokenExpirationDate(this.token);
+    this.tokenExpDate = DateTime.fromJSDate(this.tokenExpDate);
+    this.loginInterval = setInterval(() => {
+      this.fechaActual = DateTime.now();
+      if (this.tokenExpDate.diff(this.fechaActual, 'seconds') == 60) {
+        this.toastr.info(`Estimado usuario su sesión se cerrará en 1 minuto por seguridad, por favor guarde su trabajo y vuelva a iniciar sesión en caso de necesitarlo.`, "Login", {
+          progressBar: true,
+          timeOut: 60000,
+          positionClass: "toast-top-center",
+        })
+      }
+      if (!this.authService.isAuthenticated()) {
+        this.logout();
+      }
+    }, 1000)
+    this.store.dispatch(PROFILE_IMG({ user: {usuario: tokenPayload.user.usuario} }));
+    this.store.pipe(select(profileImage), takeUntil(this.destroy$)).subscribe(img => {
+      if (img) {
+        this.profileImg = img;
+      this.imgSrc = this.profileImg? `data:image/png;base64,${this.profileImg.img}` : null;
+      }
+      let apiStatus$ = this.appStore.pipe(select(selectAppState)); 
+      apiStatus$.subscribe((data) => {
+        if (data.apiStatus === "success" && data.profileImageStatus === "get") {
+          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, profileImageStatus: "getted" } }));
+        }
+      });
+    });
   }
 
   editarPerfil() {
     this.router.navigate(["admin/profile/edit-profile"]);
+  }
+
+  logout() {
+    this.store.dispatch(LOGOUT());
+    clearInterval(this.loginInterval);
+    this.toastr.info("Cerrada la sesión, Hasta pronto.", "Login", {
+      progressBar: true,
+      timeOut: 3000,
+      positionClass: "toast-top-center"
+    })
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(undefined);
+    this.destroy$.complete();
   }
 }

@@ -16,8 +16,12 @@ import { selectUser, user } from "../selectors/login.selectors";
 import { CurrentUser } from "../../../admin/models/CurrentUser";
 import { RESET_CURRENT_USER } from "../../../admin/store/actions/currentuser.actions";
 import { User } from "../../components/models/Users";
-import { RESET_CHANGE_PASSWORD } from "../actions/change-password.actions";
+import { RESET_CHANGE_PASSWORD, RESET_CHANGE_PASSWORD_RESET } from "../actions/change-password.actions";
 import { RESET_RESET_PASSWORD } from "../actions/reset-password.actions";
+import { ResponseRequest } from "src/app/responseRequest.model";
+import { ProfileImg } from "src/app/admin/components/profile/models";
+import { RESET_PROFILE_IMG } from "src/app/admin/components/profile/store/actions/profile-image.actions";
+import { RESET_FIRST_LOGIN } from "src/app/admin/components/profile/store/actions/first-login.actions";
 
 @Injectable()
 export class LoginEffect {
@@ -29,6 +33,8 @@ export class LoginEffect {
     private store: Store,
     private currentUserStore: Store<CurrentUser>,
     private loginStore: Store<User[]>,
+    private passwordStore: Store<ResponseRequest>,
+    private profileImageStore: Store<ProfileImg>,
   ) {}
 
   login$ = createEffect(() =>
@@ -70,8 +76,11 @@ export class LoginEffect {
       tap(() => {
         this.currentUserStore.dispatch(RESET_CURRENT_USER());
         this.loginStore.dispatch(RESET_LOGIN());
-        this.loginStore.dispatch(RESET_CHANGE_PASSWORD());
-        this.loginStore.dispatch(RESET_RESET_PASSWORD());
+        this.loginStore.dispatch(RESET_FIRST_LOGIN());
+        this.passwordStore.dispatch(RESET_RESET_PASSWORD());
+        this.passwordStore.dispatch(RESET_CHANGE_PASSWORD());
+        this.passwordStore.dispatch(RESET_CHANGE_PASSWORD_RESET());
+        this.profileImageStore.dispatch(RESET_PROFILE_IMG());
         this.appStore.dispatch(setAPIStatus({
           apiStatus: {
             apiCodeStatus: 200,
@@ -80,7 +89,9 @@ export class LoginEffect {
             loginStatus: "logout",
             userState: "",
             changePasswordStatus: "",
-            resetPasswordStatus: ""
+            resetPasswordStatus: "",
+            profileImageStatus: "",
+            firstLoginStatus: ""
           }
         }));
         localStorage.removeItem('auth_token');

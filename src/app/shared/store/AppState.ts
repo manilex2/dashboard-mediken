@@ -6,4 +6,6 @@ export interface Appstate {
   userState?: any;
   resetPasswordStatus?: string;
   changePasswordStatus?: string;
+  profileImageStatus?: string;
+  firstLoginStatus?: any;
 }

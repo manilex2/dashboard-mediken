@@ -5,12 +5,12 @@ import { select, Store } from '@ngrx/store';
 import { Appstate } from 'src/app/shared/store/AppState';
 import { selectAppState } from 'src/app/shared/store/selectors/app.selectors';
 import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
-import { changePassword } from '../../store/selectors/change-password.selectors';
+import { changePasswordReset } from '../../store/selectors/change-password.selectors';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../models';
 import { jwtDecode } from 'jwt-decode';
 import { AdminService } from 'src/app/admin/services/admin.service';
-import { CHANGE_PASSWORD } from '../../store/actions/change-password.actions';
+import { CHANGE_PASSWORD_RESET } from '../../store/actions/change-password.actions';
 import { LOGIN } from '../../store/actions/login.actions';
 import { user } from '../../store/selectors/login.selectors';
 
@@ -87,7 +87,7 @@ export class ChangePasswordResetComponent {
 
   changePasswordReset() {
     this.changePasswordResetForm.patchValue({token: this.tokenChange, email: this.email, clave: this.changePasswordResetForm.value.nuevaClave, usuario: this.usuario});
-    this.store.dispatch(CHANGE_PASSWORD({ user: this.changePasswordResetForm.value }));
+    this.store.dispatch(CHANGE_PASSWORD_RESET({ user: this.changePasswordResetForm.value }));
     let apiStatus$ = this.appStore.pipe(select(selectAppState));
     apiStatus$.subscribe((data) => {
       if (data.apiStatus === "success" && data.changePasswordStatus === "change") {
@@ -101,10 +101,8 @@ export class ChangePasswordResetComponent {
         this.toastr.success("Contraseña cambiada con exito.", "Cambiar Contraseña", {
           progressBar: true
         })
-        this.store.pipe(select(changePassword)).subscribe((data => {
-          for (let i = 0; i < data.length; i++) {
-            this.login();
-          }
+        this.store.pipe(select(changePasswordReset)).subscribe((() => {
+          this.login();
         }))
       } else if (data.apiStatus === "error" && data.changePasswordStatus === "") {
         this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));

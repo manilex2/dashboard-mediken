@@ -16,6 +16,14 @@ import { DialogUploadImgComponent } from './controllers/dialog-upload-img.compon
 import { WebcamModule } from 'ngx-webcam';
 import { EditProfileComponent } from './controllers/edit-profile.component';
 
+/* NGRX */
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import * as fromProfileImage from './store/reducers/profile-image.reducers';
+import { ProfileImageEffect } from './store/effects/profile-image.effects';
+import * as fromFirstLogin from './store/reducers/first-login.reducers';
+import { FirstLoginEffect } from './store/effects/first-login.effects';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +42,10 @@ import { EditProfileComponent } from './controllers/edit-profile.component';
     ReactiveFormsModule,
     HomeModule,
     NgxPhotoEditorModule,
-    WebcamModule
+    WebcamModule,
+    StoreModule.forFeature(fromProfileImage.profileImageFeatureKey, fromProfileImage.profileImageReducer),
+    StoreModule.forFeature(fromFirstLogin.firstLoginFeatureKey, fromFirstLogin.firstLoginReducer),
+    EffectsModule.forFeature([ProfileImageEffect, FirstLoginEffect])
   ],
   providers: [
     {

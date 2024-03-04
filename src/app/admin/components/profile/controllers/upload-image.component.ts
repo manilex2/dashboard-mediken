@@ -1,16 +1,18 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxCroppedEvent, NgxPhotoEditorService } from 'ngx-photo-editor';
 import { DialogUploadImgComponent } from './dialog-upload-img.component';
 import { ToastrService } from 'ngx-toastr';
+import { User } from 'src/app/auth/components/models';
 
 @Component({
   selector: 'app-upload-image',
   templateUrl: '../views/upload-image.component.html',
   styleUrl: '../styles/upload-image.component.scss'
 })
-export class UploadImageComponent {
-  @Output() imagenSubida = new EventEmitter<string | null>();
+export class UploadImageComponent implements OnInit {
+  @Input() img: any = null;
+  @Output() imagenSubida = new EventEmitter<User | null>();
 
   constructor(
     private servicePhotoEditor: NgxPhotoEditorService,
@@ -18,6 +20,12 @@ export class UploadImageComponent {
     private toastr: ToastrService,
   ) {}
   output?: NgxCroppedEvent | null;
+
+  ngOnInit(): void {
+    this.output = {
+      base64: this.img? `data:image/png;base64,${this.img}` : ''
+    };
+  }
 
   onDragOver($event: any) {
     $event.preventDefault();
@@ -38,7 +46,7 @@ export class UploadImageComponent {
         resizeToWidth: 500,
       }).subscribe(data => {
         this.output = data;
-        this.imagenSubida.emit(this.output?.base64? this.output?.base64 : '');
+        this.imagenSubida.emit({ img: this.output?.base64? this.output?.base64 : ''});
       });
     } else {
       this.toastr.error("El archivo no puede ser mayor a 5 MB", "Error de Peso de Imágen", {
@@ -54,7 +62,7 @@ export class UploadImageComponent {
 
     dialogRef.afterClosed().subscribe(result => {
       this.output = result;
-      this.imagenSubida.emit(this.output?.base64? this.output?.base64 : '');
+      this.imagenSubida.emit({ img: this.output?.base64? this.output?.base64 : ''});
     });
   }
 }

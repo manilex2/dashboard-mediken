@@ -7,7 +7,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from "ngx-toastr";
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { IReportEmbedConfiguration, models, service } from "powerbi-client";
-import moment from "moment-timezone";
+import { DateTime } from "luxon";
 
 @Component({
   selector: 'app-kpis',
@@ -67,8 +67,8 @@ export class KpisComponent implements AfterViewInit {
   ) {
     if (this.token) {
       let parse = JSON.parse(this.token);
-      let expiry = moment(parse.expiry).tz("America/Guayaquil").format();
-      let now = moment().format();
+      let expiry = DateTime.fromISO(parse.expiry).setZone("America/Guayaquil").toString();
+      let now = DateTime.now().toString();
       if (expiry < now) {
         this.embedReport();
       } else {
@@ -101,8 +101,8 @@ export class KpisComponent implements AfterViewInit {
       this.embedReport();
     } else if (this.token) {
       let parse = JSON.parse(this.token);
-      let expiry = moment(parse.expiry).tz("America/Guayaquil").format();
-      let now = moment().format();
+      let expiry = DateTime.fromISO(parse.expiry).setZone("America/Guayaquil").toString();
+      let now = DateTime.now().toString();
       if (expiry < now) {
         this.embedReport();
       }

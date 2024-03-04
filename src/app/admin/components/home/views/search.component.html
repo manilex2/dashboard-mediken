@@ -6,20 +6,24 @@
   </mat-form-field> -->
   <span class="search-date-1">{{ currentDate | date: 'fullDate':"-0500":"es-EC" }}</span>
   <div class="search-container-flex-1">
-    <img class="search-img-1" [src]="user.img? user.img : '../../../../../assets/user.png'" alt="">
+    <img class="search-img-1" [src]="imgSrc? imgSrc : '../../../../../assets/user.png'" alt="">
     <div class="search-container-flex-2">
       <p class="search-username-1">{{user.nombres}} {{user.apellidos}}</p>
       <ng-container *ngIf="user.email">
         <p class="search-email-1"><a (href)="user.email">{{user.email}}</a></p>
       </ng-container>
     </div>
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Botón para activar menu de usuario">
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
       <button (click)="editarPerfil()" mat-menu-item>
         <mat-icon>manage_accounts</mat-icon>
         <span>Editar Perfil</span>
+      </button>
+      <button (click)="logout()" mat-menu-item>
+        <span>Cerrar Sesión</span>
+        <mat-icon>logout</mat-icon>
       </button>
     </mat-menu>
   </div>

@@ -5,4 +5,7 @@ export interface User {
   token?: any;
   email?: any;
   confirmarClave?: any;
+  img?: any;
+  nuevoUsuario?: any;
+  noNewPass?: any;
 }

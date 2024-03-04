@@ -48,6 +48,7 @@ import { ChangePasswordResetComponent } from './components//controllers/change-p
     FormsModule,
     ReactiveFormsModule,
     StoreModule.forFeature(fromLogin.loginFeatureKey, fromLogin.loginReducer),
+    StoreModule.forFeature(fromChangePassword.changePasswordResetFeatureKey, fromChangePassword.changePasswordResetReducer),
     StoreModule.forFeature(fromChangePassword.changePasswordFeatureKey, fromChangePassword.changePasswordReducer),
     StoreModule.forFeature(fromResetPassword.resetPasswordFeatureKey, fromResetPassword.resetPasswordReducer),
     EffectsModule.forFeature([LoginEffect, ChangePasswordEffect, ResetPasswordEffect])

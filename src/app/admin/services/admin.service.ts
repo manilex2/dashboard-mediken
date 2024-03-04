@@ -1,13 +1,21 @@
 import { Injectable } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { CurrentUser } from '../models';
+import { Observable } from 'rxjs';
+import { ResponseRequest } from 'src/app/responseRequest.model';
+import { User } from 'src/app/auth/components/models';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { ProfileImg } from '../components/profile/models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
   token: any;
-  constructor() { }
+  serverURL = environment.serverURL;
+
+  constructor(private http: HttpClient) { }
 
   esBeneficiario() {
     this.token = localStorage.getItem('auth_token');
@@ -34,6 +42,16 @@ export class AdminService {
 
     let tokenPayload: any = this.token? jwtDecode(this.token) : false;
     if (tokenPayload.user.tipoUsuario === "Broker") {
+      return true;
+    }
+    return false;
+  }
+
+  esFirstLogin() {
+    this.token = localStorage.getItem('auth_token');
+
+    let tokenPayload: any = this.token? jwtDecode(this.token) : false;
+    if (tokenPayload.user.firstLogin === true) {
       return true;
     }
     return false;
@@ -100,5 +118,37 @@ export class AdminService {
     let tokenPayload: any = this.token? jwtDecode(this.token) : false;
 
     return tokenPayload.user;
+  }
+
+  changePassword(user: User): Observable<ResponseRequest> {
+    try {
+      return this.http.put<ResponseRequest>(`${this.serverURL}/users/change-password/${user.usuario}`, { ...user })
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  getProfileImage(user: User): Observable<ProfileImg> {
+    try {
+      return this.http.get<ProfileImg>(`${this.serverURL}/users/img/${user.usuario}`)
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  updateProfileImage(user: User): Observable<ProfileImg> {
+    try {
+      return this.http.put<ProfileImg>(`${this.serverURL}/users/img/${user.usuario}`, { ...user })
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  updateFirstLogin(user: User): Observable<User> {
+    try {
+      return this.http.put<User>(`${this.serverURL}/users/first-login/${user.usuario}`, { ...user })
+    } catch (error) {
+      throw error;
+    }
   }
 }

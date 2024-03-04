@@ -388,11 +388,13 @@ html {
   --mat-stepper-header-selected-state-label-text-color: #{$dark-primary-text};
   --mdc-text-button-label-text-color: #{$mat-accent-color};
   --mat-stepper-header-label-text-color: #{$dark-primary-text};
-  --mat-menu-container-color: #fff;
-  --mat-menu-item-hover-state-layer-color: #ebebeb;
+  --mat-menu-container-color: #{$mat-accent-color};
+  --mat-menu-item-hover-state-layer-color: #{$mat-accent-darker-color};
   --mdc-tab-indicator-active-indicator-color: #{$mat-accent-color};
   --mat-tab-header-active-label-text-color: #{$mat-accent-color};
   --mdc-filled-text-field-disabled-container-color: #ffffff5e;
+  --mat-menu-item-label-text-color: #fff;
+  --mdc-protected-button-disabled-container-color: #{$mat-accent-darker-color};
 }
 .mat-typography {
   font-family: Poppins, sans-serif;

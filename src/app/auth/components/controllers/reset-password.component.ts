@@ -52,10 +52,8 @@ export class ResetPasswordComponent {
         this.toastr.success(`Correo electrónico enviado con exito a la dirección de correo: ${this.resetPasswordForm.value.email}`, "Reestablecer Contraseña", {
           progressBar: true
         })
-        this.store.pipe(select(resetPassword)).subscribe((data => {
-          for (let i = 0; i < data.length; i++) {
-            this.router.navigate(['auth/login']);
-          }
+        this.store.pipe(select(resetPassword)).subscribe((() => {
+          this.router.navigate(['auth/login']);
         }))
       } else if (data.apiStatus === "error" && data.changePasswordStatus === "") {
         this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));

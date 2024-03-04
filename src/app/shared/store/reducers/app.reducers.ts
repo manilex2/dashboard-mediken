@@ -9,7 +9,9 @@ export const initialAppState: Readonly<Appstate> = {
   loginStatus: "logout",
   userState: "",
   resetPasswordStatus: "",
-  changePasswordStatus: ""
+  changePasswordStatus: "",
+  profileImageStatus: "",
+  firstLoginStatus: ""
 }
 
 export const appReducer = createReducer(

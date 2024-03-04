@@ -7,8 +7,9 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from "ngx-toastr";
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { IReportEmbedConfiguration, models, service } from "powerbi-client";
-import moment from "moment-timezone";
+import { DateTime } from "luxon";
 import { AdminService } from "src/app/admin/services/admin.service";
+import { jwtDecode } from "jwt-decode";
 
 export interface ConfigResponse {
   Id: string;
@@ -79,6 +80,9 @@ export class AfiliadoTitularComponent {
   ]);
 
   token: any = localStorage.getItem('powerbi_report_token');
+  tokenUser: any = localStorage.getItem('auth_token');
+  tokenPayload: any = null;
+  afiliadoInfo: object = {}
 
   constructor(
     public httpService: PowerbiService,
@@ -87,11 +91,15 @@ export class AfiliadoTitularComponent {
     public jwtHelper: JwtHelperService,
     private adminService: AdminService
   ) {
+
     this.idAfiliadoTitular = this.adminService.getUserName();
+    if (this.tokenUser) {
+      this.tokenPayload = jwtDecode(this.tokenUser);
+    }
     if (this.token) {
       let parse = JSON.parse(this.token);
-      let expiry = moment(parse.expiry).tz("America/Guayaquil").format();
-      let now = moment().format();
+      let expiry = DateTime.fromISO(parse.expiry).setZone("America/Guayaquil").toString();
+      let now = DateTime.now().toString();
       if (expiry < now) {
         this.embedReport();
       } else {
@@ -129,13 +137,18 @@ export class AfiliadoTitularComponent {
   }
 
   async ngAfterViewInit(): Promise<void> {
+    if (this.tokenUser) {
+      this.tokenPayload = jwtDecode(this.tokenUser);
+      this.afiliadoInfo = this.tokenPayload.user;
+      console.log(this.afiliadoInfo);
+    }
     this.spinner.show();
     if(!this.token) {
       this.embedReport();
     } else if (this.token) {
       let parse = JSON.parse(this.token);
-      let expiry = moment(parse.expiry).tz("America/Guayaquil").format();
-      let now = moment().format();
+      let expiry = DateTime.fromISO(parse.expiry).setZone("America/Guayaquil").toString();
+      let now = DateTime.now().toString();
       if (expiry < now) {
         this.embedReport();
       }
