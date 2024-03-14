@@ -1,15 +1,32 @@
 <mat-card class="afiliado-beneficiarios-card-1">
-    <ng-container *ngIf="datosCargados">
-        <powerbi-report
-        [embedConfig]="reportConfig"
-        [cssClassName]="reportClass"
-        [phasedEmbedding]="phasedEmbeddingFlag"
-        [eventHandlers]="eventHandlersMap"
-        >
-        </powerbi-report>
-        <!-- <button (click)="abrirSeccion()">Abrir Sección</button> -->
-    </ng-container>
-    <ngx-spinner type = "ball-atom" bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" [fullScreen] = "false">
-        <p style="color: white">Cargando PowerBI...</p>
-    </ngx-spinner>
+  <mat-form-field>
+    <mat-label>Seleccione un contrato</mat-label>
+    <mat-select [(value)]="selectedContract" name="contrato" panelClass="afiliado-beneficiarios-panel">
+      @for (contrato of contratos; track contrato) {
+        <mat-option [value]="contrato">{{contrato.contrato}}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+  <mat-card class="afiliado-beneficiarios-card-2">
+    <div class="afiliado-beneficiarios-cointainer-1" *ngFor="let beneficiario of selectedContract.beneficiarios" (click)="actualizarPowerBI(beneficiario)">
+      <mat-card-header>
+        <img class="afiliado-beneficiarios-header-image-1" mat-card-avatar [src]="this.beneficiario.img? 'data:image/png;base64,{{this.beneficiario.img}}' : '../../../../assets/user.png'" alt="Imagen avatar">
+        <mat-card-title>{{beneficiario.solicitud.trim()}}-{{beneficiario.secuencialContrato.trim()}}-{{beneficiario.secuencialBeneficiario.trim()}}</mat-card-title>
+        <mat-card-subtitle>{{beneficiario.nombres.trim()}} {{beneficiario.apellidos.trim()}}</mat-card-subtitle>
+      </mat-card-header>
+    </div>
+  </mat-card>
+  <ng-container *ngIf="datosCargados">
+      <powerbi-report
+      [embedConfig]="reportConfig"
+      [cssClassName]="reportClass"
+      [phasedEmbedding]="phasedEmbeddingFlag"
+      [eventHandlers]="eventHandlersMap"
+      >
+      </powerbi-report>
+      <!-- <button (click)="abrirSeccion()">Abrir Sección</button> -->
+  </ng-container>
+  <ngx-spinner type = "ball-atom" bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" [fullScreen] = "false">
+      <p style="color: white">Cargando PowerBI...</p>
+  </ngx-spinner>
 </mat-card>

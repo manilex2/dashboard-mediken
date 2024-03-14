@@ -391,10 +391,14 @@ html {
   --mat-menu-container-color: #{$mat-accent-color};
   --mat-menu-item-hover-state-layer-color: #{$mat-accent-darker-color};
   --mdc-tab-indicator-active-indicator-color: #{$mat-accent-color};
-  --mat-tab-header-active-label-text-color: #{$mat-accent-color};
+  --mat-tab-header-active-label-text-color: #fff;
   --mdc-filled-text-field-disabled-container-color: #ffffff5e;
   --mat-menu-item-label-text-color: #fff;
   --mdc-protected-button-disabled-container-color: #{$mat-accent-darker-color};
+  --mat-option-selected-state-layer-color: #{$mat-primary-color};
+  --mat-option-focus-state-layer-color: #{mat-primary-darker-color};
+  --mat-select-panel-background-color: #{$mat-primary-darker-color};
+  --mat-option-label-text-color: #{$dark-primary-text};
 }
 .mat-typography {
   font-family: Poppins, sans-serif;
@@ -504,4 +508,8 @@ mat-list-item.menu-mat-list-item-2 .mdc-list-item__content {
 
 .mat-mdc-tab-body-content {
   height: 50vh !important;
+}
+
+.first-login-stepper-1 .mat-horizontal-stepper-header-container {
+  margin-top: 30px;
 }

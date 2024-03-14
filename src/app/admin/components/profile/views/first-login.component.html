@@ -27,7 +27,7 @@
                         </mat-form-field>
                     </div>
                     <div>
-                        <button mat-button matStepperNext>Siguiente</button>
+                        <button mat-raised-button matStepperNext>Siguiente</button>
                     </div>
                 </form>
                 </mat-step>
@@ -50,14 +50,15 @@
                         </mat-form-field>
                     </div>
                     <div>
-                        <button mat-button matStepperPrevious>Anterior</button>
-                        <button mat-button matStepperNext>Siguiente</button>
+                        <button class="first-login-button-1" mat-raised-button matStepperPrevious>Anterior</button>
+                        <button mat-raised-button matStepperNext>Siguiente</button>
                     </div>
                 </form>
                 </mat-step>
                 <mat-step [stepControl]="claveFormGroup" [optional]="matStepOptional" optionalLabel="Opcional" label="Cambiar Contraseña" state="password">
                 <form class="first-login-form-container-1" [formGroup]="claveFormGroup">
                     <p class="first-login-text-1">NOTA: Cambiar la contraseña es opcional, solo deje los campos vacíos.</p>
+                    <p class="first-login-text-1">La contraseña debe comprender por lo menos 8 caracteres, una minúscula, una mayúscula, un caracter de estos: .$&#64;$!%*?&,</p>
                     <div class="first-login-form-field-1">
                         <mat-form-field appearance="fill">
                             <mat-label>Contraseña</mat-label>
@@ -89,24 +90,24 @@
                         </mat-form-field>
                     </div>
                     <div>
-                        <button mat-button matStepperPrevious>Anterior</button>
-                        <button mat-button matStepperNext>Siguiente</button>
+                        <button class="first-login-button-1" mat-raised-button matStepperPrevious>Anterior</button>
+                        <button mat-raised-button matStepperNext>Siguiente</button>
                     </div>
                 </form>
                 </mat-step>
                 <mat-step [stepControl]="imgFormGroup" label="Imágen de Perfil" optional state="add_a_photo">
                     <h2 class="first-login-text-1">Imágen de Perfil (Opcional)</h2>
                     <app-upload-image (imagenSubida)="handleImagenSubida($event)"></app-upload-image>
-                    <div>
-                        <button mat-button matStepperPrevious>Anterior</button>
-                        <button mat-button matStepperNext>Siguiente</button>
+                    <div class="first-login-container-1">
+                        <button class="first-login-button-1" mat-raised-button matStepperPrevious>Anterior</button>
+                        <button mat-raised-button matStepperNext>Siguiente</button>
                     </div>
                 </mat-step>
                 <mat-step state="done_all">
                 <ng-template matStepLabel>¡Listo!</ng-template>
                     <p class="first-login-text-1">Está lista su configuración, muchas gracias por llenar sus datos.</p>
                 <div>
-                    <button mat-button matStepperPrevious>Anterior</button>
+                    <button class="first-login-button-1" mat-raised-button matStepperPrevious>Anterior</button>
                     <button mat-raised-button (click)="completeFirstLogin()">Finalizar</button>
                 </div>
                 </mat-step>

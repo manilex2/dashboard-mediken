@@ -11,7 +11,7 @@
                     <br/>
                     <app-upload-image [img]="this.imgFormGroup.value.img" (imagenSubida)="handleImagenSubida($event)"></app-upload-image>
                     <div class="edit-profile-container-2">
-                        <button mat-raised-button (click)="updateImg()" [disabled]="!imgFormGroup.valid">Confimar imágen subida</button>
+                        <button mat-raised-button (click)="updateImg()" [disabled]="!imgFormGroup.valid">Guardar imágen subida</button>
                     </div>
                 </ng-container>
                 <ng-template #subidaImagen>
@@ -26,6 +26,7 @@
                     <form class="edit-profile-form-container-1" [formGroup]="claveFormGroup">
                         <div class="edit-profile-form-field-1">
                             <p>NOTA: Verifique que su correo electrónico sea el que usa comunmente, ya que los reestablecimientos de contraseña o comunicaciones serán por ese email.</p>
+                            <p>La contraseña debe comprender por lo menos 8 caracteres, una minúscula, una mayúscula, un caracter de estos: .$&#64;$!%*?&,</p>
                             <mat-form-field appearance="fill">
                                 <mat-label>Email</mat-label>
                                 <input matInput formControlName="email" placeholder="Introduzca su email" required>

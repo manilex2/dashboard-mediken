@@ -121,6 +121,7 @@ export class AdminService {
   }
 
   changePassword(user: User): Observable<ResponseRequest> {
+    console.log(user);
     try {
       return this.http.put<ResponseRequest>(`${this.serverURL}/users/change-password/${user.usuario}`, { ...user })
     } catch (error) {
@@ -147,6 +148,22 @@ export class AdminService {
   updateFirstLogin(user: User): Observable<User> {
     try {
       return this.http.put<User>(`${this.serverURL}/users/first-login/${user.usuario}`, { ...user })
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  obtenerContratos(): Observable<any> {
+    try {
+      return this.http.get(`${this.serverURL}/users/contratos`);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  updatePassNotif(user: User): Observable<User> {
+    try {
+      return this.http.put<User>(`${this.serverURL}/users/password-notification/${user.usuario}`, { ...user })
     } catch (error) {
       throw error;
     }

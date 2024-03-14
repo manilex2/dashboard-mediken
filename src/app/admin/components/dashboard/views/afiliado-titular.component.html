@@ -1,7 +1,13 @@
 <mat-card class="afilTit-card-1">
-    <div class="afilTit-button-list-1">
-        
+  <mat-card class="afilTit-card-2">
+    <div class="alilTit-cointainer-1" *ngFor="let contrato of contratos" (click)="actualizarPowerBI(contrato)">
+      <mat-card-header>
+        <mat-card-title>Contrato N°</mat-card-title>
+        <mat-card-subtitle>{{contrato.contrato}}-{{contrato.secuencial}}</mat-card-subtitle>
+      </mat-card-header>
     </div>
+  </mat-card>
+  <ng-container>
     <ng-container *ngIf="datosCargados">
       <powerbi-report
         [embedConfig]="reportConfig"
@@ -15,4 +21,5 @@
     <ngx-spinner type = "ball-atom" bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" [fullScreen] = "false">
       <p style="color: white">Cargando PowerBI...</p>
     </ngx-spinner>
+  </ng-container>
 </mat-card>

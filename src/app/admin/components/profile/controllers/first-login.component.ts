@@ -142,7 +142,6 @@ export class FirstLoginComponent implements OnInit {
           clave: this.claveFormGroup.value.clave,
           noNewPass: !this.claveFormGroup.value.clave? true : false,
         }
-        console.log(this.userFinal);
         this.store.dispatch(LOGIN({ user: this.userFinal }));
         let apiStatus$ = this.appStore.pipe(select(selectAppState));
         apiStatus$.subscribe((data) => {
@@ -165,6 +164,9 @@ export class FirstLoginComponent implements OnInit {
                 } else if (tokenPayload.user.tipoUsuario === "Beneficiario") {
                   this.router.navigate(['admin/dashboard/beneficiario']);
                 } else if (tokenPayload.user.tipoUsuario === "AfiliadoTitular") {
+                  this.adminService.obtenerContratos().subscribe(async (contratos: string) => {
+                    localStorage.setItem('contratos_afiliado', JSON.stringify(contratos));
+                  });
                   this.router.navigate(['admin/dashboard/afiliado-titular']);
                 } else if (tokenPayload.user.tipoUsuario === "Broker") {
                   this.router.navigate(['admin/dashboard/brokers']);

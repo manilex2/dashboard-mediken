@@ -22,6 +22,8 @@ import { ReembolsosComponent } from './controllers/reembolsos.component';
 import { ResumenComponent } from './controllers/resumen.component';
 import { SinrolComponent } from './controllers/sinrol.component';
 import { AfiliadoBeneficiariosComponent } from './controllers/afiliado-beneficiarios.component';
+import { ChangePasswordDialogComponent } from './controllers/change-password-dialog.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 /* COMPONENTES */
 
@@ -38,7 +40,8 @@ import { AfiliadoBeneficiariosComponent } from './controllers/afiliado-beneficia
     ReembolsosComponent,
     ResumenComponent,
     SinrolComponent,
-    AfiliadoBeneficiariosComponent
+    AfiliadoBeneficiariosComponent,
+    ChangePasswordDialogComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +49,9 @@ import { AfiliadoBeneficiariosComponent } from './controllers/afiliado-beneficia
     PowerBIEmbedModule,
     NgxSpinnerModule,
     MaterialModule,
-    HomeModule
+    HomeModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: PowerBIInterceptor, multi: true },

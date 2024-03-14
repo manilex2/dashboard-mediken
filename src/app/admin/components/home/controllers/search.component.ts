@@ -97,7 +97,7 @@ export class SearchComponent implements OnInit {
     this.store.pipe(select(profileImage), takeUntil(this.destroy$)).subscribe(img => {
       if (img) {
         this.profileImg = img;
-      this.imgSrc = this.profileImg? `data:image/png;base64,${this.profileImg.img}` : null;
+        this.imgSrc = this.profileImg.img? `data:image/png;base64,${this.profileImg.img}` : null;
       }
       let apiStatus$ = this.appStore.pipe(select(selectAppState)); 
       apiStatus$.subscribe((data) => {

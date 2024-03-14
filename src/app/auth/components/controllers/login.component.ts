@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 import { User } from '../models';
 import { jwtDecode } from 'jwt-decode';
 import { AdminService } from 'src/app/admin/services/admin.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -55,7 +56,7 @@ export class LoginComponent {
         this.toastr.success("Usuario logeado con exito.", "Login", {
           progressBar: true
         })
-        this.store.pipe(select(user)).subscribe((data => {
+        this.store.pipe(select(user)).subscribe((async data => {
           for (let i = 0; i < data.length; i++) {
             const token = data[i].token;
             localStorage.setItem('auth_token', token);
@@ -66,6 +67,9 @@ export class LoginComponent {
             } else if (tokenPayload.user.tipoUsuario === "Beneficiario") {
               this.router.navigate(['admin/dashboard/beneficiario']);
             } else if (tokenPayload.user.tipoUsuario === "AfiliadoTitular") {
+              this.adminService.obtenerContratos().subscribe(async (contratos: string) => {
+                localStorage.setItem('contratos_afiliado', JSON.stringify(contratos));
+              });
               this.router.navigate(['admin/dashboard/afiliado-titular']);
             } else if (tokenPayload.user.tipoUsuario === "Broker") {
               this.router.navigate(['admin/dashboard/brokers']);
