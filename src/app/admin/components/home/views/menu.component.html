@@ -50,18 +50,18 @@
           <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Afiliado</a>
         </mat-list-item>
       </ng-container>
-      <ng-container *ngIf="afiliadoTitular">
+      <ng-container *ngIf="afiliadoTitular || beneficiario">
         <mat-list-item routerLink="/admin/dashboard/afiliado-beneficiarios" routerLinkActive="menu-active-1">
           <mat-icon matListItemIcon>group</mat-icon>
           <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Beneficiarios</a>
         </mat-list-item>
       </ng-container>
-      <ng-container *ngIf="beneficiario">
+      <!-- <ng-container *ngIf="beneficiario">
         <mat-list-item routerLink="/admin/dashboard/beneficiario" routerLinkActive="menu-active-1">
           <mat-icon matListItemIcon>group</mat-icon>
           <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>Beneficiario</a>
         </mat-list-item>
-      </ng-container>
+      </ng-container> -->
     </mat-nav-list>
   </mat-card-content>
 </mat-card>

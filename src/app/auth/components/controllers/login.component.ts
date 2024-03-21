@@ -65,7 +65,10 @@ export class LoginComponent {
             if (tokenPayload.user.firstLogin === true) {
               this.router.navigate(['admin/profile/first-login']);
             } else if (tokenPayload.user.tipoUsuario === "Beneficiario") {
-              this.router.navigate(['admin/dashboard/beneficiario']);
+              this.adminService.obtenerContratos().subscribe(async (contratos: string) => {
+                localStorage.setItem('contratos_afiliado', JSON.stringify(contratos));
+              });
+              this.router.navigate(['admin/dashboard/afiliado-beneficiarios']);
             } else if (tokenPayload.user.tipoUsuario === "AfiliadoTitular") {
               this.adminService.obtenerContratos().subscribe(async (contratos: string) => {
                 localStorage.setItem('contratos_afiliado', JSON.stringify(contratos));

@@ -152,7 +152,6 @@ export class AfiliadoBeneficiariosComponent implements AfterViewInit {
   }
 
   async actualizarPowerBI(beneficiario: any): Promise<IHttpPostMessageResponse<void> | undefined> {
-    console.log(beneficiario);
     const report: Report = this.reportObj.getReport();
     const page: Page = await report.getActivePage();
     if (!report) {
@@ -203,7 +202,7 @@ export class AfiliadoBeneficiariosComponent implements AfterViewInit {
         conditions: [
           {
             operator: "Is",
-            value: date.getFullYear()
+            value: beneficiario.fechaRenovacion.anio
           }
         ]
       },
@@ -217,8 +216,8 @@ export class AfiliadoBeneficiariosComponent implements AfterViewInit {
         },
         conditions: [
           {
-            operator: "Contains",
-            value: `${(date.getMonth() + 1) <= 9? '0' + (date.getMonth() + 1) : date.getMonth() + 1}`
+            operator: "Is",
+            value: beneficiario.fechaRenovacion.mes
           }
         ]
       },
@@ -232,6 +231,7 @@ export class AfiliadoBeneficiariosComponent implements AfterViewInit {
         ...this.reportConfig,
         filters: filters
       }
+      console.log(await page.getFilters());
       return response;
     } catch (error) {
       console.error(error);

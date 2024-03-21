@@ -222,7 +222,7 @@ export class AfiliadoTitularComponent implements AfterViewInit {
         conditions: [
           {
             operator: "Is",
-            value: date.getFullYear()
+            value: contrato.fechaRenovacion.anio
           }
         ]
       },
@@ -237,7 +237,7 @@ export class AfiliadoTitularComponent implements AfterViewInit {
         conditions: [
           {
             operator: "Contains",
-            value: `${(date.getMonth() + 1) <= 9? '0' + (date.getMonth() + 1) : date.getMonth() + 1}`
+            value: contrato.fechaRenovacion.mes
           }
         ]
       },
@@ -266,6 +266,7 @@ export class AfiliadoTitularComponent implements AfterViewInit {
         ...this.reportConfig,
         filters: filters
       }
+      console.log(await page.getFilters());
       return response;
     } catch (error) {
       console.error(error);

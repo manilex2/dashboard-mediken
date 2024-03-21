@@ -25,8 +25,8 @@ const routes: Routes = [
         { path: 'brokers-mediken', component: BrokersMedikenComponent, canActivate: [() => inject(AdminService).esMediken(), () => inject(AdminService).tieneRol()] },
         { path: 'reembolsos', component: ReembolsosComponent, canActivate: [() => inject(AdminService).esMediken(), () => inject(AdminService).tieneRol()]},
         { path: 'afiliado-titular', component: AfiliadoTitularComponent, canActivate: [() => inject(AdminService).esAfiliadoTitular()] },
-        { path: 'afiliado-beneficiarios', component: AfiliadoBeneficiariosComponent, canActivate: [() => inject(AdminService).esAfiliadoTitular()] },
-        { path: 'beneficiario', component: BeneficiarioComponent, canActivate: [() => inject(AdminService).esBeneficiario()] },
+        { path: 'afiliado-beneficiarios', component: AfiliadoBeneficiariosComponent, canActivate: [() => inject(AdminService).esAfiliadoTitular() || inject(AdminService).esBeneficiario()] },
+        // { path: 'beneficiario', component: BeneficiarioComponent, canActivate: [() => inject(AdminService).esBeneficiario()] },
         { path: 'sinrol', component: SinrolComponent, canActivate: [() => !inject(AdminService).tieneRol()] },
       ]}
     ]
