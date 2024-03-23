@@ -38,6 +38,11 @@ export class ResetPasswordComponent {
   });
 
   resetPassword() {
+    this.toastr.info(`Enviando correo electrónico a: ${this.resetPasswordForm.value.email}, por favor espere...`, "Reestablecer Contraseña", {
+      progressBar: true,
+      timeOut: 5000,
+      positionClass: 'toast-top-full-width'
+    })
     this.store.dispatch(RESET_PASSWORD({ user: this.resetPasswordForm.value }));
     let apiStatus$ = this.appStore.pipe(select(selectAppState));
     apiStatus$.subscribe((data) => {

@@ -47,7 +47,7 @@ export class LoginEffect {
         }
         return this.authService.login(action.user).pipe(
           map(users => {
-            this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200, loginStatus: "login"}}))
+            this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200, loginStatus: "login"}}));
             return LOGIN_SUCCESS({ users })
           }),
           catchError((error) => {

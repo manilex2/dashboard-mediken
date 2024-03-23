@@ -101,9 +101,7 @@ export class ChangePasswordResetComponent {
         this.toastr.success("Contraseña cambiada con exito.", "Cambiar Contraseña", {
           progressBar: true
         })
-        this.store.pipe(select(changePasswordReset)).subscribe((() => {
-          this.login();
-        }))
+        this.login();
       } else if (data.apiStatus === "error" && data.changePasswordStatus === "") {
         this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
         this.toastr.error(data.apiResponseMessage, "Cambiar Contraseña", {
@@ -124,22 +122,29 @@ export class ChangePasswordResetComponent {
             apiCodeStatus: 200,
             apiResponseMessage: '',
             apiStatus: '',
-            loginStatus: "logged"
+            loginStatus: 'logged'
           }}))
         this.toastr.success("Usuario logeado con exito.", "Login", {
           progressBar: true
         })
-        this.store.pipe(select(user)).subscribe((data => {
+        this.store.pipe(select(user)).subscribe((async data => {
           for (let i = 0; i < data.length; i++) {
             const token = data[i].token;
             localStorage.setItem('auth_token', token);
             let saveToken = localStorage.getItem("auth_token");
             let tokenPayload: any = saveToken? jwtDecode(saveToken) : "";
-            console.log(tokenPayload);
-            if (tokenPayload.user.tipoUsuario === "Beneficiario") {
-              this.router.navigate(['admin/dashboard/beneficiario']);
+            if (tokenPayload.user.firstLogin === true) {
+              this.router.navigate(['admin/profile/first-login']);
+            } else if (tokenPayload.user.tipoUsuario === "Beneficiario") {
+              this.adminService.obtenerContratos().subscribe(async (contratos: string) => {
+                localStorage.setItem('contratos_afiliado', JSON.stringify(contratos));
+              });
+              this.router.navigate(['admin/dashboard/afiliado-beneficiarios']);
             } else if (tokenPayload.user.tipoUsuario === "AfiliadoTitular") {
-              this.router.navigate(['admin/dashboard/afiliadoTitular']);
+              this.adminService.obtenerContratos().subscribe(async (contratos: string) => {
+                localStorage.setItem('contratos_afiliado', JSON.stringify(contratos));
+              });
+              this.router.navigate(['admin/dashboard/afiliado-titular']);
             } else if (tokenPayload.user.tipoUsuario === "Broker") {
               this.router.navigate(['admin/dashboard/brokers']);
             } else if (this.adminService.tieneRol()) {
