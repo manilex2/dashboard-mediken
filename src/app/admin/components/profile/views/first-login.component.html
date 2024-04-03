@@ -62,7 +62,8 @@
                     <div class="first-login-form-field-1">
                         <mat-form-field appearance="fill">
                             <mat-label>Contraseña</mat-label>
-                            <input matInput formControlName="clave" placeholder="Introduzca su contraseña">
+                            <input [type]="hide ? 'password' : 'text'" matInput formControlName="clave" placeholder="Introduzca su contraseña">
+                            <mat-icon matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar contraseña'" [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                             @if(claveFormGroup.get('clave')?.errors?.['lowercase']) {
                               <mat-error class="first-login-error-1">Al menos una minúscula.</mat-error>
                             }
@@ -83,7 +84,7 @@
                     <div class="first-login-form-field-1">
                         <mat-form-field appearance="fill">
                             <mat-label>Confirmar Contraseña</mat-label>
-                            <input matInput formControlName="confirmarClave" placeholder="Introduzca su confirmación">
+                            <input [type]="hide ? 'password' : 'text'" matInput formControlName="confirmarClave" placeholder="Introduzca su confirmación">
                             @if(claveFormGroup.get('confirmarClave')?.errors?.['passwordMismatch']) {
                                 <mat-error class="first-login-error-1">No coinciden.</mat-error>
                             }

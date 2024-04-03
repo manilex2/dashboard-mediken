@@ -42,6 +42,7 @@ export class FirstLoginComponent implements OnInit {
   matStepOptional: boolean = true;
   token = localStorage.getItem("auth_token");
   tokenPayload: any = null;
+  hide = true;
 
   constructor(
     private fb: FormBuilder,
