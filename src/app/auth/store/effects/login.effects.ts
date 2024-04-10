@@ -96,6 +96,15 @@ export class LoginEffect {
         }));
         localStorage.removeItem('auth_token');
         localStorage.removeItem('powerbi_report_token');
+        localStorage.removeItem('contratos_afiliado');
+        localStorage.removeItem('changePasswordState');
+        localStorage.removeItem('changePasswordResetState');
+        localStorage.removeItem('resetPasswordState');
+        localStorage.removeItem('loginState');
+        localStorage.removeItem('profileImageState');
+        localStorage.removeItem('currentUserState');
+        localStorage.removeItem('appState');
+        localStorage.removeItem('firstLoginState');
         this.router.navigate(['auth']);
       })
     ), {dispatch: false}

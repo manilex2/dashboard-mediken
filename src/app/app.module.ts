@@ -14,10 +14,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 
 /**************** NGRX **********************/
-import { StoreModule } from '@ngrx/store';
+import { StoreModule, ActionReducer, MetaReducer } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { appReducer } from './shared/store/reducers/app.reducers';
+import { localStorageSync } from 'ngrx-store-localstorage';
 
 /**************** FECHA **********************/
 import { MomentModule } from 'ngx-moment';
@@ -33,6 +34,11 @@ import { environment } from 'src/environments/environment';
 
 registerLocaleData(myLocaleES);
 
+export function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
+  return localStorageSync({keys: ['appState', 'changePasswordResetState', 'changePasswordState', 'resetPasswordState', 'currentUserState', 'profileImageState', 'firstLoginState']})(reducer);
+}
+const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
+
 @NgModule({
   declarations: [
     AppComponent
@@ -47,7 +53,7 @@ registerLocaleData(myLocaleES);
     }),
     MaterialModule,
     AuthModule,
-    StoreModule.forRoot({ appState: appReducer }),
+    StoreModule.forRoot({ appState: appReducer }, {metaReducers}),
     EffectsModule.forRoot([]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     BrowserAnimationsModule,

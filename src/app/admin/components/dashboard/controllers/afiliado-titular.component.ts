@@ -222,7 +222,7 @@ export class AfiliadoTitularComponent implements AfterViewInit {
         conditions: [
           {
             operator: "Is",
-            value: contrato.fechaRenovacion.anio
+            value: parseInt(contrato.fechaRenovacion.anio)
           }
         ]
       },

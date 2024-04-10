@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: 'auth',
     children: [
-      { path: '', pathMatch: 'full', redirectTo: 'login/iniciar-sesion' },
+      { path: '', pathMatch: 'full', redirectTo: 'login' },
       { path: 'login', children: [
         { path: '', pathMatch: 'full', redirectTo: 'iniciar-sesion' },
         { path: 'iniciar-sesion', component: LoginComponent, canActivate: [() => !inject(AuthService).isAuthenticated()] },
@@ -19,7 +19,7 @@ const routes: Routes = [
       ]},
     ]
   },
-  { path: '**', redirectTo: 'auth/login/iniciar-sesion' }
+  { path: '**', redirectTo: 'auth' }
 ]
 
 @NgModule({
