@@ -20,6 +20,7 @@ export class AfiliadoBeneficiariosComponent implements AfterViewInit {
   reportObj!: PowerBIReportEmbedComponent;
 
   contratos: any[] = [];
+  count = 0;
   contratoSelec: Object = {};
   selectedContract: any = {};
 
@@ -59,7 +60,10 @@ export class AfiliadoBeneficiariosComponent implements AfterViewInit {
     (event?: service.ICustomEvent<any>) => void
   >([
     /* ['loaded', () => console.log('Report loaded')], */
-    ['rendered', async () => this.spinner.hide()],
+    ['rendered', async () => {this.spinner.hide(); if (this.count < 1) {
+      await this.actualizarPowerBI(this.contratos[0]);
+      this.count++;
+    }}],
     ['error', (event) => console.log(event?.detail)],
     ['filtersApplied', (event) => console.log(event?.detail)]
   ]);
@@ -120,7 +124,6 @@ export class AfiliadoBeneficiariosComponent implements AfterViewInit {
       }
     }
   }
-
   async embedReport(): Promise<void> {
     try {
       const reportUrl = environment.apiConfig.serverTokenUrl;
@@ -197,11 +200,11 @@ export class AfiliadoBeneficiariosComponent implements AfterViewInit {
         filterType: models.FilterType.Advanced,
         target: {
           table: "Renbccl",
-          column: "Rnacani"
+          column: "RncbaniV"
         },
         conditions: [
           {
-            operator: "Is",
+            operator: "GreaterThanOrEqual",
             value: beneficiario.fechaRenovacion.anio
           }
         ]
@@ -212,11 +215,11 @@ export class AfiliadoBeneficiariosComponent implements AfterViewInit {
         filterType: models.FilterType.Advanced,
         target: {
           table: "Renbccl",
-          column: "Rnacmes"
+          column: "RncbmesV"
         },
         conditions: [
           {
-            operator: "Is",
+            operator: "GreaterThanOrEqual",
             value: beneficiario.fechaRenovacion.mes
           }
         ]

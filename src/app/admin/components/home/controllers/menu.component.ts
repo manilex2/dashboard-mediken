@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../../services/admin.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-menu',
@@ -13,6 +14,7 @@ export class MenuComponent implements OnInit {
   afiliadoTitular!: boolean;
   rolMediken: any;
   token: any;
+  menus: any;
 
   constructor(
     private adminService: AdminService
@@ -25,5 +27,7 @@ export class MenuComponent implements OnInit {
     this.broker = this.adminService.esBroker();
     this.afiliadoTitular = this.adminService.esAfiliadoTitular();
     this.rolMediken = this.adminService.rolMediken();
+    let tokenPayload: any = jwtDecode(this.token);
+    this.menus = tokenPayload.user.menu;
   }
 }

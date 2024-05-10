@@ -6,10 +6,13 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { PowerBIEmbedModule } from 'powerbi-client-angular';
 import { MaterialModule } from '../../../../material.module';
 import { HomeModule } from '../home/home.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 /* INTERCEPTORES */
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PowerBIInterceptor } from '../../services/powerbi.interceptor';
+
+/* COMPONENTES */
 import { AfiliadoTitularComponent } from './controllers/afiliado-titular.component';
 import { BeneficiarioComponent } from './controllers/beneficiario.component';
 import { BrokersMedikenComponent } from './controllers/brokers-mediken.component';
@@ -23,9 +26,8 @@ import { ResumenComponent } from './controllers/resumen.component';
 import { SinrolComponent } from './controllers/sinrol.component';
 import { AfiliadoBeneficiariosComponent } from './controllers/afiliado-beneficiarios.component';
 import { ChangePasswordDialogComponent } from './controllers/change-password-dialog.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-/* COMPONENTES */
+import { MedikenComponent } from './controllers/mediken.component';
+import { SafePipe } from './pipes/safe.pipe';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ResumenComponent,
     SinrolComponent,
     AfiliadoBeneficiariosComponent,
-    ChangePasswordDialogComponent
+    ChangePasswordDialogComponent,
+    MedikenComponent,
+    SafePipe
   ],
   imports: [
     CommonModule,

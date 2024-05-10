@@ -99,6 +99,14 @@ export class AdminService {
     return tokenPayload.user.usuario;
   }
 
+  getBrokerCode(): string {
+    this.token = localStorage.getItem('auth_token');
+
+    let tokenPayload: any = this.token? jwtDecode(this.token) : false;
+
+    return tokenPayload.user.codigoBrokerComp;
+  }
+
   obtenerCurrentUser(): CurrentUser {
     this.token = localStorage.getItem('auth_token');
 
@@ -121,7 +129,6 @@ export class AdminService {
   }
 
   changePassword(user: User): Observable<ResponseRequest> {
-    console.log(user);
     try {
       return this.http.put<ResponseRequest>(`${this.serverURL}/users/change-password/${user.usuario}`, { ...user })
     } catch (error) {

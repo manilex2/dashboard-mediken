@@ -77,7 +77,7 @@ export class BrokersMedikenComponent implements AfterViewInit {
     public jwtHelper: JwtHelperService,
     private adminService: AdminService
   ) {
-    this.brokerCode = this.adminService.getUserName();
+    this.brokerCode = this.adminService.getBrokerCode();
     if (this.token) {
       let parse = JSON.parse(this.token);
       let expiry = DateTime.fromISO(parse.expiry).setZone("America/Guayaquil").toString();
@@ -124,7 +124,7 @@ export class BrokersMedikenComponent implements AfterViewInit {
 
   async embedReport(): Promise<void> {
     try {
-      this.brokerCode = this.adminService.getUserName();
+      this.brokerCode = this.adminService.getBrokerCode();
       const reportUrl = environment.apiConfig.serverTokenUrl;
       this.httpService.getEmbedConfig(reportUrl).subscribe({
         next: (response) => {

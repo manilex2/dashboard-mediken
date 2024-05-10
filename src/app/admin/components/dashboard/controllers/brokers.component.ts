@@ -55,16 +55,6 @@ export class BrokersComponent implements AfterViewInit {
       navContentPaneEnabled: false,
     },
     pageName: environment.powerbiConfig.brokers,
-    filters: [{
-      $schema: "http://powerbi.com/product/schema#basic",
-      filterType: models.FilterType.Basic,
-      target: {
-        table: "Dsbroker",
-        column: "dsvccod"
-      },
-      operator: "In",
-      values: [`${this.brokerCode}`],
-    }]
   };
 
   report: any;
@@ -87,7 +77,7 @@ export class BrokersComponent implements AfterViewInit {
     public jwtHelper: JwtHelperService,
     private adminService: AdminService
   ) {
-    this.brokerCode = this.adminService.getUserName();
+    this.brokerCode = this.adminService.getBrokerCode();
     if (this.token) {
       let parse = JSON.parse(this.token);
       let expiry = DateTime.fromISO(parse.expiry).setZone("America/Guayaquil").toString();
@@ -144,7 +134,7 @@ export class BrokersComponent implements AfterViewInit {
 
   async embedReport(): Promise<void> {
     try {
-      this.brokerCode = this.adminService.getUserName();
+      this.brokerCode = this.adminService.getBrokerCode();
       const reportUrl = environment.apiConfig.serverTokenUrl;
       this.httpService.getEmbedConfig(reportUrl).subscribe({
         next: (response) => {
@@ -153,6 +143,16 @@ export class BrokersComponent implements AfterViewInit {
             id: response.embedUrl[0].reportId,
             embedUrl: response.embedUrl[0].embedUrl,
             accessToken: response.accessToken,
+            filters: [{
+              $schema: "http://powerbi.com/product/schema#basic",
+              filterType: models.FilterType.Basic,
+              target: {
+                table: "Dsbroker",
+                column: "dsvccod"
+              },
+              operator: "In",
+              values: [`${this.brokerCode}`],
+            }]
           };
           localStorage.setItem('powerbi_report_token', JSON.stringify(response));
           this.datosCargados = true;
