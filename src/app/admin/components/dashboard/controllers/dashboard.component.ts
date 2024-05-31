@@ -135,7 +135,6 @@ export class DashboardComponent implements OnInit {
         }
       });
     } else if(!tokenPayload.user.notifChangePass2 && (DateTime.now() >= DateTime.fromISO(tokenPayload.user.notifChangePassDate2))) {
-      console.log(tokenPayload.user);
       const dialogRef = this.dialog.open(ChangePasswordDialogComponent, {
         data: {user: tokenPayload.user, notification: 2},
         closeOnNavigation: false,

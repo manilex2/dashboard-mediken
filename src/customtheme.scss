@@ -513,3 +513,8 @@ mat-list-item.menu-mat-list-item-2 .mdc-list-item__content {
 .first-login-stepper-1 .mat-horizontal-stepper-header-container {
   margin-top: 30px;
 }
+
+.menu-list-item-container-1 .mdc-list-item__secondary-text::before {
+  height: 12px;
+  display: flex;
+}

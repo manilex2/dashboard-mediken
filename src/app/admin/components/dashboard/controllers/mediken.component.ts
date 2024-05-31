@@ -26,6 +26,6 @@ export class MedikenComponent implements OnInit {
     this.contratos = localStorage.getItem('contratos_afiliado');
     this.contratos = JSON.parse(this.contratos);
     let tokenPayload: any = jwtDecode(this.token);
-    this.web = `${this.activatedRoute.snapshot.queryParams['web']}?nombre=${tokenPayload.user.nombres.trim()} ${tokenPayload.user.apellidos.trim()}&contrato=${this.contratos[0].contrato}&secuencial=${this.contratos[0].secuencial}&cedula=${tokenPayload.user.identificacion.trim()}`;
+    this.web = `${this.activatedRoute.snapshot.queryParams['web']}?nombre=${tokenPayload.user.nombres.trim()} ${tokenPayload.user.apellidos? tokenPayload.user.apellidos.trim() : ''}&contrato=${this.contratos? this.contratos[0].contrato : ''}&secuencial=${this.contratos? this.contratos[0].secuencial : ''}&cedula=${tokenPayload.user.identificacion? tokenPayload.user.identificacion.trim() : tokenPayload.user.usuario.trim()}`;
   } 
 }

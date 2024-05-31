@@ -63,9 +63,11 @@
         </mat-list-item>
       </ng-container> -->
       <div *ngFor="let menu of menus">
-        <mat-list-item routerLink="/admin/dashboard/mediken/{{menu.posicion}}" [queryParams]="{web: menu.url}" routerLinkActive="menu-active-1">
-          <img class="menu-icon-1" [src]="menu.icono" alt="Icono de Menu">
-          <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>{{menu.nombreMostrar}}</a>
+        <mat-list-item class="menu-list-item-container-1" routerLink="/admin/dashboard/mediken/{{menu.posicion}}" [queryParams]="{web: menu.url}" routerLinkActive="menu-active-1">
+            <div class="menu-list-container-dynamic-1">
+              <img class="menu-icon-1" [src]="menu.icono" alt="Icono de Menu">
+              <a class="menu-nav-1" routerLinkActive="menu-active-1" matListItemTitle>{{menu.nombreMostrar}}</a>
+            </div>
         </mat-list-item>
       </div>
     </mat-nav-list>
