@@ -28,6 +28,7 @@ import { AfiliadoBeneficiariosComponent } from './controllers/afiliado-beneficia
 import { ChangePasswordDialogComponent } from './controllers/change-password-dialog.component';
 import { MedikenComponent } from './controllers/mediken.component';
 import { SafePipe } from './pipes/safe.pipe';
+import { IframeComponent } from './controllers/iframe.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { SafePipe } from './pipes/safe.pipe';
     AfiliadoBeneficiariosComponent,
     ChangePasswordDialogComponent,
     MedikenComponent,
-    SafePipe
+    SafePipe,
+    IframeComponent
   ],
   imports: [
     CommonModule,

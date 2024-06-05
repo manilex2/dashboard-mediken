@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from '../../../services/admin.service';
 import { jwtDecode } from 'jwt-decode';
+import { EncryptionService } from 'src/app/admin/services/encryption.service';
 
 @Component({
   selector: 'app-menu',
@@ -17,7 +18,8 @@ export class MenuComponent implements OnInit {
   menus: any;
 
   constructor(
-    private adminService: AdminService
+    private adminService: AdminService,
+    private encryptionService: EncryptionService
   ) { }
 
   ngOnInit(): void {
@@ -29,5 +31,11 @@ export class MenuComponent implements OnInit {
     this.rolMediken = this.adminService.rolMediken();
     let tokenPayload: any = jwtDecode(this.token);
     this.menus = tokenPayload.user.menu;
+  }
+
+  getEncryptQueryParams(url: string): object {
+    return {
+      web: `${this.encryptionService.encrypt(url)}`
+    };
   }
 }

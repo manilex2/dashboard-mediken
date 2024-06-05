@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { jwtDecode } from 'jwt-decode';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { EncryptionService } from 'src/app/admin/services/encryption.service';
 
 @Component({
   selector: 'app-mediken',
@@ -9,23 +9,18 @@ import { jwtDecode } from 'jwt-decode';
   styleUrl: '../styles/mediken.component.scss'
 })
 export class MedikenComponent implements OnInit {
-  web: any = '';
-  token: any = '';
-  contratos: any = '';
-
   constructor(
+    private encryptionService: EncryptionService,
+    private router: Router,
     private activatedRoute: ActivatedRoute,
-    private router: Router
-  ) {
-    
-  }
+  ) {}
+
+  url = "";
 
   ngOnInit(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = () => { return false; };
-    this.token = localStorage.getItem('auth_token');
-    this.contratos = localStorage.getItem('contratos_afiliado');
-    this.contratos = JSON.parse(this.contratos);
-    let tokenPayload: any = jwtDecode(this.token);
-    this.web = `${this.activatedRoute.snapshot.queryParams['web']}?nombre=${tokenPayload.user.nombres.trim()} ${tokenPayload.user.apellidos? tokenPayload.user.apellidos.trim() : ''}&contrato=${this.contratos? this.contratos[0].contrato : ''}&secuencial=${this.contratos? this.contratos[0].secuencial : ''}&cedula=${tokenPayload.user.identificacion? tokenPayload.user.identificacion.trim() : tokenPayload.user.usuario.trim()}`;
-  } 
+    this.activatedRoute.paramMap.subscribe((parametros: ParamMap) => {
+      this.url = this.encryptionService.decrypt(parametros.get("cryptUrl")!)
+    })
+  }
 }

@@ -16,7 +16,7 @@ import { DashboardRoutingModule } from '../dashboard/router/dashboard-routing.mo
 @NgModule({
   declarations: [
     MenuComponent,
-    SearchComponent
+    SearchComponent,
   ],
   imports: [
     CommonModule,
