@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
+import { EncryptionService } from 'src/app/admin/services/encryption.service';
 
 @Component({
   selector: 'app-iframe',
@@ -13,17 +14,15 @@ export class IframeComponent implements OnInit {
   token: any = '';
   contratos: any = '';
   tokenPayload: any;
-  initialContent: string = '';
-  iframeDocument!: HTMLHtmlElement
-  encriptedURL: any;
 
-  constructor() {}
+  constructor(private encryptionService: EncryptionService) {}
 
   ngOnInit(): void {
     this.token = localStorage.getItem('auth_token');
     this.contratos = localStorage.getItem('contratos_afiliado');
     this.contratos = JSON.parse(this.contratos);
     this.tokenPayload = jwtDecode(this.token);
-    this.web = `${this.url}?nombre=${this.tokenPayload.user.nombres.trim()} ${this.tokenPayload.user.apellidos? this.tokenPayload.user.apellidos.trim() : ''}&contrato=${this.contratos? this.contratos[0].contrato : ''}&secuencial=${this.contratos? this.contratos[0].secuencial : ''}&cedula=${this.tokenPayload.user.identificacion? this.tokenPayload.user.identificacion.trim() : this.tokenPayload.user.usuario.trim()}`;
+    // nombre - contrato - secuencial - cedula (ROT13)
+    this.web = `${this.url}?abzoer=${this.encryptionService.encrypt(this.tokenPayload.user.nombres.trim())} ${this.tokenPayload.user.apellidos? this.encryptionService.encrypt(this.tokenPayload.user.apellidos.trim()) : ''}&pbagengb=${this.contratos? this.encryptionService.encrypt(this.contratos[0].contrato) : ''}&frphrapvny=${this.contratos? this.encryptionService.encrypt(this.contratos[0].secuencial) : ''}&prqhyn=${this.tokenPayload.user.identificacion? this.encryptionService.encrypt(this.tokenPayload.user.identificacion.trim()) : this.encryptionService.encrypt(this.tokenPayload.user.usuario.trim())}`;
   }
 }

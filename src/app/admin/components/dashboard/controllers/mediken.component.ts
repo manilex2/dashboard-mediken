@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, QueryParamsHandling, Router } from '@angular/router';
 import { EncryptionService } from 'src/app/admin/services/encryption.service';
 
 @Component({
@@ -19,8 +19,8 @@ export class MedikenComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = () => { return false; };
-    this.activatedRoute.paramMap.subscribe((parametros: ParamMap) => {
-      this.url = this.encryptionService.decrypt(parametros.get("cryptUrl")!)
+    this.activatedRoute.queryParamMap.subscribe((parametros: ParamMap) => {
+      this.url = parametros.get("web")!;
     })
   }
 }
