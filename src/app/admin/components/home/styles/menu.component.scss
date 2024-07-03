@@ -22,6 +22,10 @@
   text-decoration: none;
 }
 
+.menu-nav-2 {
+  margin-left: 36px;
+}
+
 .menu-active-1 {
   background-color: rgba($color: #f39323, $alpha: 0.1);
   color: var(--accent-color) !important;
@@ -67,7 +71,7 @@ a.menu-active-1 {
   width: 100%;
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .menu-list-item-container-1 .mdc-list-item__secondary-text::before {
