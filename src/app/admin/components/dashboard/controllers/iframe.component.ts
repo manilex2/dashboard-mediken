@@ -23,6 +23,6 @@ export class IframeComponent implements OnInit {
     this.contratos = JSON.parse(this.contratos);
     this.tokenPayload = jwtDecode(this.token);
     // nombre - contrato - secuencial - cedula (ROT13)
-    this.web = `${this.url}?abzoer=${this.encryptionService.encrypt(this.tokenPayload.user.nombres.trim())}` + ' ' + `${this.tokenPayload.user.apellidos? this.encryptionService.encrypt(this.tokenPayload.user.apellidos.trim()) : ''}&pbagengb=${this.contratos? this.encryptionService.encrypt(this.contratos[0].contrato) : ''}&frphrapvny=${this.contratos? this.encryptionService.encrypt(this.contratos[0].secuencial) : ''}&prqhyn=${this.tokenPayload.user.usuario? this.encryptionService.encrypt(this.tokenPayload.user.usuario.trim()) : ""}`;
+    this.web = `${this.url}?abzoer=${this.encryptionService.encrypt(this.tokenPayload.user.nombres.trim() + " " + this.tokenPayload.user.apellidos? this.tokenPayload.user.apellidos.trim() : '')} &pbagengb=${this.contratos? this.encryptionService.encrypt(this.contratos[0].contrato) : ''}&frphrapvny=${this.contratos? this.encryptionService.encrypt(this.contratos[0].secuencial) : ''}&prqhyn=${this.tokenPayload.user.usuario? this.encryptionService.encrypt(this.tokenPayload.user.usuario.trim()) : ""}`;
   }
 }
