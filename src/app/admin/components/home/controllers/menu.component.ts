@@ -30,4 +30,10 @@ export class MenuComponent implements OnInit {
     let tokenPayload: any = jwtDecode(this.token);
     this.menus = tokenPayload.user.menu;
   }
+
+  esTextoLargo(texto: string): boolean {
+    // Define un umbral de longitud (puedes ajustarlo según tu criterio)
+    const umbralLargo = 12; // Por ejemplo, consideramos largo si tiene más de 15 caracteres
+    return texto.length > umbralLargo;
+  }
 }

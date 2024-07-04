@@ -14,11 +14,7 @@ export const changePasswordResetReducer = createReducer(
   on(CHANGE_PASSWORD_RESET_SUCCESS, (state, { response }) => {
     return response;
   }),
-  on(RESET_CHANGE_PASSWORD_RESET, (state, ) => {
-    let newState = {...state}
-    newState = {};
-    return newState;
-  })
+  on(RESET_CHANGE_PASSWORD_RESET, (state) => initialChangePasswordResetState)
 );
 
 export const changePasswordReducer = createReducer(
@@ -26,10 +22,6 @@ export const changePasswordReducer = createReducer(
   on(CHANGE_PASSWORD_SUCCESS, (state, { response }) => {
     return response;
   }),
-  on(RESET_CHANGE_PASSWORD, (state, ) => {
-    let newState = {...state}
-    newState = {};
-    return newState;
-  })
+  on(RESET_CHANGE_PASSWORD, (state) => initialChangePasswordState)
 );
 

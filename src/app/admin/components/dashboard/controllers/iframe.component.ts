@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { jwtDecode } from 'jwt-decode';
 import { EncryptionService } from 'src/app/admin/services/encryption.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-iframe',
@@ -15,9 +16,13 @@ export class IframeComponent implements OnInit {
   contratos: any = '';
   tokenPayload: any;
 
-  constructor(private encryptionService: EncryptionService) {}
+  constructor(
+    private encryptionService: EncryptionService,
+    private spinner: NgxSpinnerService,
+  ) {}
 
   ngOnInit(): void {
+    this.spinner.show("iframe");
     this.token = localStorage.getItem('auth_token');
     this.contratos = localStorage.getItem('contratos_afiliado');
     this.contratos = JSON.parse(this.contratos);
@@ -27,5 +32,9 @@ export class IframeComponent implements OnInit {
     const displayName = name + " " + lastname;
     // nombre - contrato - secuencial - cedula (ROT13)
     this.web = `${this.url}?abzoer=${this.encryptionService.encrypt(displayName)}&pbagengb=${this.contratos? this.encryptionService.encrypt(this.contratos[0].contrato) : ''}&frphrapvny=${this.contratos? this.encryptionService.encrypt(this.contratos[0].secuencial) : ''}&prqhyn=${this.tokenPayload.user.usuario? this.encryptionService.encrypt(this.tokenPayload.user.usuario.trim()) : ""}`;
+  }
+
+  hideSpinner() {
+    this.spinner.hide("iframe");
   }
 }

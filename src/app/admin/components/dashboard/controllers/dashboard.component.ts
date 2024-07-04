@@ -6,12 +6,11 @@ import { jwtDecode } from 'jwt-decode';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangePasswordDialogComponent } from './change-password-dialog.component';
 import { CHANGE_PASSWORD } from 'src/app/auth/store/actions/change-password.actions';
-import { Router } from '@angular/router';
 import { Appstate } from 'src/app/shared/store/AppState';
 import { ToastrService } from 'ngx-toastr';
 import { AdminService } from 'src/app/admin/services/admin.service';
 import { selectAppState } from 'src/app/shared/store/selectors/app.selectors';
-import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
+import { SET_API_STATUS } from 'src/app/shared/store/actions/app.actions';
 import { user } from 'src/app/auth/store/selectors/login.selectors';
 import { DateTime } from "luxon";
 
@@ -32,7 +31,7 @@ export class DashboardComponent implements OnInit {
     public dialog: MatDialog,
     private appStore: Store<Appstate>,
     private toastr: ToastrService,
-    private adminService: AdminService
+    private adminService: AdminService,
   ) {}
 
   ngOnInit() {
@@ -64,7 +63,7 @@ export class DashboardComponent implements OnInit {
             let apiStatus$ = this.appStore.pipe(select(selectAppState));
             apiStatus$.subscribe((data) => {
               if (data.apiStatus === "success" && data.changePasswordStatus === "change") {
-                this.appStore.dispatch(setAPIStatus({
+                this.appStore.dispatch(SET_API_STATUS({
                   apiStatus: {
                     apiCodeStatus: 200,
                     apiResponseMessage: '',
@@ -78,7 +77,7 @@ export class DashboardComponent implements OnInit {
                 let apiStatus$ = this.appStore.pipe(select(selectAppState));
                 apiStatus$.subscribe((data) => {
                   if (data.apiStatus === "success" && data.loginStatus === "login") {
-                    this.appStore.dispatch(setAPIStatus({
+                    this.appStore.dispatch(SET_API_STATUS({
                       apiStatus: {
                         apiCodeStatus: 200,
                         apiResponseMessage: '',
@@ -92,14 +91,14 @@ export class DashboardComponent implements OnInit {
                       }
                     }))
                   } else if (data.apiStatus === "error" && data.loginStatus === "logout") {
-                    this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+                    this.appStore.dispatch(SET_API_STATUS({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
                     this.toastr.error(data.apiResponseMessage, "Login", {
                       progressBar: true
                     })
                   }
                 })
               } else if (data.apiStatus === "error" && data.changePasswordStatus === "") {
-                this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+                this.appStore.dispatch(SET_API_STATUS({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
                 this.toastr.error(data.apiResponseMessage, "Cambiar Contraseña", {
                   progressBar: true
                 })
@@ -111,7 +110,7 @@ export class DashboardComponent implements OnInit {
             let apiStatus$ = this.appStore.pipe(select(selectAppState));
             apiStatus$.subscribe((data) => {
               if (data.apiStatus === "success" && data.loginStatus === "login") {
-                this.appStore.dispatch(setAPIStatus({
+                this.appStore.dispatch(SET_API_STATUS({
                   apiStatus: {
                     apiCodeStatus: 200,
                     apiResponseMessage: '',
@@ -125,7 +124,7 @@ export class DashboardComponent implements OnInit {
                   }
                 }))
               } else if (data.apiStatus === "error" && data.loginStatus === "logout") {
-                this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+                this.appStore.dispatch(SET_API_STATUS({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
                 this.toastr.error(data.apiResponseMessage, "Login", {
                   progressBar: true
                 })
@@ -148,7 +147,7 @@ export class DashboardComponent implements OnInit {
           let apiStatus$ = this.appStore.pipe(select(selectAppState));
           apiStatus$.subscribe((data) => {
             if (data.apiStatus === "success" && data.changePasswordStatus === "change") {
-              this.appStore.dispatch(setAPIStatus({
+              this.appStore.dispatch(SET_API_STATUS({
                 apiStatus: {
                   apiCodeStatus: 200,
                   apiResponseMessage: '',
@@ -162,7 +161,7 @@ export class DashboardComponent implements OnInit {
               let apiStatus$ = this.appStore.pipe(select(selectAppState));
               apiStatus$.subscribe((data) => {
                 if (data.apiStatus === "success" && data.loginStatus === "login") {
-                  this.appStore.dispatch(setAPIStatus({
+                  this.appStore.dispatch(SET_API_STATUS({
                     apiStatus: {
                       apiCodeStatus: 200,
                       apiResponseMessage: '',
@@ -176,14 +175,14 @@ export class DashboardComponent implements OnInit {
                     }
                   }))
                 } else if (data.apiStatus === "error" && data.loginStatus === "logout") {
-                  this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+                  this.appStore.dispatch(SET_API_STATUS({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
                   this.toastr.error(data.apiResponseMessage, "Login", {
                     progressBar: true
                   })
                 }
               })
             } else if (data.apiStatus === "error" && data.changePasswordStatus === "") {
-              this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+              this.appStore.dispatch(SET_API_STATUS({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
               this.toastr.error(data.apiResponseMessage, "Cambiar Contraseña", {
                 progressBar: true
               })
@@ -195,7 +194,7 @@ export class DashboardComponent implements OnInit {
             let apiStatus$ = this.appStore.pipe(select(selectAppState));
             apiStatus$.subscribe((data) => {
               if (data.apiStatus === "success" && data.loginStatus === "login") {
-                this.appStore.dispatch(setAPIStatus({
+                this.appStore.dispatch(SET_API_STATUS({
                   apiStatus: {
                     apiCodeStatus: 200,
                     apiResponseMessage: '',
@@ -209,7 +208,7 @@ export class DashboardComponent implements OnInit {
                   }
                 }))
               } else if (data.apiStatus === "error" && data.loginStatus === "logout") {
-                this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+                this.appStore.dispatch(SET_API_STATUS({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
                 this.toastr.error(data.apiResponseMessage, "Login", {
                   progressBar: true
                 })
@@ -232,7 +231,7 @@ export class DashboardComponent implements OnInit {
           let apiStatus$ = this.appStore.pipe(select(selectAppState));
           apiStatus$.subscribe((data) => {
             if (data.apiStatus === "success" && data.changePasswordStatus === "change") {
-              this.appStore.dispatch(setAPIStatus({
+              this.appStore.dispatch(SET_API_STATUS({
                 apiStatus: {
                   apiCodeStatus: 200,
                   apiResponseMessage: '',
@@ -246,7 +245,7 @@ export class DashboardComponent implements OnInit {
               let apiStatus$ = this.appStore.pipe(select(selectAppState));
               apiStatus$.subscribe((data) => {
                 if (data.apiStatus === "success" && data.loginStatus === "login") {
-                  this.appStore.dispatch(setAPIStatus({
+                  this.appStore.dispatch(SET_API_STATUS({
                     apiStatus: {
                       apiCodeStatus: 200,
                       apiResponseMessage: '',
@@ -260,14 +259,14 @@ export class DashboardComponent implements OnInit {
                     }
                   }))
                 } else if (data.apiStatus === "error" && data.loginStatus === "logout") {
-                  this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+                  this.appStore.dispatch(SET_API_STATUS({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
                   this.toastr.error(data.apiResponseMessage, "Login", {
                     progressBar: true
                   })
                 }
               })
             } else if (data.apiStatus === "error" && data.changePasswordStatus === "") {
-              this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+              this.appStore.dispatch(SET_API_STATUS({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
               this.toastr.error(data.apiResponseMessage, "Cambiar Contraseña", {
                 progressBar: true
               })

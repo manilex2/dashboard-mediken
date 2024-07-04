@@ -15,15 +15,7 @@ export const currentUserReducer = createReducer(
   on(GET_CURRENT_USER_SUCCESS, (state, {currentUser}) => {
     return currentUser;
   }),
-  on(RESET_CURRENT_USER, (state, ) => {
-    let newState = {...state};
-    newState = {
-      nombres: "",
-      apellidos: "",
-      email: ""
-    };
-    return newState;
-  })
+  on(RESET_CURRENT_USER, (state) => initialCurrentState)
 )
 
 /* export function reducer(state: CurrentUserState | undefined, action: Action) {

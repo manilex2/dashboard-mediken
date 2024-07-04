@@ -10,7 +10,7 @@ import { CHANGE_PASSWORD } from 'src/app/auth/store/actions/change-password.acti
 import { LOGIN } from 'src/app/auth/store/actions/login.actions';
 import { user } from 'src/app/auth/store/selectors/login.selectors';
 import { Appstate } from 'src/app/shared/store/AppState';
-import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
+import { SET_API_STATUS } from 'src/app/shared/store/actions/app.actions';
 import { selectAppState } from 'src/app/shared/store/selectors/app.selectors';
 import { PROFILE_IMG_UPDATE } from '../store/actions/profile-image.actions';
 
@@ -116,7 +116,7 @@ export class EditProfileComponent implements OnInit {
     let apiStatus$ = this.appStore.pipe(select(selectAppState));
     apiStatus$.subscribe((data) => {
       if (data.apiStatus === "success" && data.changePasswordStatus === "change") {
-        this.appStore.dispatch(setAPIStatus({
+        this.appStore.dispatch(SET_API_STATUS({
           apiStatus: {
             apiCodeStatus: 200,
             apiResponseMessage: '',
@@ -130,7 +130,7 @@ export class EditProfileComponent implements OnInit {
         let apiStatus$ = this.appStore.pipe(select(selectAppState));
         apiStatus$.subscribe((data) => {
           if (data.apiStatus === "success" && data.loginStatus === "login") {
-            this.appStore.dispatch(setAPIStatus({
+            this.appStore.dispatch(SET_API_STATUS({
               apiStatus: {
                 apiCodeStatus: 200,
                 apiResponseMessage: '',
@@ -145,14 +145,14 @@ export class EditProfileComponent implements OnInit {
               }
             }))
           } else if (data.apiStatus === "error" && data.loginStatus === "logout") {
-            this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+            this.appStore.dispatch(SET_API_STATUS({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
             this.toastr.error(data.apiResponseMessage, "Login", {
               progressBar: true
             })
           }
         })
       } else if (data.apiStatus === "error" && data.changePasswordStatus === "") {
-        this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+        this.appStore.dispatch(SET_API_STATUS({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
         this.toastr.error(data.apiResponseMessage, "Cambiar Contraseña", {
           progressBar: true
         })
@@ -182,7 +182,7 @@ export class EditProfileComponent implements OnInit {
     let apiStatus$ = this.appStore.pipe(select(selectAppState));
     apiStatus$.subscribe((data) => {
       if (data.apiStatus === "success" && data.profileImageStatus === "update") {
-        this.appStore.dispatch(setAPIStatus({
+        this.appStore.dispatch(SET_API_STATUS({
           apiStatus: {
             apiCodeStatus: 200,
             apiResponseMessage: '',
@@ -194,7 +194,7 @@ export class EditProfileComponent implements OnInit {
         })
         this.imgSubida = true;
       } else if (data.apiStatus === "error" && data.changePasswordStatus === "") {
-        this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+        this.appStore.dispatch(SET_API_STATUS({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
         this.toastr.error(data.apiResponseMessage, "Actualizar Imágen", {
           progressBar: true
         })

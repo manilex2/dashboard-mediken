@@ -12,9 +12,5 @@ export const resetPasswordReducer = createReducer(
   on(RESET_PASSWORD_SUCCESS, (state, { reset }) => {
     return reset;
   }),
-  on(RESET_RESET_PASSWORD, (state, ) => {
-    let newState = {...state}
-    newState = {...state}
-    return newState;
-  })
+  on(RESET_RESET_PASSWORD, (state) => initialResetPasswordState)
 );

@@ -13,7 +13,7 @@ import { AdminService } from 'src/app/admin/services/admin.service';
 import { ToastrService } from 'ngx-toastr';
 import { FIRST_LOGIN } from '../store/actions/first-login.actions';
 import { selectAppState } from 'src/app/shared/store/selectors/app.selectors';
-import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
+import { SET_API_STATUS } from 'src/app/shared/store/actions/app.actions';
 import { LOGIN } from 'src/app/auth/store/actions/login.actions';
 import { user } from 'src/app/auth/store/selectors/login.selectors';
 
@@ -128,7 +128,7 @@ export class FirstLoginComponent implements OnInit {
     let apiStatus$ = this.appStore.pipe(select(selectAppState));
     apiStatus$.subscribe((data) => {
       if (data.apiStatus === "success" && data.firstLoginStatus === "set") {
-        this.appStore.dispatch(setAPIStatus({
+        this.appStore.dispatch(SET_API_STATUS({
           apiStatus: {
             apiCodeStatus: 200,
             apiResponseMessage: '',
@@ -147,7 +147,7 @@ export class FirstLoginComponent implements OnInit {
         let apiStatus$ = this.appStore.pipe(select(selectAppState));
         apiStatus$.subscribe((data) => {
           if (data.apiStatus === "success" && data.loginStatus === "login") {
-            this.appStore.dispatch(setAPIStatus({
+            this.appStore.dispatch(SET_API_STATUS({
               apiStatus: {
                 apiCodeStatus: 200,
                 apiResponseMessage: '',
@@ -182,14 +182,14 @@ export class FirstLoginComponent implements OnInit {
               }
             }))
           } else if (data.apiStatus === "error" && data.loginStatus === "logout") {
-            this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+            this.appStore.dispatch(SET_API_STATUS({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
             this.toastr.error(data.apiResponseMessage, "Login", {
               progressBar: true
             })
           }
         })
       } else if (data.apiStatus === "error" && data.changePasswordStatus === "") {
-        this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+        this.appStore.dispatch(SET_API_STATUS({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
         this.toastr.error(data.apiResponseMessage, "Cambiar Contraseña", {
           progressBar: true
         })

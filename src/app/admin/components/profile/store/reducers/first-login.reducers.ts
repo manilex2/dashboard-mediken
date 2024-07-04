@@ -8,13 +8,9 @@ export const initialfirstLoginState: ProfileImg = {};
 
 export const firstLoginReducer = createReducer(
   initialfirstLoginState,
-on(FIRST_LOGIN_SUCCESS, (state, { user }) => {
-  return user;
-}),
-on(RESET_FIRST_LOGIN, (state, ) => {
-  let newState = {...state}
-  newState = {};
-  return newState;
-})
+  on(FIRST_LOGIN_SUCCESS, (state, { user }) => {
+    return user;
+  }),
+  on(RESET_FIRST_LOGIN, (state) => initialfirstLoginState)
 );
 

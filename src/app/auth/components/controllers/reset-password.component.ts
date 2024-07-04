@@ -5,7 +5,7 @@ import { select, Store } from '@ngrx/store';
 import { Appstate } from 'src/app/shared/store/AppState';
 import { RESET_PASSWORD } from '../../store/actions/reset-password.actions';
 import { selectAppState } from 'src/app/shared/store/selectors/app.selectors';
-import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
+import { SET_API_STATUS } from 'src/app/shared/store/actions/app.actions';
 import { resetPassword } from '../../store/selectors/reset-password.selectors';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../models';
@@ -47,7 +47,7 @@ export class ResetPasswordComponent {
     let apiStatus$ = this.appStore.pipe(select(selectAppState));
     apiStatus$.subscribe((data) => {
       if (data.apiStatus === "success" && data.resetPasswordStatus === "reset") {
-        this.appStore.dispatch(setAPIStatus({
+        this.appStore.dispatch(SET_API_STATUS({
           apiStatus: {
             apiCodeStatus: 200,
             apiResponseMessage: '',
@@ -61,7 +61,7 @@ export class ResetPasswordComponent {
           this.router.navigate(['auth/login']);
         }))
       } else if (data.apiStatus === "error" && data.changePasswordStatus === "") {
-        this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+        this.appStore.dispatch(SET_API_STATUS({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
         this.toastr.error(data.apiResponseMessage, "Reestablecer Contraseña", {
           progressBar: true
         })

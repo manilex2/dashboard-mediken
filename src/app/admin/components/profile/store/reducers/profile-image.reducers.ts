@@ -8,18 +8,14 @@ export const initialprofileImageState: ProfileImg = {};
 
 export const profileImageReducer = createReducer(
   initialprofileImageState,
-on(PROFILE_IMG_SUCCESS, (state, { img }) => {
-  return img;
-}),
-on(PROFILE_IMG_UPDATE_SUCCESS, (state, { img }) => {
-  let newState = {...state};
-  newState = img;
-  return newState;
-}),
-on(RESET_PROFILE_IMG, (state, ) => {
-  let newState = {...state}
-  newState = {};
-  return newState;
-})
+  on(PROFILE_IMG_SUCCESS, (state, { img }) => {
+    return img;
+  }),
+  on(PROFILE_IMG_UPDATE_SUCCESS, (state, { img }) => {
+    let newState = {...state};
+    newState = img;
+    return newState;
+  }),
+  on(RESET_PROFILE_IMG, (state) => initialprofileImageState)
 );
 

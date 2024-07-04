@@ -10,7 +10,7 @@ import {
   LOGOUT,
   RESET_LOGIN
 } from '../actions/login.actions';
-import { setAPIStatus } from "../../../shared/store/actions/app.actions";
+import { SET_API_STATUS, RESET_API_STATUS } from "../../../shared/store/actions/app.actions";
 import { Router } from "@angular/router";
 import { selectUser, user } from "../selectors/login.selectors";
 import { CurrentUser } from "../../../admin/models/CurrentUser";
@@ -43,25 +43,25 @@ export class LoginEffect {
       withLatestFrom(this.store.pipe(select(selectUser))),
       concatMap(([action, loginFromStore]) => {
         if (loginFromStore.length > 0) {
-          this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200, loginStatus: 'logged'}}))
+          this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200, loginStatus: 'logged'}}))
         }
         return this.authService.login(action.user).pipe(
           map(users => {
-            this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200, loginStatus: "login"}}));
+            this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200, loginStatus: "login"}}));
             return LOGIN_SUCCESS({ users })
           }),
           catchError((error) => {
             if (error.statusText === "Unknown Error") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status}}))
               throw error;
             } else if (error.statusText === "Unauthorized") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status}}))
               throw error;
             } else if (error.statusText === "Forbidden") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
               throw error;
             } else {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
               throw error;
             }
           })
@@ -81,19 +81,7 @@ export class LoginEffect {
         this.passwordStore.dispatch(RESET_CHANGE_PASSWORD());
         this.passwordStore.dispatch(RESET_CHANGE_PASSWORD_RESET());
         this.profileImageStore.dispatch(RESET_PROFILE_IMG());
-        this.appStore.dispatch(setAPIStatus({
-          apiStatus: {
-            apiCodeStatus: 200,
-            apiResponseMessage: "",
-            apiStatus: "",
-            loginStatus: "logout",
-            userState: "",
-            changePasswordStatus: "",
-            resetPasswordStatus: "",
-            profileImageStatus: "",
-            firstLoginStatus: ""
-          }
-        }));
+        this.appStore.dispatch(RESET_API_STATUS());
         localStorage.removeItem('auth_token');
         localStorage.removeItem('powerbi_report_token');
         localStorage.removeItem('contratos_afiliado');

@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from "@angular/core";
+import { Component, ViewChild, AfterViewInit, OnDestroy } from "@angular/core";
 import { PowerBIReportEmbedComponent } from "powerbi-client-angular";
 import "powerbi-report-authoring";
 import { PowerbiService } from "../../../services/powerbi.service";
@@ -23,21 +23,15 @@ export interface ConfigResponse {
   templateUrl: '../views/afiliado-titular.component.html',
   styleUrls: ['../styles/afiliado-titular.component.scss']
 })
-export class AfiliadoTitularComponent implements AfterViewInit {
+export class AfiliadoTitularComponent implements AfterViewInit, OnDestroy {
   @ViewChild(PowerBIReportEmbedComponent)
   reportObj!: PowerBIReportEmbedComponent;
 
   contratos: any[] = [];
-
   count = 0;
-
   datosCargados: boolean = false;
-
-  displayMessage =
-    "The report is bootstrapped. Click Embed Report button to set the access token.";
-
+  displayMessage = "The report is bootstrapped. Click Embed Report button to set the access token.";
   reportClass = "report-container";
-
   phasedEmbeddingFlag = false;
 
   reportConfig: IReportEmbedConfiguration = {
@@ -61,18 +55,16 @@ export class AfiliadoTitularComponent implements AfterViewInit {
   };
 
   report: any;
-
-  eventHandlersMap = new Map<
-    string,
-    (event?: service.ICustomEvent<any>) => void
-  >([
+  eventHandlersMap = new Map<string, (event?: service.ICustomEvent<any>) => void>([
     /* ['loaded', () => console.log('Report loaded')], */
-    ['rendered', async () => {this.spinner.hide(); if (this.count < 1) {
-      await this.actualizarPowerBI(this.contratos[0]);
-      this.count++;
+    ['rendered', async () => {
+      this.spinner.hide("afiliado-titular"); 
+      if (this.count < 1) {
+        await this.actualizarPowerBI(this.contratos[0]);
+        this.count++;
     }}],
-    ['error', (event) => console.log(event?.detail)],
-    ['filtersApplied', (event) => console.log(event?.detail)]
+    /* ['error', (event) => console.error(event?.detail)],
+    ['filtersApplied', (event) => console.log(event?.detail)] */
   ]);
 
   token: any = localStorage.getItem('powerbi_report_token');
@@ -86,50 +78,73 @@ export class AfiliadoTitularComponent implements AfterViewInit {
   ) {
     let parseContratos = JSON.parse(this.tokenContratos);
     this.contratos = parseContratos;
-    if (this.token) {
-      let parse: any = JSON.parse(this.token);
-      let expiry = DateTime.fromISO(parse.expiry).setZone("America/Guayaquil").toString();
-      let now = DateTime.now().toString();
-      if (expiry < now) {
-        this.embedReport();
-      } else {
-        let date = new Date(DateTime.now().toString());
-        this.reportConfig = {
-          type: "report",
-          id: parse.embedUrl[0].reportId? parse.embedUrl[0].reportId : "",
-          embedUrl: parse.embedUrl[0].embedUrl? parse.embedUrl[0].embedUrl : "",
-          accessToken: parse.accessToken? parse.accessToken : "",
-          tokenType: models.TokenType.Embed,
-          settings: {
-            panes: {
-              filters: {
-                expanded: false,
-                visible: false
-              }
-            },
-            filterPaneEnabled: true,
-            background: models.BackgroundType.Transparent,
-            navContentPaneEnabled: false,
-          },
-          pageName: environment.powerbiConfig.afilTit,
-        }
-        this.datosCargados = true;
-      }
-    }
+  }
+
+  ngOnDestroy(): void {
+    this.resetComponentState();
   }
 
   async ngAfterViewInit(): Promise<void> {
-    this.spinner.show();
+    this.spinner.show("afiliado-titular");
     if(!this.token) {
       this.embedReport();
-    } else if (this.token) {
+    } else {
       let parse = JSON.parse(this.token);
       let expiry = DateTime.fromISO(parse.expiry).setZone("America/Guayaquil").toString();
       let now = DateTime.now().toString();
       if (expiry < now) {
         this.embedReport();
+      } else {
+        this.setupReportConfig(parse);
       }
     }
+  }
+
+  private setupReportConfig(parse: any) {
+    this.reportConfig = {
+      type: "report",
+      id: parse.embedUrl[0].reportId? parse.embedUrl[0].reportId : "",
+      embedUrl: parse.embedUrl[0].embedUrl? parse.embedUrl[0].embedUrl : "",
+      accessToken: parse.accessToken? parse.accessToken : "",
+      tokenType: models.TokenType.Embed,
+      settings: {
+        panes: {
+          filters: {
+            expanded: false,
+            visible: false
+          }
+        },
+        filterPaneEnabled: true,
+        background: models.BackgroundType.Transparent,
+        navContentPaneEnabled: false,
+      },
+      pageName: environment.powerbiConfig.afilTit,
+    }
+    this.datosCargados = true;
+  }
+
+  private resetComponentState() {
+    this.datosCargados = false;
+    this.count = 0;
+    this.reportConfig = {
+      type: "report",
+      id: "",
+      embedUrl: "",
+      accessToken: "",
+      tokenType: models.TokenType.Embed,
+      settings: {
+        panes: {
+          filters: {
+            expanded: false,
+            visible: false,
+          }
+        },
+        filterPaneEnabled: true,
+        background: models.BackgroundType.Transparent,
+        navContentPaneEnabled: false,
+      },
+      pageName: environment.powerbiConfig.afilTit,
+    };
   }
 
   async embedReport(): Promise<void> {
@@ -137,7 +152,6 @@ export class AfiliadoTitularComponent implements AfterViewInit {
       const reportUrl = environment.apiConfig.serverTokenUrl;
       this.httpService.getEmbedConfig(reportUrl).subscribe({
         next: (response) => {
-          let date = new Date(DateTime.now().toString());
           this.reportConfig = {
             ...this.reportConfig,
             id: response.embedUrl[0].reportId,
@@ -148,17 +162,17 @@ export class AfiliadoTitularComponent implements AfterViewInit {
           this.datosCargados = true;
         },
         error: (error) => {
-          console.log(error);
+          console.error(error);
           this.toastr.error("Ha habido un error al obtener el token", "Error PowerBI", {
             progressBar: true
           })
-          this.spinner.hide();
+          this.spinner.hide("afiliado-titular");
         },
       });
     } catch (error) {
       /* this.displayMessage = `Failed to fetch config for report. ${JSON.parse(error)}`; */
       console.error(this.displayMessage);
-      return;
+      this.spinner.hide("afiliado-titular");
     }
   }
 
@@ -167,10 +181,10 @@ export class AfiliadoTitularComponent implements AfterViewInit {
     const page: Page = await report.getActivePage();
     if (!report) {
       this.displayMessage = 'Reporte no disponible.';
-      console.log(this.displayMessage);
+      console.error(this.displayMessage);
       return;
     }
-    let date = new Date(DateTime.now().toString());
+    
     const filters: models.PageLevelFilters[] = [
       {
         $schema: "http://powerbi.com/product/schema#advanced",
@@ -266,12 +280,10 @@ export class AfiliadoTitularComponent implements AfterViewInit {
     try {
       const response = await page.updateFilters(models.FiltersOperations.ReplaceAll, filters)
       this.displayMessage = 'Filtros actualizados.';
-      console.log(this.displayMessage);
       this.reportConfig = {
         ...this.reportConfig,
         filters: filters
       }
-      console.log(await page.getFilters());
       return response;
     } catch (error) {
       console.error(error);

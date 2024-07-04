@@ -1,5 +1,6 @@
-/* NG MODULES */
+/* MODULOS */
 import { NgModule } from '@angular/core';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 /* COMMON */
 import { CommonModule } from '@angular/common';
@@ -47,6 +48,7 @@ import { ChangePasswordResetComponent } from './components//controllers/change-p
     AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxSpinnerModule,
     StoreModule.forFeature(fromLogin.loginFeatureKey, fromLogin.loginReducer),
     StoreModule.forFeature(fromChangePassword.changePasswordResetFeatureKey, fromChangePassword.changePasswordResetReducer),
     StoreModule.forFeature(fromChangePassword.changePasswordFeatureKey, fromChangePassword.changePasswordReducer),

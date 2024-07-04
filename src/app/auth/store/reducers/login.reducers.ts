@@ -14,9 +14,5 @@ export const loginReducer = createReducer(
   on(LOGOUT, (state) => {
     return state;
   }),
-  on(RESET_LOGIN, (state, ) => {
-    let newState = [...state]
-    newState.length = 0;
-    return newState;
-  })
+  on(RESET_LOGIN, (state) => initialLoginState)
 );

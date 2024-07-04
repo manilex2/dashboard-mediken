@@ -10,7 +10,7 @@ import {
   CHANGE_PASSWORD_RESET_SUCCESS,
   CHANGE_PASSWORD_SUCCESS
 } from '../actions/change-password.actions';
-import { setAPIStatus } from "../../../shared/store/actions/app.actions";
+import { SET_API_STATUS } from "../../../shared/store/actions/app.actions";
 import { selectChangePassword, selectChangePasswordReset } from "../selectors/change-password.selectors";
 import { AdminService } from "src/app/admin/services/admin.service";
 
@@ -31,25 +31,25 @@ export class ChangePasswordEffect {
       withLatestFrom(this.store.pipe(select(selectChangePassword))),
       concatMap(([action, changePasswordFromStore]) => {
         if (changePasswordFromStore && Object.keys(changePasswordFromStore).length > 0) {
-            this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200, changePasswordStatus: 'changed'}}))
+            this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200, changePasswordStatus: 'changed'}}))
         }
         return this.adminService.changePassword(action.user).pipe(
           map(response => {
-            this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200, changePasswordStatus: 'change'}}))
+            this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200, changePasswordStatus: 'change'}}))
             return CHANGE_PASSWORD_SUCCESS({ response })
           }),
           catchError((error) => {
             if (error.statusText === "Unknown Error") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status}}))
               throw error;
             } else if (error.statusText === "Unauthorized") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status}}))
               throw error;
             } else if (error.statusText === "Forbidden") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
               throw error;
             } else {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
               throw error;
             }
           })
@@ -64,25 +64,25 @@ export class ChangePasswordEffect {
       withLatestFrom(this.store.pipe(select(selectChangePasswordReset))),
       concatMap(([action, changePasswordResetFromStore]) => {
         if (changePasswordResetFromStore && Object.keys(changePasswordResetFromStore).length > 0) {
-            this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200, changePasswordStatus: 'changed'}}))
+            this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200, changePasswordStatus: 'changed'}}))
         }
         return this.authService.changePasswordReset(action.user).pipe(
           map(response => {
-            this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200, changePasswordStatus: 'change'}}))
+            this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200, changePasswordStatus: 'change'}}))
             return CHANGE_PASSWORD_RESET_SUCCESS({ response })
           }),
           catchError((error) => {
             if (error.statusText === "Unknown Error") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status}}))
               throw error;
             } else if (error.statusText === "Unauthorized") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status}}))
               throw error;
             } else if (error.statusText === "Forbidden") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
               throw error;
             } else {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
               throw error;
             }
           })

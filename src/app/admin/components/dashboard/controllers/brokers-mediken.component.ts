@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from "@angular/core";
+import { Component, ViewChild, AfterViewInit, OnDestroy } from "@angular/core";
 import { PowerBIReportEmbedComponent } from "powerbi-client-angular";
 import "powerbi-report-authoring";
 import { PowerbiService } from "../../../services/powerbi.service";
@@ -23,7 +23,7 @@ export interface ConfigResponse {
   templateUrl: '../views/brokers-mediken.component.html',
   styleUrls: ['../styles/brokers-mediken.component.scss']
 })
-export class BrokersMedikenComponent implements AfterViewInit {
+export class BrokersMedikenComponent implements AfterViewInit, OnDestroy {
   @ViewChild(PowerBIReportEmbedComponent)
   reportObj!: PowerBIReportEmbedComponent;
 
@@ -64,8 +64,8 @@ export class BrokersMedikenComponent implements AfterViewInit {
     (event?: service.ICustomEvent<any>) => void
   >([
     /* ['loaded', () => console.log('Report loaded')], */
-    ['rendered', async () => this.spinner.hide()],
-    ['error', (event) => console.log(event?.detail)]
+    ['rendered', async () => this.spinner.hide("broker-mediken")],
+    /* ['error', (event) => console.error(event?.detail)] */
   ]);
 
   token: any = localStorage.getItem('powerbi_report_token');
@@ -78,38 +78,14 @@ export class BrokersMedikenComponent implements AfterViewInit {
     private adminService: AdminService
   ) {
     this.brokerCode = this.adminService.getBrokerCode();
-    if (this.token) {
-      let parse = JSON.parse(this.token);
-      let expiry = DateTime.fromISO(parse.expiry).setZone("America/Guayaquil").toString();
-      let now = DateTime.now().toString();
-      if (expiry < now) {
-        this.embedReport();
-      } else {
-        this.reportConfig = {
-          type: "report",
-          id: parse.embedUrl[0].reportId? parse.embedUrl[0].reportId : "",
-          embedUrl: parse.embedUrl[0].embedUrl? parse.embedUrl[0].embedUrl : "",
-          accessToken: parse.accessToken? parse.accessToken : "",
-          tokenType: models.TokenType.Embed,
-          settings: {
-            panes: {
-              filters: {
-                expanded: false,
-                visible: false
-              }
-            },
-            background: models.BackgroundType.Transparent,
-            navContentPaneEnabled: false,
-          },
-          pageName: environment.powerbiConfig.brokersMediken
-        }
-        this.datosCargados = true;
-      }
-    }
+  }
+
+  ngOnDestroy(): void {
+    this.resetComponentState();
   }
 
   async ngAfterViewInit(): Promise<void> {
-    this.spinner.show();
+    this.spinner.show("broker-mediken");
     if(!this.token) {
       this.embedReport();
     } else if (this.token) {
@@ -118,8 +94,54 @@ export class BrokersMedikenComponent implements AfterViewInit {
       let now = DateTime.now().toString();
       if (expiry < now) {
         this.embedReport();
+      } else {
+        this.setupReportConfig(parse);
       }
     }
+  }
+
+  private setupReportConfig(parse: any) {
+    this.reportConfig = {
+      type: "report",
+      id: parse.embedUrl[0].reportId? parse.embedUrl[0].reportId : "",
+      embedUrl: parse.embedUrl[0].embedUrl? parse.embedUrl[0].embedUrl : "",
+      accessToken: parse.accessToken? parse.accessToken : "",
+      tokenType: models.TokenType.Embed,
+      settings: {
+        panes: {
+          filters: {
+            expanded: false,
+            visible: false
+          }
+        },
+        background: models.BackgroundType.Transparent,
+        navContentPaneEnabled: false,
+      },
+      pageName: environment.powerbiConfig.brokersMediken
+    }
+    this.datosCargados = true;
+  }
+
+  private resetComponentState() {
+    this.datosCargados = false;
+    this.reportConfig = {
+      type: "report",
+      id: "",
+      embedUrl: "",
+      accessToken: "",
+      tokenType: models.TokenType.Embed,
+      settings: {
+        panes: {
+          filters: {
+            expanded: false,
+            visible: false,
+          }
+        },
+        background: models.BackgroundType.Transparent,
+        navContentPaneEnabled: false,
+      },
+      pageName: environment.powerbiConfig.brokersMediken,
+    };
   }
 
   async embedReport(): Promise<void> {
@@ -138,16 +160,17 @@ export class BrokersMedikenComponent implements AfterViewInit {
           this.datosCargados = true;
         },
         error: (error) => {
-          console.log(error);
+          console.error(error);
           this.toastr.error("Ha habido un error al obtener el token", "Error PowerBI", {
             progressBar: true
           })
-          this.spinner.hide();
+          this.spinner.hide("broker-mediken");
         },
       });
     } catch (error) {
       /* this.displayMessage = `Failed to fetch config for report. ${JSON.parse(error)}`; */
       console.error(this.displayMessage);
+      this.spinner.hide("broker-mediken");
       return;
     }
   }

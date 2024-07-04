@@ -5,13 +5,14 @@ import { select, Store } from '@ngrx/store';
 import { Appstate } from 'src/app/shared/store/AppState';
 import { LOGIN } from '../../store/actions/login.actions';
 import { selectAppState } from 'src/app/shared/store/selectors/app.selectors';
-import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
+import { SET_API_STATUS } from 'src/app/shared/store/actions/app.actions';
 import { user } from '../../store/selectors/login.selectors';
 import { ToastrService } from 'ngx-toastr';
 import { User } from '../models';
 import { jwtDecode } from 'jwt-decode';
 import { AdminService } from 'src/app/admin/services/admin.service';
 import { Observable } from 'rxjs';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,8 @@ export class LoginComponent {
     private appStore: Store<Appstate>,
     private router: Router,
     private toastr: ToastrService,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private spinner: NgxSpinnerService,
   ) {}
   hide = true;
   token = localStorage.getItem("auth_token");
@@ -46,7 +48,7 @@ export class LoginComponent {
     let apiStatus$ = this.appStore.pipe(select(selectAppState));
     apiStatus$.subscribe((data) => {
       if (data.apiStatus === "success" && data.loginStatus === "login") {
-        this.appStore.dispatch(setAPIStatus({
+        this.appStore.dispatch(SET_API_STATUS({
           apiStatus: {
             apiCodeStatus: 200,
             apiResponseMessage: '',
@@ -58,33 +60,52 @@ export class LoginComponent {
         })
         this.store.pipe(select(user)).subscribe((async data => {
           for (let i = 0; i < data.length; i++) {
+            this.spinner.show("login");
             const token = data[i].token;
             localStorage.setItem('auth_token', token);
             let saveToken = localStorage.getItem("auth_token");
             let tokenPayload: any = saveToken? jwtDecode(saveToken) : "";
             if (tokenPayload.user.firstLogin === true) {
-              this.router.navigate(['admin/profile/first-login']);
+              setTimeout(() => {
+                this.spinner.hide("login");
+                this.router.navigate(['admin/profile/first-login']);
+              }, 5000);
             } else if (tokenPayload.user.tipoUsuario === "Beneficiario") {
               this.adminService.obtenerContratos().subscribe(async (contratos: string) => {
                 localStorage.setItem('contratos_afiliado', JSON.stringify(contratos));
               });
-              this.router.navigate(['admin/dashboard/afiliado-beneficiarios']);
+              setTimeout(() => {
+                this.spinner.hide("login");
+                this.router.navigate(['admin/dashboard/afiliado-beneficiarios']);
+              }, 5000);
             } else if (tokenPayload.user.tipoUsuario === "AfiliadoTitular") {
               this.adminService.obtenerContratos().subscribe(async (contratos: string) => {
                 localStorage.setItem('contratos_afiliado', JSON.stringify(contratos));
               });
-              this.router.navigate(['admin/dashboard/afiliado-titular']);
+              setTimeout(() => {
+                this.spinner.hide("login");
+                this.router.navigate(['admin/dashboard/afiliado-titular']);
+              }, 5000);
             } else if (tokenPayload.user.tipoUsuario === "Broker") {
-              this.router.navigate(['admin/dashboard/brokers']);
+              setTimeout(() => {
+                this.spinner.hide("login");
+                this.router.navigate(['admin/dashboard/brokers']);
+              }, 5000);
             } else if (this.adminService.tieneRol()) {
-              this.router.navigate(['admin/dashboard/resumen']);
+              setTimeout(() => {
+                this.spinner.hide("login");
+                this.router.navigate(['admin/dashboard/resumen']);
+              }, 5000);
             } else {
-              this.router.navigate(['admin/dashboard/sinrol']);
+              setTimeout(() => {
+                this.spinner.hide("login");
+                this.router.navigate(['admin/dashboard/sinrol']);
+              }, 5000);
             }
           }
         }))
       } else if (data.apiStatus === "error" && data.loginStatus === "logout") {
-        this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
+        this.appStore.dispatch(SET_API_STATUS({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200 } }));
         this.toastr.error(data.apiResponseMessage, "Login", {
           progressBar: true
         })

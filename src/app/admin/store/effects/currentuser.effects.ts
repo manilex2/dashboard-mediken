@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from "@ngrx/store";
 import { map, take } from 'rxjs';
-import { setAPIStatus } from "src/app/shared/store/actions/app.actions";
+import { SET_API_STATUS } from "src/app/shared/store/actions/app.actions";
 import { Appstate } from "src/app/shared/store/AppState";
 import { selectAppState } from "src/app/shared/store/selectors/app.selectors";
 import { GET_CURRENT_USER, GET_CURRENT_USER_SUCCESS } from '../actions/currentuser.actions';
@@ -29,10 +29,10 @@ export class CurrentUserEffect {
         if (loginStatus === "logout" && !token) {
           this.router.navigate(['auth']);
         } else {
-          this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200, loginStatus: "logged"}}))
+          this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200, loginStatus: "logged"}}))
         }
         const currentUser = this.adminService.obtenerCurrentUser();
-        this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200, userState: "getted"}}))
+        this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200, userState: "getted"}}))
         return GET_CURRENT_USER_SUCCESS({ currentUser });
       })
     )

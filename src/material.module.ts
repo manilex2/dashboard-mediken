@@ -14,6 +14,7 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatSelectModule } from "@angular/material/select";
+import { MatTooltipModule } from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [],
@@ -33,7 +34,8 @@ import { MatSelectModule } from "@angular/material/select";
     MatDividerModule,
     MatMenuModule,
     MatTabsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatTooltipModule
   ],
   providers: [],
   bootstrap: []

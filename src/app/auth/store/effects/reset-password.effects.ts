@@ -8,7 +8,7 @@ import {
   RESET_PASSWORD,
   RESET_PASSWORD_SUCCESS
 } from '../actions/reset-password.actions';
-import { setAPIStatus } from "../../../shared/store/actions/app.actions";
+import { SET_API_STATUS } from "../../../shared/store/actions/app.actions";
 import { selectResetPassword } from "../selectors/reset-password.selectors";
 
 
@@ -27,25 +27,25 @@ export class ResetPasswordEffect {
       withLatestFrom(this.store.pipe(select(selectResetPassword))),
       concatMap(([action, resetPasswordFromStore]) => {
         if (resetPasswordFromStore && Object.keys(resetPasswordFromStore).length > 0) {
-          this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200, resetPasswordStatus: 'reseted'}}))
+          this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: '', apiStatus: '', apiCodeStatus: 200, resetPasswordStatus: 'reseted'}}))
         }
         return this.authService.resetPassword(action.user).pipe(
           map(reset => {
-            this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200, resetPasswordStatus: 'reset'}}))
+            this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: '', apiStatus: 'success', apiCodeStatus: 200, resetPasswordStatus: 'reset'}}))
             return RESET_PASSWORD_SUCCESS({ reset })
           }),
           catchError((error) => {
             if (error.statusText === "Unknown Error") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: "Ocurrió un error con el servidor, intente de nuevo, en caso de persistir, comuniquese con el personal de sistemas", apiStatus: 'error', apiCodeStatus: error.status}}))
               throw error;
             } else if (error.statusText === "Unauthorized") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: "Su token de sesión expiró o es inválido. Inicie nuevamente sesión.", apiStatus: 'error', apiCodeStatus: error.status}}))
               throw error;
             } else if (error.statusText === "Forbidden") {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
               throw error;
             } else {
-              this.appStore.dispatch(setAPIStatus({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
+              this.appStore.dispatch(SET_API_STATUS({apiStatus: {apiResponseMessage: error.error.message, apiStatus: 'error', apiCodeStatus: error.status}}))
               throw error;
             }
           })

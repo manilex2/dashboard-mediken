@@ -1,1 +1,5 @@
-<iframe class="mediken-card-2" [src]="(web | safe)" [height]="'80vh'" width="1240px"></iframe>
+<iframe (load)="hideSpinner()" class="mediken-card-2" [src]="(web | safe)" [height]="'80vh'" width="1240px"></iframe>
+
+<ngx-spinner name="iframe" type = "ball-atom" bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" [fullScreen] = "false">
+    <p style="color: white">Cargando menú, por favor espere...</p>
+</ngx-spinner>

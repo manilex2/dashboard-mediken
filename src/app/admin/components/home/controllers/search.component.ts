@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { selectAppState } from 'src/app/shared/store/selectors/app.selectors';
-import { setAPIStatus } from 'src/app/shared/store/actions/app.actions';
+import { SET_API_STATUS } from 'src/app/shared/store/actions/app.actions';
 import { currentUser } from 'src/app/admin/store/selectors/currentuser.selectors';
 import { GET_CURRENT_USER } from 'src/app/admin/store/actions/currentuser.actions';
 import { Appstate } from 'src/app/shared/store/AppState';
@@ -23,7 +23,7 @@ import { Subject, takeUntil } from 'rxjs';
   templateUrl: '../views/search.component.html',
   styleUrls: ['../styles/search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnDestroy {
   destroy$ = new Subject<void>();
   constructor(
     private authService: AuthService,
@@ -64,7 +64,7 @@ export class SearchComponent implements OnInit {
       let apiStatus$ = this.appStore.pipe(select(selectAppState));
       apiStatus$.subscribe((data) => {
         if (data.apiStatus === "success" && data.userState === "getted" && data.loginStatus === "logged") {
-          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, userState: "done" } }));
+          this.appStore.dispatch(SET_API_STATUS({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, userState: "done" } }));
         }
       });
     });
@@ -102,7 +102,7 @@ export class SearchComponent implements OnInit {
       let apiStatus$ = this.appStore.pipe(select(selectAppState)); 
       apiStatus$.subscribe((data) => {
         if (data.apiStatus === "success" && data.profileImageStatus === "get") {
-          this.appStore.dispatch(setAPIStatus({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, profileImageStatus: "getted" } }));
+          this.appStore.dispatch(SET_API_STATUS({ apiStatus: { apiStatus: '', apiResponseMessage: '', apiCodeStatus: 200, profileImageStatus: "getted" } }));
         }
       });
     });
